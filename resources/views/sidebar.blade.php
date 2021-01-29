@@ -38,8 +38,8 @@
                                 </div>
                             </li>
 							<li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-tags"></i>Discounts</a>
-                                <div id="submenu-2" class="collapse submenu" style="">
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-21" aria-controls="submenu-2"><i class="fa fa-fw fa-tags"></i>Discounts</a>
+                                <div id="submenu-21" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('discounts')}}">View discounts</a>
@@ -52,8 +52,8 @@
                                  <a class="nav-link" href="{{url('orders')}}"><i class="fa fa-fw fa-shopping-bag"></i>Orders</a>
                             </li>
                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-folder-open"></i>Categories</a>
-                                <div id="submenu-2" class="collapse submenu" style="">
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-22" aria-controls="submenu-2"><i class="fa fa-fw fa-folder-open"></i>Categories</a>
+                                <div id="submenu-22" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('categories')}}">View categories</a>
