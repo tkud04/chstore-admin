@@ -27,21 +27,40 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-home"></i>Apartments</a>
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-shopping-bag"></i>Products</a>
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{url('apartments')}}">View apartments</a>
-                                            <a class="nav-link" href="{{url('post-apartment')}}">Post apartment</a>
+                                            <a class="nav-link" href="{{url('products')}}">View products</a>
+                                            <a class="nav-link" href="{{url('buup')}}">Add new product</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('finance')}}"><i class="fas fa-fw fa-credit-card"></i>Finance</a>
+							<li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-tags"></i>Discounts</a>
+                                <div id="submenu-2" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('discounts')}}">View discounts</a>
+                                            <a class="nav-link" href="{{url('new-discount')}}">Add new discount</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
 							<li class="nav-item">
-                               <a class="nav-link" href="{{url('communication')}}"><i class="fas fa-fw fa-rocket"></i>Communication</a></a>
+                                 <a class="nav-link" href="{{url('orders')}}"><i class="fa fa-fw fa-shopping-bag"></i>Orders</a>
+                            </li>
+                           <li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-folder-open"></i>Categories</a>
+                                <div id="submenu-2" class="collapse submenu" style="">
+                                    <ul class="nav flex-column">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{url('categories')}}">View categories</a>
+                                            <a class="nav-link" href="{{url('new-category')}}">Add new category</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-bed"></i>Reviews</a>
@@ -53,16 +72,7 @@
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-life-ring"></i>Tickets</a>
-                                <div id="submenu-5" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{url('tickets')}}">View tickets</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
+                          
                             <li class="nav-divider">
                                 Site Maintenance
                             </li>
@@ -79,19 +89,6 @@
                                     </ul>
                                 </div>
                             </li>
-			    <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-bookmark"></i>Posts</a>
-                                <div id="submenu-6" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{url('posts')}}">View posts</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{url('tags')}}">View tags</a>
-                                        </li> 
-                                    </ul>
-                                </div>
-                            </li>
 							<li class="nav-item">
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-image"></i>Banners</a>
                                 <div id="submenu-6" class="collapse submenu" style="">
@@ -99,9 +96,6 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('banners')}}">Landing page banners</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{url('banners')}}">Top header banners</a>
-                                        </li> 
                                     </ul>
                                 </div>
                             </li>
