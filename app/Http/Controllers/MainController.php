@@ -1925,11 +1925,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Show the Post Apartment view.
+	 * Show the Add Product view.
 	 *
 	 * @return Response
 	 */
-	public function getAddApartment(Request $request)
+	public function getAddProduct(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -1953,15 +1953,8 @@ class MainController extends Controller {
 				
 				if($hasPermission)
 				{
-				$v = "add-apartment";
-				$req = $request->all();
-                $states = $this->helpers->states;
-		        $countries = $this->helpers->countries;
-		        $services = $this->helpers->getServices();
-				#dd($apartments);
-                array_push($cpt,'states');
-                array_push($cpt,'countries');
-                array_push($cpt,'services');
+				  $v = "add-product";
+			 	  $req = $request->all();
                 }
 				else
 				{
@@ -1984,11 +1977,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Handle add ticket.
+	 * Handle add product.
 	 *
 	 * @return Response
 	 */
-	public function postAddApartment(Request $request)
+	public function postAddProduct(Request $request)
     {
 		$user = null;
 		if(Auth::check())
@@ -2108,11 +2101,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Show list of apartments on the platform.
+	 * Show list of products on the platform.
 	 *
 	 * @return Response
 	 */
-	public function getApartments(Request $request)
+	public function getProducts(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -2136,11 +2129,11 @@ class MainController extends Controller {
 				
 				if($hasPermission)
 				{
-				$v = "apartments";
+				$v = "products";
 				$req = $request->all();
-                $apartments = $this->helpers->getAllApartments();
-				#dd($apartments);
-                array_push($cpt,'apartments');
+                $products = $this->helpers->getProducts();
+				#dd($products);
+                array_push($cpt,'products');
                 }
 				else
 				{
@@ -2163,11 +2156,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Show the View Apartment view.
+	 * Show the View Product view.
 	 *
 	 * @return Response
 	 */
-	public function getApartment(Request $request)
+	public function getProduct(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -2246,7 +2239,7 @@ class MainController extends Controller {
 	 *
 	 * @return Response
 	 */
-	 	public function getRemoveApartment(Request $request)
+	 	public function getRemoveProduct(Request $request)
 	     {
 	 		$user = null;
 	 		$nope = false;
@@ -2313,7 +2306,7 @@ class MainController extends Controller {
 	 *
 	 * @return Response
 	 */
-	 	public function getUpdateApartmentStatus(Request $request)
+	 	public function getUpdateProductStatus(Request $request)
 	     {
 	 		$user = null;
 	 		$nope = false;

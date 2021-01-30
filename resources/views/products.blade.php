@@ -1,6 +1,6 @@
 <?php
-$title = "Apartments";
-$subtitle = "View all apartments";
+$title = "Products";
+$subtitle = "View all products";
 ?>
 
 @extends('layout')
@@ -33,16 +33,16 @@ $subtitle = "View all apartments";
 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">View all apartments</h5>
+                            <h5 class="card-header">View all products<a class="btn btn-primary ml-5" href="{{url('add-product')}}">Add Product</a></h5>
+                            <h5 class="card-header</h5>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first etuk-table">
                                         <thead>
                                             <tr>
-                                                <th>Apartment</th>
-                                                <th>Rating</th>
-												<th>Host</th>
-                                                <th>Subscription plan</th>
+                                                <th>Product</th>
+                                                <th>Stock</th>
+												<th>Price</th>
                                                 <th>Date Added</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
@@ -50,9 +50,9 @@ $subtitle = "View all apartments";
                                         </thead>
                                         <tbody>
 										  <?php
-										   if(count($apartments) > 0)
+										   if(count($products) > 0)
 										   {
-											  foreach($apartments as $a)
+											  foreach($products as $a)
 											   {
 												$statusClass = "danger";
 												$arrClass = "success";

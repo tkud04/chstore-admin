@@ -1,25 +1,25 @@
 <?php
-$title = "Post Apartment";
-$subtitle = "Post a new apartment to the system.";
+$title = "Add Product";
+$subtitle = "Add a new product to the system.";
 ?>
 
-@extends('layout')
-
-@section('title',$title)
 
 
-@section('page-header')
-@include('page-header',['title' => "Apartments",'subtitle' => $title])
-@stop
+<?php $__env->startSection('title',$title); ?>
 
 
-@section('content')
+<?php $__env->startSection('page-header'); ?>
+<?php echo $__env->make('page-header',['title' => "Products",'subtitle' => $title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('content'); ?>
 <script>
 let selectedSide = "1", facilities = [], aptImages = [], aptImgCount = 1, aptCover = "none";              
   
 $(document).ready(() => {
 //$('#pa-loading').hide();
-let postApartmentDescriptionEditor = new Simditor({
+let postProductDescriptionEditor = new Simditor({
 		textarea: $('#pa-description'),
 		toolbar: toolbar,
 		placeholder: `Enter description here`
@@ -30,10 +30,10 @@ let postApartmentDescriptionEditor = new Simditor({
 <div class="row">
    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
      <div class="card">
-        <h4 class="card-header">{{$subtitle}}</h4>
+        <h4 class="card-header"><?php echo e($subtitle); ?></h4>
         <div class="card-body">
           <form id="pa-form" method="post" enctype="multipart/form-data">
-		     <input type="hidden" id="tk-pa" value="{{csrf_token()}}"/>
+		     <input type="hidden" id="tk-pa" value="<?php echo e(csrf_token()); ?>"/>
 			 <div class="row" id="pa-side-1">
 			    <div class="col-md-12">
 				  <h3><span class="label label-primary">Basic Information</span></h3>
@@ -81,7 +81,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   foreach($opts3 as $k => $v)
 					   {
 					  ?>
-					  <option value="{{$k}}">{{$v}}</option>
+					  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -110,7 +110,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   foreach($opts4 as $k => $v)
 					   {
 					  ?>
-					  <option value="{{$k}}">{{$v}}</option>
+					  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -131,7 +131,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   foreach($opts5 as $k => $v)
 					   {
 					  ?>
-					  <option value="{{$k}}">{{$v}}</option>
+					  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -148,7 +148,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   {
 						   $rr = $i == 0 ? "room" : "rooms";
 					  ?>
-					  <option value="{{$i + 1}}">{{$i + 1}} {{$rr}}</option>
+					  <option value="<?php echo e($i + 1); ?>"><?php echo e($i + 1); ?> <?php echo e($rr); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -165,7 +165,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   {
 						   $rr = $i == 0 ? "unit" : "units";
 					  ?>
-					  <option value="{{$i + 1}}">{{$i + 1}} {{$rr}}</option>
+					  <option value="<?php echo e($i + 1); ?>"><?php echo e($i + 1); ?> <?php echo e($rr); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -182,7 +182,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   {
 						   $rr = $i == 0 ? "bathroom" : "bathrooms";
 					  ?>
-					  <option value="{{$i + 1}}">{{$i + 1}} {{$rr}}</option>
+					  <option value="<?php echo e($i + 1); ?>"><?php echo e($i + 1); ?> <?php echo e($rr); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -199,7 +199,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   {
 						   $rr = $i == 0 ? "bedroom" : "bedrooms";
 					  ?>
-					  <option value="{{$i + 1}}">{{$i + 1}} {{$rr}}</option>
+					  <option value="<?php echo e($i + 1); ?>"><?php echo e($i + 1); ?> <?php echo e($rr); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -230,10 +230,10 @@ let postApartmentDescriptionEditor = new Simditor({
 											      ?>
 												  <div class="col-lg-3 col-md-6 col-sm-12">
 												   
- 												    <a class="btn btn-primary btn-sm text-white apt-service" id="apt-service-{{$key}}" onclick="toggleFacility('{{$key}}')" data-check="unchecked">
-													  <center><i id="apt-service-icon-{{$key}}" class="ti-control-stop"></i></center>
+ 												    <a class="btn btn-primary btn-sm text-white apt-service" id="apt-service-<?php echo e($key); ?>" onclick="toggleFacility('<?php echo e($key); ?>')" data-check="unchecked">
+													  <center><i id="apt-service-icon-<?php echo e($key); ?>" class="ti-control-stop"></i></center>
 													</a>
-													 <label>{{$value}}</label>
+													 <label><?php echo e($value); ?></label>
 												  </div>
 												  <?php
 													}
@@ -269,7 +269,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   foreach($states as $k => $v)
 					   {
 					  ?>
-					  <option value="{{$k}}">{{$v}}</option>
+					  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -285,7 +285,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   foreach($countries as $k => $v)
 					   {
 					  ?>
-					  <option value="{{$k}}">{{$v}}</option>
+					  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -307,7 +307,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   foreach($avb as $k => $v)
 					   {
 					  ?>
-					  <option value="{{$k}}">{{$v}}</option>
+					  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -330,7 +330,7 @@ let postApartmentDescriptionEditor = new Simditor({
 					   foreach($ss as $k => $v)
 					   {
 					  ?>
-					  <option value="{{$k}}">{{$v}}</option>
+					  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 					  <?php
 					  }
 					  ?>
@@ -390,7 +390,7 @@ let postApartmentDescriptionEditor = new Simditor({
                       <button class="btn btn-space btn-secondary" id="pa-side-3-prev">Back</button>
                       <button class="btn btn-space btn-secondary" id="pa-side-3-next">Submit</button>
                    </p>
-				    <h4 id="pa-loading">Processing.. <img src="{{asset('images/loading.gif')}}" class="img img-fluid" alt="Processing.."></h4>
+				    <h4 id="pa-loading">Processing.. <img src="<?php echo e(asset('images/loading.gif')); ?>" class="img img-fluid" alt="Processing.."></h4>
 				   
                 </div>
 			  </div>
@@ -399,4 +399,5 @@ let postApartmentDescriptionEditor = new Simditor({
      </div>
    </div>
 </div>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/add-product.blade.php ENDPATH**/ ?>

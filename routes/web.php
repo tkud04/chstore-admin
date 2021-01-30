@@ -35,20 +35,15 @@ Route::get('user', 'MainController@getUser');
 Route::post('user', 'MainController@postUser');
 Route::get('edu', 'MainController@getEnableDisableUser');
 
-//Apartments
-Route::get('apartments', 'MainController@getApartments');
-Route::get('post-apartment', 'MainController@getAddApartment');
-Route::post('post-apartment', 'MainController@postAddApartment');
-Route::get('apartment', 'MainController@getApartment');
-Route::post('apartment', 'MainController@postApartment');
-Route::get('remove-apartment', 'MainController@getRemoveApartment');
-Route::get('uas', 'MainController@getUpdateApartmentStatus');
+//Products
+Route::get('products', 'MainController@getProducts');
+Route::get('add-product', 'MainController@getAddProduct');
+Route::post('add-product', 'MainController@postAddProduct');
+Route::get('product', 'MainController@getProduct');
+Route::post('product', 'MainController@postProduct');
+Route::get('remove-product', 'MainController@getRemoveProduct');
+Route::get('ups', 'MainController@getUpdateProductStatus');
 Route::get('tph', 'MainController@getTopPerformingHosts');
-
-Route::get('apartment-tips', 'MainController@getApartmentTips');
-Route::get('add-apartment-tip', 'MainController@getAddApartmentTip');
-Route::post('add-apartment-tip', 'MainController@postAddApartmentTip');
-Route::get('remove-apartment-tip', 'MainController@getRemoveApartmentTip');
 
 //Reviews
 Route::get('reviews', 'MainController@getReviews');
