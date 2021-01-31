@@ -52,50 +52,49 @@ $subtitle = "View all products";
 										  <?php
 										   if(count($products) > 0)
 										   {
-											  foreach($products as $a)
+											  foreach($products as $p)
 											   {
 												$statusClass = "danger";
 												$arrClass = "success";
-												$arrText = "Approve";
+												$arrText = "Enable";
 												
-												$h = $a['host'];
 
-											   $name = $a['name'];
-											   $uu = url('apartment')."?xf=".$a['apartment_id'];
-											    $sss = $a['status'];
+											   $name = $p['name'];
+											   $pd = $p['pd'];
+											   $uu = url('product')."?xf=".$p['id'];
+											    $sss = $p['status'];
 												
-												if($sss == "approved")
+												if($sss == "enabled")
 												{
 													$statusClass = "success";
 													$arrClass = "warning";
-													$arrText = "Reject";
+													$arrText = "Disable";
 												}
-											   $imgs = $a['cmedia']['images'];
+											   $imgs = $p['imggs'];
 
-												   $arr = url('uas')."?axf=".$a['apartment_id']."&type=".strtolower($arrText);
-												   $dr = url('remove-apartment')."?axf=".$a['apartment_id'];
-												   $ar = $a['rating'];
+												   $arr = url('ups')."?xf=".$p['id']."&type=".strtolower($arrText);
+												   $dr = url('remove-product')."?xf=".$p['id'];
+												   #$ar = $a['rating'];
+												   $ar = 3;
 										  ?>
                                             <tr>
                                                <td>
 												  <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/>
 												  <a href="{{$uu}}"><h4>{{ucwords($name)}}</h4></a>					  
-												  <a href="{{$uu}}"><h4>{{$a['apartment_id']}}</h4></a><br>							  
-												</td>
-												<td>
-												  <h3>
+												  SKU: <a href="{{$uu}}"><h4>{{$p['sku']}}</h4></a><br>	
+                                                    <h3>
 												   @for($i = 0; $i < $ar; $i++)
 												     <i class="fas fa-star"></i>
 											       @endfor
-												  </h3>						  
+												  </h3>													  
+												</td>
+												<td>
+												{{$p['qty']}}					  
 												</td>
                                                 <td>
-												  Name: <em>{{$h['fname']." ".$h['lname']}}</em><br>
-												  Phone no: <em>{{$h['phone']}}</em><br>
-												  Email: <em>{{$h['email']}}</em><br>
+												  &#163;{{number_format($pd['amount'],2)}}<br>
 												</td>
-                                                <td>None</td>
-                                                <td>{{$a['date']}}</td>
+                                                <td>{{$p['date']}}</td>
                                                 <td><span class="label label-{{$statusClass}}">{{strtoupper($sss)}}</span></td>
                                                 <td>
 												 <a class="btn btn-{{$arrClass}} btn-sm" href="{{$arr}}">{{$arrText}}</a>

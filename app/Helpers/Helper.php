@@ -693,6 +693,7 @@ $subject = $data['subject'];
 				  $imgs = $this->getImages($product->sku);
 				  if($imgId) $temp['imgs'] = $imgs;
 				  $temp['imggs'] = $this->getCloudinaryImages($imgs);
+				  $temp['date'] = $product->created_at->format("jS F,Y h:i A"); 
 				  $ret = $temp;
                }                         
                                                       

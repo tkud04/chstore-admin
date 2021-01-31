@@ -52,50 +52,49 @@ $subtitle = "View all products";
 										  <?php
 										   if(count($products) > 0)
 										   {
-											  foreach($products as $a)
+											  foreach($products as $p)
 											   {
 												$statusClass = "danger";
 												$arrClass = "success";
-												$arrText = "Approve";
+												$arrText = "Enable";
 												
-												$h = $a['host'];
 
-											   $name = $a['name'];
-											   $uu = url('apartment')."?xf=".$a['apartment_id'];
-											    $sss = $a['status'];
+											   $name = $p['name'];
+											   $pd = $p['pd'];
+											   $uu = url('product')."?xf=".$p['id'];
+											    $sss = $p['status'];
 												
-												if($sss == "approved")
+												if($sss == "enabled")
 												{
 													$statusClass = "success";
 													$arrClass = "warning";
-													$arrText = "Reject";
+													$arrText = "Disable";
 												}
-											   $imgs = $a['cmedia']['images'];
+											   $imgs = $p['imggs'];
 
-												   $arr = url('uas')."?axf=".$a['apartment_id']."&type=".strtolower($arrText);
-												   $dr = url('remove-apartment')."?axf=".$a['apartment_id'];
-												   $ar = $a['rating'];
+												   $arr = url('ups')."?xf=".$p['id']."&type=".strtolower($arrText);
+												   $dr = url('remove-product')."?xf=".$p['id'];
+												   #$ar = $a['rating'];
+												   $ar = 3;
 										  ?>
                                             <tr>
                                                <td>
 												  <img class="img-fluid" onclick="window.location='<?php echo e($uu); ?>'" src="<?php echo e($imgs[0]); ?>" alt="<?php echo e($name); ?>" style="cursor: pointer; width: 100px; height: 100px;"/>
 												  <a href="<?php echo e($uu); ?>"><h4><?php echo e(ucwords($name)); ?></h4></a>					  
-												  <a href="<?php echo e($uu); ?>"><h4><?php echo e($a['apartment_id']); ?></h4></a><br>							  
-												</td>
-												<td>
-												  <h3>
+												  SKU: <a href="<?php echo e($uu); ?>"><h4><?php echo e($p['sku']); ?></h4></a><br>	
+                                                    <h3>
 												   <?php for($i = 0; $i < $ar; $i++): ?>
 												     <i class="fas fa-star"></i>
 											       <?php endfor; ?>
-												  </h3>						  
+												  </h3>													  
+												</td>
+												<td>
+												<?php echo e($p['qty']); ?>					  
 												</td>
                                                 <td>
-												  Name: <em><?php echo e($h['fname']." ".$h['lname']); ?></em><br>
-												  Phone no: <em><?php echo e($h['phone']); ?></em><br>
-												  Email: <em><?php echo e($h['email']); ?></em><br>
+												  &#163;<?php echo e(number_format($pd['amount'],2)); ?><br>
 												</td>
-                                                <td>None</td>
-                                                <td><?php echo e($a['date']); ?></td>
+                                                <td><?php echo e($p['date']); ?></td>
                                                 <td><span class="label label-<?php echo e($statusClass); ?>"><?php echo e(strtoupper($sss)); ?></span></td>
                                                 <td>
 												 <a class="btn btn-<?php echo e($arrClass); ?> btn-sm" href="<?php echo e($arr); ?>"><?php echo e($arrText); ?></a>
