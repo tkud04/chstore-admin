@@ -1,6 +1,6 @@
 <?php
-$title = "Add Ticket";
-$subtitle = "Raise a new support ticket.";
+$title = $c['name'];
+$subtitle = "Edit category.";
 ?>
 
 @extends('layout')
@@ -26,77 +26,67 @@ $subtitle = "Raise a new support ticket.";
 @stop
 
 @section('page-header')
-@include('page-header',['title' => "Add Ticket",'subtitle' => $title])
+@include('page-header',['title' => "Categories",'subtitle' => $title])
 @stop
 
 @section('content')
 <div class="row">
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Add Ticket</h5>
+                                <h5 class="card-header">Edit Category</h5>
                                 <div class="card-body">
-                                    <form action="{{url('add-ticket')}}" id="add-ticket-form" method="post">
+                                    <form action="{{url('category')}}" id="update-category-form" method="post">
 										{!! csrf_field() !!}
+										<input type="hidden" name="xf" value="{{$c['id']}}">
 										<div class="row">
 										<div class="col-md-6">
 										<div class="form-group">
-                                            <label>Guest Email <span class="text-danger text-bold">*</span></label>
-                                            <input id="add-ticket-email" type="email" name="email" placeholder="Guest's registered email address" class="form-control">
+                                            <label>Name <span class="text-danger text-bold">*</span></label>
+                                            <input id="add-category-name" type="text" name="name" placeholder="Category name e.g Tablets" class="form-control" value="{{$c['name']}}">
                                         </div>
 										</div>
 										<div class="col-md-6">
 										<div class="form-group">
-										    <label>Type <span class="text-danger text-bold">*</span></label>
-                                             <?php
-											 $types = ['apartment','billing','other'];
-											?>
-											<select id="add-ticket-type" name="type" class="form-control">
-											 <option value="none">Select complaint category</option>
-											 <?php
-											  foreach($types as $t)
-											  {
-										     ?>
-											 <option value="{{$t}}">{{ucwords($t)}}</option>
-											  <?php
-											  }
-											  ?>
-											</select>
-                                            
-                                        </div>
-										</div>
-										</div>
-										<div class="row">
-										<div class="col-md-6">
-										<div class="form-group">
-                                            <label>Subject <span class="text-danger text-bold">*</span></label>
-                                            <input id="add-ticket-subject" type="text" name="subject" placeholder="Subject of complaint" class="form-control">
-                                        </div>
-										</div>
-										<div class="col-md-6">
-										<div class="form-group">
-                                            <label for="user-lname">Resource ID</label>
-                                            <input id="add-ticket-apt" type="text" name="id" value="" placeholder="Apartment ID, order reference#, etc" class="form-control">
-                                        </div>
-										</div>
-										</div>
-										<div class="row">
-										<div class="col-md-12">
-										<div class="form-group">
-                                            <label>Message <span class="text-danger text-bold">*</span></label>
-											<textarea class="form-control" id="add-ticket-msg" name="msg" rows="15" placeholder="Describe your complaint here.. Max 1000 words"></textarea>
+                                            <label>Tag <span class="text-danger text-bold">*</span></label>
+                                            <input id="add-category-tag" type="text" name="category" placeholder="Tag e.g tablets" class="form-control" value="{{$c['category']}}">
                                         </div>
 										</div>
 										</div>
 										
-                                        <div class="row">
+										<div class="row">
+										  <div class="col-md-12">
+										    <div class="form-group">
+                                              <label>Status <span class="text-danger text-bold">*</span></label>
+                                              <select id="add-category-status" name="status" class="form-control">
+											   <option value="none">Select status</option>
+											    <?php
+												  $ss = [
+												   'enabled' => "Enabled",
+												   'disabled' => "Disabled"
+												  ];
+												  
+												  foreach($ss as $k => $v)
+												  {
+													  $ss = $k == $c['status'] ? " selected='selected'" : "";
+												?>
+												<option value="{{$k}}"{{$ss}}>{{$v}}</option>
+												<?php
+												  }
+												?>
+											  </select>
+                                            </div>
+										  </div>
+										</div>
+                                        
+										<div class="row">
                                             <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
                                                 <label class="be-checkbox custom-control custom-checkbox">
-                                                   <span class="custom-control-label">Your complaint will be forwarded to our support staff and you will be notified of replies via email.</span>
+                                                   <span class="custom-control-label">Categories help you group similar products in one logical section.</span>
                                                 </label>
                                             </div>
                                             <div class="col-sm-6 pl-0">
                                                 <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="add-ticket-form-btn">Submit</button>
+                                                    <button class="btn btn-space btn-secondary" id="update-category-submit">Submit</button>
                                                 </p>
                                             </div>
                                         </div>

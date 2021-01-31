@@ -320,17 +320,14 @@ $(document).ready(function() {
 	   
     });
 	
-	//ADD TICKET
-	$("#add-ticket-form-btn").click(e => {
+	//ADD CATEGORY
+	$("#add-category-submit").click(e => {
        e.preventDefault();
 	   
 	   //validation
-	   let atEmail = $('#add-ticket-email').val(), atSubject = $('#add-ticket-subject').val(), atType = $('#add-ticket-type').val(),
-           atApt = $('#add-ticket-apt').val(), atMsg = $('#add-ticket-msg').val(),
-		   validation = (atEmail == "" || atSubject == "" || atType == "none" || atMsg == "");
+	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(),
+		   validation = (acName == "" || acTag == "");
 	   
-	   
-       
 	   if(validation){
 		   Swal.fire({
 			 icon: 'error',
@@ -338,21 +335,20 @@ $(document).ready(function() {
            })
 	   }
 	   else{
-		  $('#add-ticket-form').submit();		  
+		  $('#add-category-form').submit();		  
 	   }
 	   
 	   
     });
 	
-	//UPDATE TICKET
-	$("#ut-form-btn").click(e => {
+	//UPDATE CATEGORY
+	$("#update-category-submit").click(e => {
        e.preventDefault();
 	   
 	   //validation
-	   let utMsg = $('#ut-msg').val(), validation = (utMsg == "");
+	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(), acStatus = $('#add-category-status').val(),
+		   validation = (acName == "" || acTag == "" || acStatus == "none");
 	   
-	   
-       
 	   if(validation){
 		   Swal.fire({
 			 icon: 'error',
@@ -360,7 +356,7 @@ $(document).ready(function() {
            })
 	   }
 	   else{
-		  $('#ut-form').submit();		  
+		  $('#update-category-form').submit();		  
 	   }
 	   
 	   

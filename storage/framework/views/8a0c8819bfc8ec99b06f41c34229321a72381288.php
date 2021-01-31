@@ -32,7 +32,7 @@
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="<?php echo e(url('products')); ?>">View products</a>
-                                            <a class="nav-link" href="<?php echo e(url('buup')); ?>">Add new product</a>
+                                            <a class="nav-link" href="<?php echo e(url('buup')); ?>">Add products</a>
                                         </li>
                                     </ul>
                                 </div>

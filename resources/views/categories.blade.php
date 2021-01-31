@@ -1,6 +1,6 @@
 <?php
-$title = "Products";
-$subtitle = "View all products";
+$title = "Categories";
+$subtitle = "View all categories";
 ?>
 
 @extends('layout')
@@ -33,69 +33,52 @@ $subtitle = "View all products";
 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">View all products<a class="btn btn-primary ml-3" href="{{url('buup')}}">Add Product</a></h5>
+                            <h5 class="card-header">View all categories<a class="btn btn-primary ml-3" href="{{url('add-category')}}">Add Category</a></h5>
                             <h5 class="card-header</h5>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first etuk-table">
                                         <thead>
                                             <tr>
-                                                <th>Product</th>
-                                                <th>Stock</th>
-												<th>Price</th>
-                                                <th>Date Added</th>
+                                                <th>Category</th>
+												<th>Date Added</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 										  <?php
-										   if(count($products) > 0)
+										   if(count($categories) > 0)
 										   {
-											  foreach($products as $a)
+											  foreach($categories as $c)
 											   {
 												$statusClass = "danger";
 												$arrClass = "success";
-												$arrText = "Approve";
+												$arrText = "Enable";
 												
-												$h = $a['host'];
-
-											   $name = $a['name'];
-											   $uu = url('apartment')."?xf=".$a['apartment_id'];
-											    $sss = $a['status'];
+												$uu = url('category')."?xf=".$c['id'];
+											    $sss = $c['status'];
 												
-												if($sss == "approved")
+												if($sss == "enabled")
 												{
 													$statusClass = "success";
 													$arrClass = "warning";
-													$arrText = "Reject";
+													$arrText = "Disable";
 												}
-											   $imgs = $a['cmedia']['images'];
+											   #$imgs = $a['cmedia']['images'];
 
-												   $arr = url('uas')."?axf=".$a['apartment_id']."&type=".strtolower($arrText);
-												   $dr = url('remove-apartment')."?axf=".$a['apartment_id'];
-												   $ar = $a['rating'];
+												   $arr = url('edc')."?xf=".$c['id']."&type=".strtolower($arrText);
+												   $dr = url('remove-category')."?xf=".$c['id'];
 										  ?>
                                             <tr>
                                                <td>
-												  <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/>
-												  <a href="{{$uu}}"><h4>{{ucwords($name)}}</h4></a>					  
-												  <a href="{{$uu}}"><h4>{{$a['apartment_id']}}</h4></a><br>							  
+												 <?php
+												 # <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/> 
+												 ?>
+												  <a href="{{$uu}}"><h4>{{ucwords($c['name'])}}</h4></a><br>												  
+												  Tag: <a href="{{$uu}}"><h4 class="badge badge-primary">{{$c['category']}}</h4></a><br>							  
 												</td>
-												<td>
-												  <h3>
-												   @for($i = 0; $i < $ar; $i++)
-												     <i class="fas fa-star"></i>
-											       @endfor
-												  </h3>						  
-												</td>
-                                                <td>
-												  Name: <em>{{$h['fname']." ".$h['lname']}}</em><br>
-												  Phone no: <em>{{$h['phone']}}</em><br>
-												  Email: <em>{{$h['email']}}</em><br>
-												</td>
-                                                <td>None</td>
-                                                <td>{{$a['date']}}</td>
+												<td>{{$c['date']}}</td>
                                                 <td><span class="label label-{{$statusClass}}">{{strtoupper($sss)}}</span></td>
                                                 <td>
 												 <a class="btn btn-{{$arrClass}} btn-sm" href="{{$arr}}">{{$arrText}}</a>

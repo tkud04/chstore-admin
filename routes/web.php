@@ -35,12 +35,25 @@ Route::get('user', 'MainController@getUser');
 Route::post('user', 'MainController@postUser');
 Route::get('edu', 'MainController@getEnableDisableUser');
 
+//Categories
+Route::get('categories', 'MainController@getCategories');
+Route::get('add-category', 'MainController@getAddCategory');
+Route::post('add-category', 'MainController@postAddCategory');
+Route::get('edc', 'MainController@getEnableDisableCategory');
+Route::get('category', 'MainController@getCategory');
+Route::post('category', 'MainController@postCategory');
+Route::get('remove-category', 'MainController@getRemoveCategory');
+
 //Products
 Route::get('products', 'MainController@getProducts');
 Route::get('add-product', 'MainController@getAddProduct');
 Route::post('add-product', 'MainController@postAddProduct');
 Route::get('product', 'MainController@getProduct');
 Route::post('product', 'MainController@postProduct');
+Route::get('bup', 'MainController@getBulkUpdateProducts');
+Route::post('bup', 'MainController@postBulkUpdateProducts');
+Route::get('buup', 'MainController@getBulkUploadProducts');
+Route::post('buup', 'MainController@postBulkUploadProducts');
 Route::get('remove-product', 'MainController@getRemoveProduct');
 Route::get('ups', 'MainController@getUpdateProductStatus');
 Route::get('tph', 'MainController@getTopPerformingHosts');

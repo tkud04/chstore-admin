@@ -1,6 +1,6 @@
 <?php
-$title = "Products";
-$subtitle = "View all products";
+$title = "Categories";
+$subtitle = "View all categories";
 ?>
 
 
@@ -33,69 +33,52 @@ $subtitle = "View all products";
 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">View all products<a class="btn btn-primary ml-3" href="<?php echo e(url('buup')); ?>">Add Product</a></h5>
+                            <h5 class="card-header">View all categories<a class="btn btn-primary ml-3" href="<?php echo e(url('add-category')); ?>">Add Category</a></h5>
                             <h5 class="card-header</h5>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first etuk-table">
                                         <thead>
                                             <tr>
-                                                <th>Product</th>
-                                                <th>Stock</th>
-												<th>Price</th>
-                                                <th>Date Added</th>
+                                                <th>Category</th>
+												<th>Date Added</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 										  <?php
-										   if(count($products) > 0)
+										   if(count($categories) > 0)
 										   {
-											  foreach($products as $a)
+											  foreach($categories as $c)
 											   {
 												$statusClass = "danger";
 												$arrClass = "success";
-												$arrText = "Approve";
+												$arrText = "Enable";
 												
-												$h = $a['host'];
-
-											   $name = $a['name'];
-											   $uu = url('apartment')."?xf=".$a['apartment_id'];
-											    $sss = $a['status'];
+												$uu = url('category')."?xf=".$c['id'];
+											    $sss = $c['status'];
 												
-												if($sss == "approved")
+												if($sss == "enabled")
 												{
 													$statusClass = "success";
 													$arrClass = "warning";
-													$arrText = "Reject";
+													$arrText = "Disable";
 												}
-											   $imgs = $a['cmedia']['images'];
+											   #$imgs = $a['cmedia']['images'];
 
-												   $arr = url('uas')."?axf=".$a['apartment_id']."&type=".strtolower($arrText);
-												   $dr = url('remove-apartment')."?axf=".$a['apartment_id'];
-												   $ar = $a['rating'];
+												   $arr = url('edc')."?xf=".$c['id']."&type=".strtolower($arrText);
+												   $dr = url('remove-category')."?xf=".$c['id'];
 										  ?>
                                             <tr>
                                                <td>
-												  <img class="img-fluid" onclick="window.location='<?php echo e($uu); ?>'" src="<?php echo e($imgs[0]); ?>" alt="<?php echo e($name); ?>" style="cursor: pointer; width: 100px; height: 100px;"/>
-												  <a href="<?php echo e($uu); ?>"><h4><?php echo e(ucwords($name)); ?></h4></a>					  
-												  <a href="<?php echo e($uu); ?>"><h4><?php echo e($a['apartment_id']); ?></h4></a><br>							  
+												 <?php
+												 # <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/> 
+												 ?>
+												  <a href="<?php echo e($uu); ?>"><h4><?php echo e(ucwords($c['name'])); ?></h4></a><br>												  
+												  Tag: <a href="<?php echo e($uu); ?>"><h4 class="badge badge-primary"><?php echo e($c['category']); ?></h4></a><br>							  
 												</td>
-												<td>
-												  <h3>
-												   <?php for($i = 0; $i < $ar; $i++): ?>
-												     <i class="fas fa-star"></i>
-											       <?php endfor; ?>
-												  </h3>						  
-												</td>
-                                                <td>
-												  Name: <em><?php echo e($h['fname']." ".$h['lname']); ?></em><br>
-												  Phone no: <em><?php echo e($h['phone']); ?></em><br>
-												  Email: <em><?php echo e($h['email']); ?></em><br>
-												</td>
-                                                <td>None</td>
-                                                <td><?php echo e($a['date']); ?></td>
+												<td><?php echo e($c['date']); ?></td>
                                                 <td><span class="label label-<?php echo e($statusClass); ?>"><?php echo e(strtoupper($sss)); ?></span></td>
                                                 <td>
 												 <a class="btn btn-<?php echo e($arrClass); ?> btn-sm" href="<?php echo e($arr); ?>"><?php echo e($arrText); ?></a>
@@ -114,4 +97,4 @@ $subtitle = "View all products";
                     </div>
                 </div>			
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/products.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/categories.blade.php ENDPATH**/ ?>

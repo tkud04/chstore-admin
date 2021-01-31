@@ -2101,6 +2101,171 @@ class MainController extends Controller {
     }
 	
 	/**
+	 * Show the Add Products view.
+	 *
+	 * @return Response
+	 */
+	public function getBulkUploadProducts(Request $request)
+    {
+		$user = null;
+		$nope = false;
+		$v = "";
+		
+		$signals = $this->helpers->signals;
+		$plugins = $this->helpers->getPlugins();
+		$cpt = ['user','signals','plugins'];
+				
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			
+			if($this->helpers->isAdmin($user))
+			{
+				$hasPermission = $this->helpers->hasPermission($user->id,['view_tickets','edit_tickets']);
+				#dd($hasPermission);
+				$req = $request->all();
+				
+				if($hasPermission)
+				{
+					$v = "buup";
+					$c = $this->helpers->getCategories();
+					array_push($cpt,'c');
+				}
+				else
+				{
+					session()->flash("permissions-status-error","ok");
+					return redirect()->intended('/');
+				}
+								
+			}
+			else
+			{
+				Auth::logout();
+				$u = url('/');
+				return redirect()->intended($u);
+			}
+		}
+		else
+		{
+			$v = "login";
+		}
+		return view($v,compact($cpt));
+    }
+	
+	/**
+	 * Handle add products.
+	 *
+	 * @return Response
+	 */
+	public function postBulkUploadProducts(Request $request)
+    {
+		$user = null;
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			
+			if($this->helpers->isAdmin($user))
+			{
+				$hasPermission = $this->helpers->hasPermission($user->id,['view_apartments','edit_apartments']);
+				#dd($hasPermission);
+				$req = $request->all();
+				$ret = ['status' => "error",'message' => "nothing happened"];
+				
+				if($hasPermission)
+				{
+				
+				#dd($req);
+				
+				$validator = Validator::make($req,[
+		                    'dt' => 'required',
+		                   ]);
+						
+				if($validator->fails())
+                {
+                  $ret['message'] = "validation";
+                }
+				else
+				{
+					$dtt = json_decode($req['dt']);
+					$id = substr($dtt->id,1);
+				$p = $dtt->data;
+				
+				$rr = [
+				  'name' => $p->name,
+				  'category' => $p->category,
+                             'description' => $p->desc,                        
+                             'in_stock' => $p->status,                        
+                             'amount' => $p->price,
+                             'qty' => $p->stock,
+				];
+				
+				$coverImg = isset($req[$id."-cover"]) ? $req[$id."-cover"] : null;
+				$img = isset($req[$id.'-images']) ? $request->file($id.'-images') : null;
+                $ird = [];
+					$ird = [];
+                    $networkError = false;
+				
+                    for($i = 0; $i < count($img); $i++)
+                    {           
+             	      $imgg = $this->helpers->uploadCloudImage($img[$i]->getRealPath());
+						
+					  if(isset($imgg['status']) && $imgg['status'] == "error")
+					  {
+						  $networkError = true;
+						  break;
+					  }
+					  else
+					  {
+						$ci = ($coverImg != null && $coverImg == $i) ? "yes": "no";
+					    $temp = [
+					       'public_id' => $imgg['public_id'],
+					       'delete_token' => $imgg['delete_token'],
+					       'deleted' => "no",
+					       'ci' => $ci,
+						   'type' => "image"
+						  ];
+			             array_push($ird, $temp);  
+					  }
+             	        
+                      										
+					}
+					
+					if($networkError)
+					{
+						$ret['message'] = "network";
+					}
+					else
+					{
+						$rr['user_id'] = "admin";
+					    $rr['ird'] = $ird;
+
+			            $this->helpers->createProduct($rr);
+			             $ret = ['status' => "ok"];
+					}
+				 }
+				 return json_encode($ret);
+				}
+				else
+				{
+					session()->flash("permissions-status-error","ok");
+					return redirect()->intended("/");
+				}
+			}
+			else
+			{
+				Auth::logout();
+				$u = url('/');
+				return redirect()->intended($u);
+			}
+		}
+		else
+		{
+			return redirect()->intended('/');
+		}
+    }
+	
+	
+	/**
 	 * Show list of products on the platform.
 	 *
 	 * @return Response
@@ -2132,7 +2297,7 @@ class MainController extends Controller {
 				$v = "products";
 				$req = $request->all();
                 $products = $this->helpers->getProducts();
-				#dd($products);
+				dd($products);
                 array_push($cpt,'products');
                 }
 				else
@@ -2332,12 +2497,12 @@ class MainController extends Controller {
 						$req = $request->all();
 						#dd($req);
 				        $validator = Validator::make($req, [                          
-				                             'axf' => 'required'
+				                             'xf' => 'required'
 				         ]);
          
 				         if($validator->fails())
 				         {
-				         	return redirect()->intended('apartments');
+				         	return redirect()->intended('products');
 				         }
 						else
 						{
@@ -2359,10 +2524,10 @@ class MainController extends Controller {
 							  'status' => $ss
 							];
 							
-						   $this->helpers->updateApartmentStatus($dd);
-   	 					   $ss = "update-apartment-status";
+						   $this->helpers->updateProductStatus($dd);
+   	 					   $ss = "update-product-status";
    	 					   session()->flash($ss,"ok");
-   	 			           return redirect()->intended("apartments");
+   	 			           return redirect()->intended("products");
 					    }
 	 				}
 	 				else
@@ -2388,11 +2553,11 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Show list of transactions on the platform.
+	 * Show list of categories on the platform.
 	 *
 	 * @return Response
 	 */
-	public function getTickets(Request $request)
+	public function getCategories(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -2416,11 +2581,11 @@ class MainController extends Controller {
 				
 				if($hasPermission)
 				{
-				$v = "tickets";
+				$v = "categories";
 				$req = $request->all();
-                $tickets = $this->helpers->getAllTickets();
+                $categories = $this->helpers->getCategories();
 				#dd($tickets);
-                array_push($cpt,'tickets');
+                array_push($cpt,'categories');
                 }
 				else
 				{
@@ -2444,11 +2609,11 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Show the Add Ticket view.
+	 * Show the Add Category view.
 	 *
 	 * @return Response
 	 */
-	public function getAddTicket(Request $request)
+	public function getAddCategory(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -2470,7 +2635,7 @@ class MainController extends Controller {
 				
 				if($hasPermission)
 				{
-					$v = "add-ticket";
+					$v = "add-category";
 				}
 				else
 				{
@@ -2494,11 +2659,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Handle add ticket.
+	 * Handle add category.
 	 *
 	 * @return Response
 	 */
-	public function postAddTicket(Request $request)
+	public function postAddCategory(Request $request)
     {
 		$user = null;
 		if(Auth::check())
@@ -2517,10 +2682,8 @@ class MainController extends Controller {
 				#dd($req);
 				
 				$validator = Validator::make($req,[
-		                    'type' => 'required|not_in:none',
-                             'email' => 'required|email',
-                             'subject' => 'required',
-                             'msg' => 'required'
+		                    'name' => 'required',
+                             'category' => 'required|unique:categories'
 		                   ]);
 						
 				if($validator->fails())
@@ -2530,12 +2693,11 @@ class MainController extends Controller {
                 }
 				else
 				{
-					$req['added_by'] = $user->id;
-					$ret = $this->helpers->addTicket($req);
-					$ss = "add-ticket-status";
+					$ret = $this->helpers->addCategory($req);
+					$ss = "add-category-status";
 					if($ret == "error") $ss .= "-error";
 					session()->flash($ss,"ok");
-			        return redirect()->intended("tickets");
+			        return redirect()->intended("categories");
 				}
 				}
 				else
@@ -2558,11 +2720,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Show the View Ticket view.
+	 * Show the View Category view.
 	 *
 	 * @return Response
 	 */
-	public function getTicket(Request $request)
+	public function getCategory(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -2589,24 +2751,24 @@ class MainController extends Controller {
                 
 				if(isset($req['xf']))
 				{
-					$v = "ticket";
-					$t = $this->helpers->getTicket($req['xf']);
+					$v = "category";
+					$c = $this->helpers->getCategory($req['xf']);
 					#dd($t);
-					if(count($t) < 1)
+					if(count($c) < 1)
 					{
 						session()->flash("validation-status-error","ok");
-						return redirect()->intended('tickets');
+						return redirect()->intended('categories');
 					}
 					else
 					{
-						array_push($cpt,'t');                                 
+						array_push($cpt,'c');                                 
 					}
 					
 				}
 				else
 				{
 					session()->flash("validation-status-error","ok");
-					return redirect()->intended('tickets');
+					return redirect()->intended('categories');
 				}
 				}
 				else
@@ -2631,11 +2793,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Show the Update Ticket view.
+	 *Handle update category status
 	 *
 	 * @return Response
 	 */
-	public function getUpdateTicket(Request $request)
+	public function getEnableDisableCategory(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -2660,26 +2822,28 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
                 
-				if(isset($req['xf']))
-				{
-					$v = "update-ticket";
-					$t = $this->helpers->getTicket($req['xf']);
-					#dd($t);
-					if(count($t) < 1)
-					{
-						session()->flash("validation-status-error","ok");
-						return redirect()->intended('tickets');
-					}
-					else
-					{
-						array_push($cpt,'t');                                 
-					}
-					
-				}
+					$validator = Validator::make($req,[
+		                    'xf' => 'required',
+                             'type' => 'required',
+		                   ]);
+						
+				if($validator->fails())
+                {
+                  session()->flash("validation-status-error","ok");
+			      return redirect()->back()->withInput();
+                }
 				else
 				{
-					session()->flash("validation-status-error","ok");
-					return redirect()->intended('tickets');
+					$t = $req['type']; $s = "pending";
+					if($t == "enable") $s = "enabled";
+					else if($t == "disable") $s = "disabled";
+					
+					$ret = $this->helpers->updateCategory(['xf' => $req['xf'],'status' => $s]);
+					$ss = "update-category-status";
+					if($ret == "error") $ss .= "-error";
+					session()->flash($ss,"ok");
+					$uu = "categories";
+			        return redirect()->intended($uu);
 				}
 				}
 				else
@@ -2709,7 +2873,7 @@ class MainController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function postUpdateTicket(Request $request)
+	public function postCategory(Request $request)
     {
 		$user = null;
 		if(Auth::check())
@@ -2729,7 +2893,9 @@ class MainController extends Controller {
 				
 				$validator = Validator::make($req,[
 		                    'xf' => 'required',
-                             'msg' => 'required'
+                             'name' => 'required',
+                             'category' => 'required',
+                             'status' => 'required|not_in:none',
 		                   ]);
 						
 				if($validator->fails())
@@ -2739,12 +2905,11 @@ class MainController extends Controller {
                 }
 				else
 				{
-					$req['added_by'] = $user->id;
-					$ret = $this->helpers->updateTicket($req);
-					$ss = "update-ticket-status";
+					$ret = $this->helpers->updateCategory($req);
+					$ss = "update-category-status";
 					if($ret == "error") $ss .= "-error";
 					session()->flash($ss,"ok");
-					$uu = "ticket?xf=".$req['xf'];
+					$uu = "categories";
 			        return redirect()->intended($uu);
 				}
 				}
@@ -2769,11 +2934,11 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Handle remove ticket.
+	 * Handle remove category.
 	 *
 	 * @return Response
 	 */
-	public function getRemoveTicket(Request $request)
+	public function getRemoveCategory(Request $request)
     {
 		$user = null;
 		if(Auth::check())
@@ -2801,11 +2966,11 @@ class MainController extends Controller {
                     }
 				    else
 				    {   
-					  $ret = $this->helpers->removeTicket($req['xf']);
-					  $ss = "remove-ticket-status";
+					  $ret = $this->helpers->removeCategory($req['xf']);
+					  $ss = "remove-category-status";
 					  if($ret == "error") $ss .= "-error";
 					  session()->flash($ss,"ok");
-			          return redirect()->intended("tickets");
+			          return redirect()->intended("categories");
 				    }
 				}
 				else

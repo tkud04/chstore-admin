@@ -32,7 +32,7 @@
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{url('products')}}">View products</a>
-                                            <a class="nav-link" href="{{url('buup')}}">Add new product</a>
+                                            <a class="nav-link" href="{{url('buup')}}">Add products</a>
                                         </li>
                                     </ul>
                                 </div>

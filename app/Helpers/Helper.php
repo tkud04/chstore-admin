@@ -43,17 +43,18 @@ class Helper implements HelperContract
 
  public $signals = ['okays'=> ["login-status" => "Sign in successful",            
                      "signup-status" => "Account created successfully! You can now login to complete your profile.",
-                     "create-product-status" => "Product added!",
-                     "create-category-status" => "Category added!",
+                     "add-product-status" => "Product added!",
+                     "add-category-status" => "Category added!",
                      "update-product-status" => "Product updated!",
-                     "delete-product-status" => "Product deleted!",
-                     "edit-category-status" => "Category updated!",
+                     "remove-category-status" => "Category removed!",
+                     "remove-product-status" => "Product removed!",
+                     "update-category-status" => "Category updated!",
                      "update-status" => "Account updated!",
                      "update-user-status" => "User account updated!",
                      "config-status" => "Config added/updated!",
-                     "create-ad-status" => "Ad added!",
-                     "edi-ad-status" => "Ad updated!",
-					 "create-banner-status" => "Banner added!",
+                     "add-ad-status" => "Ad added!",
+                     "edit-ad-status" => "Ad updated!",
+					 "ad-banner-status" => "Banner added!",
                      "edit-banner-status" => "Banner updated!",
                      "edit-review-status" => "Review info updated!",
                      "edit-order-status" => "Order info updated!",
@@ -90,11 +91,13 @@ class Helper implements HelperContract
 					 "duplicate-user-status-error" => "An account with this email already exists.",
 					 "update-status-error" => "There was a problem updating the account, please contact support.",
 					 "update-user-status-error" => "There was a problem updating the user account, please contact support.",
+					 "validation-status-error" => "Please fill all required fields.",
+					 "duplicate-status-error" => "Already exists.",
 					 "contact-status-error" => "There was a problem sending your message, please contact support.",
 					 "create-product-status-error" => "There was a problem adding the product, please try again.",
-					 "create-category-status-error" => "There was a problem adding the category, please try again.",
+					 "add-category-status-error" => "There was a problem adding the category, please try again.",
 					 "update-product-status-error" => "There was a problem updating product info, please try again.",
-					 "edit-category-status-error" => "There was a problem updating category, please try again.",
+					 "update-category-status-error" => "There was a problem updating category, please try again.",
 					 "create-ad-status-error" => "There was a problem adding new ad, please try again.",
 					 "edit-ad-status-error" => "There was a problem updating the ad, please try again.",
 					 "create-banner-status-error" => "There was a problem adding new banner, please try again.",
@@ -811,7 +814,7 @@ $subject = $data['subject'];
                
 			   else
 			   {
-				    $ret = "https://res.cloudinary.com/dahkzo84h/image/upload/v1585236664/".$dt;
+				    $ret = "https://res.cloudinary.com/dkrf5ih0l/image/upload/v1585236664/".$dt;
                 }
 				
 				return $ret;
@@ -835,7 +838,7 @@ $subject = $data['subject'];
                        for($x = 0; $x < count($dt); $x++)
 						 {
 							 $ird = $dt[$x]['url'];
-                            $imgg = "https://res.cloudinary.com/dahkzo84h/image/upload/v1585236664/".$ird;
+                            $imgg = "https://res.cloudinary.com/dkrf5ih0l/image/upload/v1585236664/".$ird;
                             array_push($ret,$imgg); 
                          }
 					}
@@ -871,7 +874,7 @@ $subject = $data['subject'];
 		   
 		   function generateSKU()
            {
-           	$ret = "ACE".rand(1,9999)."LX".rand(1,999);
+           	$ret = "MBZ".rand(1,9999)."LX".rand(1,999);
                                                       
                 return $ret;
            }
@@ -897,7 +900,15 @@ $subject = $data['subject'];
 				{
 					foreach($data['ird'] as $i)
                     {
-                    	$this->createProductImage(['sku' => $data['sku'], 'url' => $i['public_id'], 'cover' => $i['ci'], 'irdc' => "1"]);
+                    	$this->createProductImage([
+						                           'sku' => $data['sku'],
+												   								   'url' => $i['public_id'],
+								   'delete_token' => $i['delete_token'],
+								   'deleted' => $i['deleted'],
+								   'cover' => $i['ci'],
+								   'type' => $i['type'],
+								   'src_type' => "cloudinary"
+						                         ]);
                     }
 				}
                 
@@ -921,9 +932,12 @@ $subject = $data['subject'];
            {
 			   $cover = isset($data['cover']) ? $data['cover'] : "no";
            	$ret = ProductImages::create(['sku' => $data['sku'],                                                                                                          
-                                                      'url' => $data['url'], 
-                                                      'irdc' => $data['irdc'], 
-                                                      'cover' => $cover, 
+                                                      'url' => $data['url'],                                                       
+                                                      'cover' => $data['cover'],                                                    
+                                                      'type' => $data['type'],                                                      
+                                                      'src_type' => $data['src_type'],                                                      
+                                                      'delete_token' => $data['delete_token'],                                                 
+                                                      'deleted' => $data['deleted']                                                      
                                                       ]);
                                                       
                 return $ret;
@@ -1222,7 +1236,7 @@ $subject = $data['subject'];
 		   
 		  function deleteCloudImage($id)
           {
-          	$dt = ['cloud_name' => "dahkzo84h",'invalidate' => true];
+          	$dt = ['cloud_name' => "dkrf5ih0l",'invalidate' => true];
           	$rett = \Cloudinary\Uploader::destroy($id,$dt);
                                                      
              return $rett; 
@@ -1240,8 +1254,8 @@ $subject = $data['subject'];
 		    function uploadCloudImage($path)
           {
           	$ret = [];
-          	$dt = ['cloud_name' => "dahkzo84h"];
-              $preset = "tsh1rffm";
+          	$dt = ['cloud_name' => "dkrf5ih0l"];
+              $preset = "fk6fcwlg";
           	$rett = \Cloudinary\Uploader::unsigned_upload($path,$preset,$dt);
                                                       
              return $rett; 
@@ -1250,12 +1264,11 @@ $subject = $data['subject'];
 		  function addCategory($data)
            {
            	$category = Categories::create([
-			   'name' => $data['name'],
+			   'name' => ucwords($data['name']),
 			   'category' => $data['category'],
-			   'special' => $data['special'],
-			   'status' => $data['status'],
+			   'status' => "enabled"
 			]);                          
-            return $ret;
+            return $category;
            }
 		   
 		   function getCategories()
@@ -1268,15 +1281,9 @@ $subject = $data['subject'];
                {           	
                	foreach($categories as $c) 
                     {
-						$temp = [];
-						$temp['id'] = $c->id;
-						$temp['name'] = $c->name;
-						$temp['category'] = $c->category;
-						$temp['special'] = $c->special;
-						$temp['status'] = $c->status;
+						$temp = $this->getCategory($c->id);
 						array_push($ret,$temp);
                     }
-                   
                }                                 
                                                       
                 return $ret;
@@ -1294,44 +1301,41 @@ $subject = $data['subject'];
 						$temp['id'] = $c->id;
 						$temp['name'] = $c->name;
 						$temp['category'] = $c->category;
-						$temp['special'] = $c->special;
 						$temp['status'] = $c->status;
+						$temp['date'] = $c->created_at->format("jS F, Y"); 
 						$ret = $temp;
                }                                 
                                                       
                 return $ret;
            }
 		   
-		   function createCategory($data)
-           {
-           	$ret = Categories::create(['name' => ucwords($data['category']),                                                                                                          
-                                                      'category' => $data['category'],                                                      
-                                                      'special' => $data['special'],                                                      
-                                                      'status' => $data['status'], 
-                                                      ]);
-            
-                
-                return $ret;
-           }
-		   
 		   function updateCategory($data)
            {
 			  $c = Categories::where('id',$data['xf'])->first();
-			 
-			  $special = isset($data['special']) ? $data['special'] : "";
-			 
+			  
+			  $ret = [];
+			  if(isset($data['name'])) $ret['name'] = $data['name'];
+			  if(isset($data['category'])) $ret['category'] = $data['category'];
+			  if(isset($data['status'])) $ret['status'] = $data['status'];
+			  
 			if($c != null)
 			{
-				$c->update(['name' => ucwords($data['category']),                                                                                                          
-                                                      'category' => $data['category'],                                                      
-                                                      'special' => $special,                                                      
-                                                      'status' => $data['status']
-				
-				]);
+				$c->update($ret);
 			}
 
                 return "ok";
            }
+		   
+		   function removeCategory($dt)
+		   {
+			   $ret = [];
+			   $c = Categories::where('id',$dt)->first();
+			   
+			   if(!is_null($c))
+			   {
+				  $c->delete();
+			   }
+		   }
 		   
 		   function createAd($data)
            {
