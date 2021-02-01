@@ -2352,30 +2352,23 @@ class MainController extends Controller {
                 
 				if(isset($req['xf']))
 				{
-					$v = "apartment";
-					$apartment = $this->helpers->getApartment($req['xf'],['host' => true,'imgId' => true]);
-					$services = $this->helpers->getServices();
-					$states = $this->helpers->states;
-					$countries = $this->helpers->countries;
-					#dd($apartment);
-					if(count($apartment) < 1)
+					$v = "product";
+					$product = $this->helpers->getProduct($req['xf'],['host' => true,'imgId' => true]);
+					dd($product);
+					if(count($product) < 1)
 					{
 						session()->flash("validation-status-error","ok");
-						return redirect()->intended('apartment');
+						return redirect()->intended('products');
 					}
 					else
 					{
-						array_push($cpt,'apartment');                                 
-						array_push($cpt,'services');                                 
-						array_push($cpt,'states');                                 
-						array_push($cpt,'countries');                                 
+						array_push($cpt,'product');                                 
 					}
-					
 				}
 				else
 				{
 					session()->flash("validation-status-error","ok");
-					return redirect()->intended('apartments');
+					return redirect()->intended('products');
 				}
 				}
 				else

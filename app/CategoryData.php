@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class CategoryData extends Model
 {
 
     /**
@@ -13,7 +13,6 @@ class Categories extends Model
      * @var array
      */
     protected $fillable = [
-        'category', 'name', 'image', 'parent_id', 'status'
+        'id', 'category_id', 'descriptipn', 'meta_title', 'meta_description', 'meta_keywords'
     ];
-    
 }
