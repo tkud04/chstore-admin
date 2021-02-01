@@ -33,7 +33,7 @@ $subtitle = "View all products";
 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">View all products<a class="btn btn-primary ml-3" href="<?php echo e(url('buup')); ?>">Add Product</a></h5>
+                            <h5 class="card-header">View all products<a class="btn btn-primary ml-3" href="<?php echo e(url('add-product')); ?>">Add Product</a></h5>
                             <h5 class="card-header</h5>
                             <div class="card-body">
                                 <div class="table-responsive">

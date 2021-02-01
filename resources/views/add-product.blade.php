@@ -3,20 +3,20 @@ $title = "Add Product";
 $subtitle = "Add a product to the catalog.";
 ?>
 
+@extends('layout')
+
+@section('title',$title)
 
 
-<?php $__env->startSection('title',$title); ?>
+@section('page-header')
+@include('page-header',['title' => $title,'subtitle' => $subtitle])
+@stop
 
 
-<?php $__env->startSection('page-header'); ?>
-<?php echo $__env->make('page-header',['title' => $title,'subtitle' => $subtitle], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php $__env->stopSection(); ?>
-
-
-<?php $__env->startSection('content'); ?>
+@section('content')
 <script>
 $(document).ready(() => {
-	tkAddApartment = "<?php echo e(csrf_token()); ?>";
+	tkAddApartment = "{{csrf_token()}}";
 	
 	let addProductDescriptionEditor = new Simditor({
 		textarea: $('#add-product-description'),
@@ -151,5 +151,4 @@ $(document).ready(() => {
                             </div>
       </div>
 </div>
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/add-product.blade.php ENDPATH**/ ?>
+@stop
