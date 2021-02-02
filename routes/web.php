@@ -44,6 +44,14 @@ Route::get('category', 'MainController@getCategory');
 Route::post('category', 'MainController@postCategory');
 Route::get('remove-category', 'MainController@getRemoveCategory');
 
+//Manufacturers
+Route::get('manufacturers', 'MainController@getManufacturers');
+Route::get('add-manufacturer', 'MainController@getAddManufacturer');
+Route::post('add-manufacturer', 'MainController@postAddManufacturer');
+Route::get('manufacturer', 'MainController@getManufacturer');
+Route::post('manufacturer', 'MainController@postManufacturer');
+Route::get('remove-manufacturer', 'MainController@getRemoveManufacturer');
+
 //Products
 Route::get('products', 'MainController@getProducts');
 Route::get('add-product', 'MainController@getAddProduct');
