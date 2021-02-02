@@ -1954,6 +1954,10 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 				  $v = "add-product";
+				  $manufacturers = $this->helpers->getManufacturers();
+				  $categories = $this->helpers->getCategories();
+				  array_push($cpt,'manufacturers');
+				  array_push($cpt,'categories');
 			 	  $req = $request->all();
                 }
 				else
