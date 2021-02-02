@@ -27,12 +27,13 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-shopping-bag"></i>Products</a>
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-shopping-bag"></i>Catalog</a>
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo e(url('products')); ?>">View products</a>
-                                            <a class="nav-link" href="<?php echo e(url('buup')); ?>">Add products</a>
+                                            <a class="nav-link" href="<?php echo e(url('categories')); ?>">Categories</a>
+                                            <a class="nav-link" href="<?php echo e(url('products')); ?>">Products</a>
+                                            <a class="nav-link" href="<?php echo e(url('manufacturers')); ?>">Manufacturers</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -50,17 +51,6 @@
                             </li>
 							<li class="nav-item">
                                  <a class="nav-link" href="<?php echo e(url('orders')); ?>"><i class="fa fa-fw fa-shopping-bag"></i>Orders</a>
-                            </li>
-                           <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-22" aria-controls="submenu-2"><i class="fa fa-fw fa-folder-open"></i>Categories</a>
-                                <div id="submenu-22" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="<?php echo e(url('categories')); ?>">View categories</a>
-                                            <a class="nav-link" href="<?php echo e(url('new-category')); ?>">Add new category</a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-bed"></i>Reviews</a>

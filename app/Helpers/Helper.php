@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\ShippingDetails;
 use App\User;
 use App\Carts;
+use App\Manufacturers;
 use App\Categories;
 use App\Products;
 use App\Discounts;
@@ -1335,6 +1336,79 @@ $subject = $data['subject'];
 			   if(!is_null($c))
 			   {
 				  $c->delete();
+			   }
+		   }
+
+		   function addManufacturer($data)
+           {
+           	$m = Manufacturers::create([
+			   'name' => $data['name'],
+			   'image' => $data['name']
+			]);                          
+            return $m;
+           }
+		   
+		   function getManufacturers()
+           {
+           	$ret = [];
+           	$manufacturers = Manufacturers::where('id','>','0')->get();
+              // dd($cart);
+			  
+              if($manufacturers != null)
+               {           	
+               	foreach($manufacturers as $m) 
+                    {
+						$temp = $this->getManufacturer($m->id);
+						array_push($ret,$temp);
+                    }
+               }                                 
+                                                      
+                return $ret;
+           }
+		   
+		   function getManufacturer($id)
+           {
+           	$ret = [];
+           	$m = Manufacturers::where('id',$id)->first();
+              // dd($cart);
+			  
+              if($m != null)
+               {           	
+						$temp = [];
+						$temp['id'] = $m->id;
+						$temp['name'] = $m->name;
+						$temp['image'] = $this->getCloudinaryImages([$m->image]);
+						$temp['date'] = $m->created_at->format("jS F, Y"); 
+						$ret = $temp;
+               }                                 
+                                                      
+                return $ret;
+           }
+		   
+		   function updateManufacturer($data)
+           {
+			  $m = Manufacturers::where('id',$data['xf'])->first();
+			  
+			  $ret = [];
+			  if(isset($data['name'])) $ret['name'] = $data['name'];
+			  if(isset($data['image'])) $ret['image'] = $data['image'];
+			  
+			if($m != null)
+			{
+				$m->update($ret);
+			}
+
+                return "ok";
+           }
+		   
+		   function removeManufacturer($dt)
+		   {
+			   $ret = [];
+			   $m = Manufacturers::where('id',$dt)->first();
+			   
+			   if(!is_null($m))
+			   {
+				  $m->delete();
 			   }
 		   }
 		   
