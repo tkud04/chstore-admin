@@ -26,6 +26,10 @@ $(document).ready(() => {
 });
 </script>
 <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right mb-3">
+	    <a href="javascript:void(0)" class="btn btn-primary"><i class="fas fa-save"></i></a>
+	    <a href="<?php echo e(url('products')); ?>" class="btn btn-danger"><i class="fas fa-reply"></i></a>
+	  </div>
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="tab-vertical">
                                 <ul class="nav nav-tabs" id="myTab3" role="tablist">
@@ -46,7 +50,7 @@ $(document).ready(() => {
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent3">
-                                    <div class="tab-pane fade" id="general" role="tabpanel" aria-labelledby="general-tab">
+                                    <div class="tab-pane active show" id="general" role="tabpanel" aria-labelledby="general-tab">
                                       <h5 class="card-header">General</h5>
                                        <div class="card-body">
 									   
@@ -68,19 +72,12 @@ $(document).ready(() => {
                                                <label>Meta tag Description</label>
                                                <textarea id="add-product-meta-description" class="form-control" placeholder="Meta tag description" rows="8"></textarea>
                                             </div>
-											<div class="form-group mt-2">
+											<div class="form-group mt-2 d-inline">
                                               <label>Meta tag keywords</label>
                                               <input id="add-product-meta-keywords" type="text" placeholder="Meta tag keywords" class="form-control">
                                             </div>
 										  </div>
 										</div>
-                                        <div class="row">
-                                            <div class="col-sm-12 pl-0">
-                                                <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="aat-form-btn">Submit</button>
-                                                </p>
-                                            </div>
-                                        </div>
                                        </div>
                                     </div>
 									<div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
@@ -129,21 +126,168 @@ $(document).ready(() => {
 											   </label>
                                                <input id="add-product-mpn" type="text" placeholder="MPN" class="form-control">
                                             </div>
+											<div class="form-group mt-2">
+                                               <label>Location</label>
+                                               <input id="add-product-location" type="text" placeholder="Location" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label> Price</label>
+                                               <input id="add-product-price" type="text" placeholder="Price" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label>Tax class</label>
+                                               <select id="add-product-tax-class" class="form-control">
+											     <option value="none">Select tax class</option>
+											     <option value="taxable-goods">Taxable goods</option>
+											     <option value="downloadable-products">Taxable goods</option>
+											   </select>
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label>Quantity </label>
+                                               <input id="add-product-qty" type="number" placeholder="Quantity" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label>
+											   Minimum quantity <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Force a minimum ordered amount"><i class="fas fa-question-circle"></i> </a>
+											   </label>
+                                               <input id="add-product-min-qty" type="text" placeholder="MPN" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label>Requires shipping</label>
+                                               <select id="add-product-requires-shipping" class="form-control">
+											     <option value="none">Requires shipping?</option>
+											     <option value="yes">Yes</option>
+											     <option value="no">No</option>
+											   </select>
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label>Date available</label>
+                                               <input id="add-product-date-available" type="date" placeholder="Date available" class="form-control">
+                                            </div>
+											<div class="row">
+											  <div class="col-md-12">
+											    <h5>Dimensions</h5>
+											  </div>
+											  <div class="col-md-4">
+											    <div class="form-group mt-2">
+                                                  <label>Length</label>
+                                                  <input id="add-product-length" type="text" placeholder="0.0000000" class="form-control">
+                                               </div>
+                                              </div>
+											  <div class="col-md-4">
+											    <div class="form-group mt-2">
+                                                  <label>Width</label>
+                                                  <input id="add-product-width" type="text" placeholder="0.0000000" class="form-control">
+                                               </div>
+                                              </div>
+											  <div class="col-md-4">
+											    <div class="form-group mt-2">
+                                                  <label>Height</label>
+                                                  <input id="add-product-height" type="text" placeholder="0.0000000" class="form-control">
+                                               </div>
+                                              </div>
+                                           </div>
+										   <div class="form-group mt-2">
+                                               <label>Status</label>
+                                               <select id="add-product-status" class="form-control">
+											     <option value="none">Select status</option>
+											     <option value="enabled" selected="selected">Enabled</option>
+											     <option value="disabled">Disabled</option>
+											   </select>
+                                            </div>
 										  </div>
 										</div>
-                                        <div class="row">
-                                            <div class="col-sm-12 pl-0">
-                                                <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="aat-form-btn">Submit</button>
-                                                </p>
-                                            </div>
-                                        </div>
+                                        
                                        </div>
                                     </div>
-                                    <div class="tab-pane fade active show" id="contact-vertical" role="tabpanel" aria-labelledby="contact-vertical-tab">
-                                        <h3>Tab Heading Vertical Title</h3>
-                                        <p>Vivamus pellentesque vestibulum lectus vitae auctor. Maecenas eu sodales arcu. Fusce lobortis, libero ac cursus feugiat, nibh ex ultricies tortor, id dictum massa nisl ac nisi. Fusce a eros pellentesque, ultricies urna nec, consectetur dolor. Nam dapibus scelerisque risus, a commodo mi tempus eu.</p>
-                                        <p> Fusce a eros pellentesque, ultricies urna nec, consectetur dolor. Nam dapibus scelerisque risus, a commodo mi tempus eu.</p>
+                                    <div class="tab-pane fade" id="links" role="tabpanel" aria-labelledby="links-tab">
+                                        <h5 class="card-header">Links</h5>
+                                       <div class="card-body">
+									   
+									    <div class="row">
+										  <div class="col-md-12">
+										    <div class="form-group">
+                                              <label>Manufacturer <span class="req">*</span></label>
+                                              <select id="add-product-manufacturer" class="form-control">
+											     <option value="none">Select manufacturer</option>
+												 <?php
+												 $manufacturers = [];
+												  foreach($manufacturers as $m)
+												  {
+												 ?>
+											     <option value="<?php echo e($m['id']); ?>"><?php echo e(ucwords($m['name'])); ?></option>
+											     <?php
+												  }
+												 ?>
+											  </select>
+                                            </div>
+											<div class="form-group mt-2">
+                                              <label>Category <span class="req">*</span></label>
+                                              <select id="add-product-category" class="form-control">
+											     <option value="none">Select category</option>
+												 <?php
+												 $categories = [];
+												  foreach($categories as $c)
+												  {
+												 ?>
+											     <option value="<?php echo e($c['id']); ?>"><?php echo e(ucwords($c['name'])); ?></option>
+											     <?php
+												  }
+												 ?>
+											  </select>
+                                            </div>
+										  </div>
+										</div>
+                                       </div>
+                                    </div>
+									<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                                        <h5 class="card-header">Images</h5>
+                                       <div class="card-body">
+									   
+									    <div class="row">
+										  <div class="col-md-12">
+										    <div class="form-group">
+												<label>Images<i class="req">*</i></label>
+												<div id="add-product-images">
+												<div id="add-product-image-div-0" class="row">
+												  <div class="col-md-7">
+												    <input type="file" class="form-control" onchange="readURL2(this,{id: 'add-product',ctr: '0'})" id="add-product-image-0" name="add-product-images[]">												    
+												  </div>
+												  <div class="col-md-5">
+												    <img id="add-product-preview-0" src="#" alt="preview" style="width: 50px; height: 50px;"/>
+													<a href="javascript:void(0)" onclick="aptSetCoverImage(0)" class="btn btn-theme btn-sm">Set as cover image</a>
+												    <a href="javascript:void(0)" onclick="aptRemoveImage({id: 'add-product',ctr: '0'})" class="btn btn-warning btn-sm">Remove</a>
+												  </div>
+												</div>
+												</div>
+											</div>
+											<div class="form-group">
+											    <a href="javascript:void(0)" onclick="aptAddImage({id: 'add-product'})" class="btn btn-warning btn-sm">Add image</a>
+											    <ol class="form-control-plaintext">
+												  <li>Recommended dimensions: Your images should not exceed <b>1280x880</b></li>
+												  <li>Maximum file size: Your images must not be more than <b>1.5MB</b></li>
+												</ol>
+											</div>
+										  </div>
+										</div>
+                                       </div>
+                                    </div>
+									<div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+                                      <h5 class="card-header">SEO</h5>
+                                       <div class="card-body">
+									   
+									    <div class="row">
+										  <div class="col-md-12">
+										    <div class="form-group">
+                                              <label>
+											   Keywords <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique."><i class="fas fa-question-circle"></i> </a>
+											   </label>
+                                              <input id="add-product-seo-keywords" type="text" placeholder="Keywords" class="form-control">
+                                            </div>
+											
+										  </div>
+										</div>
+                                       </div>
                                     </div>
                                 </div>
                                     

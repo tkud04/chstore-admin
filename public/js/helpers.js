@@ -278,7 +278,7 @@ const aptAddImage = dt => {
 	i.append(`
 			  <div id="${dt.id}-image-div-${ctr}" class="row">
 				<div class="col-md-7">
-					<input type="file" class="form-control" data-ic="${ctr}" onchange="readURL(this,{id: '${dt.id}',ctr: '${ctr}'})" id="${dt.id}-image-${ctr}" name="${dt.id}-images[]">												    
+					<input type="file" class="form-control" data-ic="${ctr}" onchange="readURL2(this,{id: '${dt.id}',ctr: '${ctr}'})" id="${dt.id}-image-${ctr}" name="${dt.id}-images[]">												    
 				</div>
 			    <div class="col-md-5">
 					<img id="${dt.id}-preview-${ctr}" src="#" alt="preview" style="width: 50px; height: 50px;"/>
@@ -323,7 +323,7 @@ function readURL(input,ctr) {
     
     reader.onload = function(e) {
 		let pv = input.getAttribute("data-ic");
-      $(`#buup-${ctr}-preview-${pv}`).attr({
+      $(`#add-product-${ctr}-preview-${pv}`).attr({
 	      'src': e.target.result,
 	      'width': "50",
 	      'height': "50"
