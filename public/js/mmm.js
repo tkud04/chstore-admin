@@ -325,13 +325,25 @@ $(document).ready(function() {
        e.preventDefault();
 	   
 	   //validation
-	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(),
-		   validation = (acName == "" || acTag == "");
+	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(), acDescription = $('#add-category-description').val(), emptyImage = false,
+	       acParent = $('add-category-parent').val(), acMetaTitle = $('add-category-meta-title').val(), acMetaDescription = $('add-category-meta-description').val(),
+		   acMetaKeywords = $('add-category-meta-keywords').val(), acImages = $('#add-category-image'), acSEOKeywords = $('add-category-seo-keywords').val(),
+		   validation = (acName == "" || acMetaTitle == "");
+	   
+	   for(let i = 0; i < acImages.length; i++){
+			   if(acImages[i].files.length < 1) emptyImage = true;
+		   }
 	   
 	   if(validation){
 		   Swal.fire({
 			 icon: 'error',
              title: "Please fill all required fields."
+           })
+	   }
+	   else if(emptyImage){
+		   Swal.fire({
+			 icon: 'error',
+             title: "You have an empty image field."
            })
 	   }
 	   else{

@@ -1267,10 +1267,16 @@ $subject = $data['subject'];
 		  function addCategory($data)
            {
 			   $img = ""; $delete_token = "";
+			   
 			   if(isset($data['image']) && isset($data['delete_token']))
 			   {
 				   $img = $data['image'];
 				   $delete_token = $data['delete_token'];
+			   }
+			   
+			   foreach($data as $k => $v)
+			   {
+				   if($v == null) $data[$k] = "";
 			   }
 			   
            	$category = Categories::create([
@@ -1295,6 +1301,7 @@ $subject = $data['subject'];
 			     'meta_title' => $d['meta_title'],
 			     'meta_description' => $d['meta_description'],
 			     'meta_keywords' => $d['meta_keywords'],
+			     'seo_keywords' => $d['seo_keywords'],
 			   ]);
 		   }
 		   
@@ -1328,7 +1335,7 @@ $subject = $data['subject'];
 						$temp['id'] = $c->id;
 						$temp['name'] = $c->name;
 						$temp['category'] = $c->category;
-						$temp['data'] = $this->getCategoryData($c->category_id);
+						$temp['data'] = $this->getCategoryData($c->id);
 						$temp['image'] = $this->getCloudinaryImages([$c->image]);
 						$temp['parent'] = $this->getCategory($c->parent_id);
 						$temp['status'] = $c->status;
@@ -1341,7 +1348,7 @@ $subject = $data['subject'];
 		   function getCategoryData($id)
            {
            	$ret = [];
-           	$c = CategoryData::where('id',$id)->first();
+           	$c = CategoryData::where('category_id',$id)->first();
               // dd($cart);
 			  
               if($c != null)
@@ -1353,6 +1360,7 @@ $subject = $data['subject'];
 						$temp['meta_title'] = $c->meta_title;
 						$temp['meta_description'] = $c->meta_description;
 						$temp['meta_keywords'] = $c->meta_keywords; 
+						$temp['seo_keywords'] = $c->seo_keywords; 
 						$ret = $temp;
                }                                 
                                                       
@@ -1381,6 +1389,7 @@ $subject = $data['subject'];
 			    if(isset($data['meta_title'])) $ret['meta_title'] = $data['meta_title'];
 			    if(isset($data['meta_description'])) $ret['meta_description'] = $data['meta_description'];
 			    if(isset($data['meta_keywords'])) $ret['meta_keywords'] = $data['meta_keywords'];
+			    if(isset($data['seo_keywords'])) $ret['seo_keywords'] = $data['seo_keywords'];
 				$cd->update($ret);
 			}
 

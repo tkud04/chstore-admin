@@ -65,16 +65,14 @@ $subtitle = "View all categories";
 													$arrClass = "warning";
 													$arrText = "Disable";
 												}
-											   #$imgs = $a['cmedia']['images'];
+											   $imgs = $c['image'];
 
 												   $arr = url('edc')."?xf=".$c['id']."&type=".strtolower($arrText);
 												   $dr = url('remove-category')."?xf=".$c['id'];
 										  ?>
                                             <tr>
                                                <td>
-												 <?php
-												 # <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/> 
-												 ?>
+												  <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$c['name']}}" style="cursor: pointer; width: 100px; height: 100px;"/> 	 
 												  <a href="{{$uu}}"><h4>{{ucwords($c['name'])}}</h4></a><br>												  
 												  Tag: <a href="{{$uu}}"><h4 class="badge badge-primary">{{$c['category']}}</h4></a><br>							  
 												</td>

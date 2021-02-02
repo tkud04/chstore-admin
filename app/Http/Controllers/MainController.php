@@ -2581,7 +2581,7 @@ class MainController extends Controller {
 				$v = "categories";
 				$req = $request->all();
                 $categories = $this->helpers->getCategories();
-				#dd($tickets);
+				#dd($categories);
                 array_push($cpt,'categories');
                 }
 				else
@@ -2682,7 +2682,8 @@ class MainController extends Controller {
 				
 				$validator = Validator::make($req,[
 		                    'name' => 'required',
-                             'category' => 'required|unique:categories'
+		                    'meta_title' => 'required',
+                             'image' => 'required'
 		                   ]);
 						
 				if($validator->fails())
@@ -2692,6 +2693,20 @@ class MainController extends Controller {
                 }
 				else
 				{
+					$img = $request->file("image");
+					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
+						
+					  if(isset($imgg['status']) && $imgg['status'] == "error")
+					  {
+						  $networkError = true;
+						  #break;
+					  }
+					  else
+					  {
+						$req['image'] = $imgg['public_id'];
+					    $req['delete_token'] = $imgg['delete_token'];				  
+					  }
+					
 					$ret = $this->helpers->addCategory($req);
 					$ss = "add-category-status";
 					if($ret == "error") $ss .= "-error";
