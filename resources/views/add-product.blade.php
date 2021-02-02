@@ -211,7 +211,6 @@ $(document).ready(() => {
                                               <select id="add-product-manufacturer" class="form-control">
 											     <option value="none">Select manufacturer</option>
 												 <?php
-												 $manufacturers = [];
 												  foreach($manufacturers as $m)
 												  {
 												 ?>
@@ -226,7 +225,6 @@ $(document).ready(() => {
                                               <select id="add-product-category" class="form-control">
 											     <option value="none">Select category</option>
 												 <?php
-												 $categories = [];
 												  foreach($categories as $c)
 												  {
 												 ?>

@@ -12,6 +12,7 @@ use App\User;
 use App\Carts;
 use App\Manufacturers;
 use App\Categories;
+use App\CategoryData;
 use App\Products;
 use App\Discounts;
 use App\ProductData;
@@ -82,9 +83,9 @@ class Helper implements HelperContract
 					 "add-catalog-status" => "Item(s) added to catalog",
                      "remove-catalog-status" => "Item(s) removed from catalog",
                      "update-catalog-status" => "Catalog updated",
-					 "add-courier-status" => "Courier added",
-                     "remove-courier-status" => "Courier removed",
-                     "update-courier-status" => "Courier info updated",
+					 "add-manufacturer-status" => "Manufacturer added",
+                     "remove-manufacturer-status" => "Manufacturer removed",
+                     "update-manufacturer-status" => "Manufacturer updated",
                      
 					 //ERRORS
 					 "login-status-error" => "There was a problem signing in, please contact support.",
@@ -114,9 +115,9 @@ class Helper implements HelperContract
 					"bulk-confirm-payment-status-error" => "There was a problem confirming payments, please try again.",
 					"bulk-update-products-status-error" => "There was a problem updating products, please try again.",
 					"bulk-upload-products-status-error" => "There was a problem uploading products, please try again.",
-					"add-courier-status-error" => "There was a problem adding the courier, please try again.",
-                     "remove-courier-status-error" => "There was a problem removing the courier, please try again.",
-                     "update-courier-status-error" => "There was a problem updating the courier, please try again."
+					"add-manufacturer-status-error" => "There was a problem adding the manufacturer, please try again.",
+                     "remove-manufacturer-status-error" => "There was a problem removing the manufacturer, please try again.",
+                     "update-manufacturer-status-error" => "There was a problem updating the manufacturer, please try again."
                    ],
 				   'errors' => []
 				   ];
@@ -825,12 +826,12 @@ $subject = $data['subject'];
 		   function getCloudinaryImages($dt)
 		   {
 			   $ret = [];
-                  //dd($dt);       
+                 # dd($dt);       
                if(count($dt) < 1) { $ret = ["img/no-image.png"]; }
                
 			   else
 			   {
-                   $ird = $dt[0]['url'];
+                   $ird = isset($dt[0]['url']) ? $dt[0]['url'] : $dt[0];
 				   if($ird == "none")
 					{
 					   $ret = ["img/no-image.png"];
@@ -839,7 +840,7 @@ $subject = $data['subject'];
 					{
                        for($x = 0; $x < count($dt); $x++)
 						 {
-							 $ird = $dt[$x]['url'];
+							 $ird = isset($dt[$x]['url']) ? $dt[$x]['url'] : $dt[$x];
                             $imgg = "https://res.cloudinary.com/dkrf5ih0l/image/upload/v1585236664/".$ird;
                             array_push($ret,$imgg); 
                          }
@@ -1265,13 +1266,37 @@ $subject = $data['subject'];
 		 
 		  function addCategory($data)
            {
+			   $img = ""; $delete_token = "";
+			   if(isset($data['image']) && isset($data['delete_token']))
+			   {
+				   $img = $data['image'];
+				   $delete_token = $data['delete_token'];
+			   }
+			   
            	$category = Categories::create([
 			   'name' => ucwords($data['name']),
 			   'category' => $data['category'],
+			   'image' => $img,
+			   'delete_token' => $delete_token,
+			   'parent_id' => $data['parent'],
 			   'status' => "enabled"
-			]);                          
+			]);      
+            
+           $data['category_id'] = $category->id;
+           $cd = $this->addCategoryData($data);		   
             return $category;
            }
+		   
+		   function addCategoryData($d)
+		   {
+			   CategoryData::create([
+			     'category_id' => $d['category_id'],
+			     'description' => $d['description'],
+			     'meta_title' => $d['meta_title'],
+			     'meta_description' => $d['meta_description'],
+			     'meta_keywords' => $d['meta_keywords'],
+			   ]);
+		   }
 		   
 		   function getCategories()
            {
@@ -1303,8 +1328,31 @@ $subject = $data['subject'];
 						$temp['id'] = $c->id;
 						$temp['name'] = $c->name;
 						$temp['category'] = $c->category;
+						$temp['data'] = $this->getCategoryData($c->category_id);
+						$temp['image'] = $this->getCloudinaryImages([$m->image]);
+						$temp['parent'] = $this->getCategory($c->parent_id);
 						$temp['status'] = $c->status;
 						$temp['date'] = $c->created_at->format("jS F, Y"); 
+						$ret = $temp;
+               }                                 
+                                                      
+                return $ret;
+           }
+		   function getCategoryData($id)
+           {
+           	$ret = [];
+           	$c = CategoryData::where('id',$id)->first();
+              // dd($cart);
+			  
+              if($c != null)
+               {           	
+						$temp = [];
+						$temp['id'] = $c->id;
+						$temp['category_id'] = $c->category_id;
+						$temp['description'] = $c->description;
+						$temp['meta_title'] = $c->meta_title;
+						$temp['meta_description'] = $c->meta_description;
+						$temp['meta_keywords'] = $c->meta_keywords; 
 						$ret = $temp;
                }                                 
                                                       
@@ -1318,11 +1366,22 @@ $subject = $data['subject'];
 			  $ret = [];
 			  if(isset($data['name'])) $ret['name'] = $data['name'];
 			  if(isset($data['category'])) $ret['category'] = $data['category'];
+			  if(isset($data['parent'])) $ret['parent_id'] = $data['parent'];
+			  if(isset($data['image'])) $ret['image'] = $data['image'];
+			  if(isset($data['delete_token'])) $ret['delete_token'] = $data['delete_token'];
 			  if(isset($data['status'])) $ret['status'] = $data['status'];
 			  
 			if($c != null)
 			{
 				$c->update($ret);
+				$cd = CategoryData::where('category_id',$c->id)->first();
+				
+				$ret = [];
+			    if(isset($data['description'])) $ret['description'] = $data['description'];
+			    if(isset($data['meta_title'])) $ret['meta_title'] = $data['meta_title'];
+			    if(isset($data['meta_description'])) $ret['meta_description'] = $data['meta_description'];
+			    if(isset($data['meta_keywords'])) $ret['meta_keywords'] = $data['meta_keywords'];
+				$cd->update($ret);
 			}
 
                 return "ok";
@@ -1335,15 +1394,24 @@ $subject = $data['subject'];
 			   
 			   if(!is_null($c))
 			   {
+				   $cd = CategoryData::where('category_id',$c->id)->first();
+				   if($cd != null) $cd->delete();
 				  $c->delete();
 			   }
 		   }
 
 		   function addManufacturer($data)
            {
+			   $img = ""; $delete_token = "";
+			   if(isset($data['image']) && isset($data['delete_token']))
+			   {
+				   $img = $data['image'];
+				   $delete_token = $data['delete_token'];
+			   }
            	$m = Manufacturers::create([
 			   'name' => $data['name'],
-			   'image' => $data['name']
+			   'image' => $img,
+			   'delete_token' => $delete_token,
 			]);                          
             return $m;
            }
@@ -1392,6 +1460,7 @@ $subject = $data['subject'];
 			  $ret = [];
 			  if(isset($data['name'])) $ret['name'] = $data['name'];
 			  if(isset($data['image'])) $ret['image'] = $data['image'];
+			  if(isset($data['delete_token'])) $ret['delete_token'] = $data['delete_token'];
 			  
 			if($m != null)
 			{

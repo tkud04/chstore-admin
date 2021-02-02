@@ -1,6 +1,6 @@
 <?php
-$title = "Add Category";
-$subtitle = "Add a new category.";
+$title = ucwords($m['name']);
+$subtitle = "Edit this manufacturer.";
 ?>
 
 
@@ -26,58 +26,41 @@ $subtitle = "Add a new category.";
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('page-header'); ?>
-<?php echo $__env->make('page-header',['title' => "Categories",'subtitle' => $title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('page-header',['title' => "Manufacturers",'subtitle' => $title], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
 <div class="row">
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Add Category</h5>
+                                <h5 class="card-header">Edit Manufacturer</h5>
                                 <div class="card-body">
-                                    <form action="<?php echo e(url('add-category')); ?>" id="add-category-form" method="post">
+                                    <form action="<?php echo e(url('manufacturer')); ?>" id="manufacturer-form" method="post" enctype="multipart/form-data">
 										<?php echo csrf_field(); ?>
 
+										<input type="hidden" name="xf" value="<?php echo e($m['id']); ?>">
 										<div class="row">
-										<div class="col-md-12">
+										<div class="col-md-6">
 										<div class="form-group">
                                             <label>Name <span class="text-danger text-bold">*</span></label>
-                                            <input id="add-category-name" type="text" name="name" placeholder="Category name e.g Tablets" class="form-control">
+                                            <input id="add-manufacturer-name" type="text" name="name" value="<?php echo e($title); ?>" placeholder="Manufacturer name e.g Acer" class="form-control">
                                         </div>
 										</div>
-										<div class="col-md-12">
+										<div class="col-md-6">
 										<div class="form-group">
-                                            <label>Tag</label>
-                                            <input id="add-category-tag" type="text" name="category" value="" placeholder="Tag e.g tablets" class="form-control">
-                                        </div>
-										</div>
-										<div class="col-md-12">
-										<div class="form-group">
-                                            <label>Tag</label>
-                                           <select id="add-category-parent" class="form-control">
-											     <option value="0">None</option>
-												 <?php
-												  foreach($categories as $c)
-												  {
-												 ?>
-											     <option value="<?php echo e($c['id']); ?>"><?php echo e(ucwords($c['name'])); ?></option>
-											     <?php
-												  }
-												 ?>
-											  </select>
+                                            <label>Image</label>
+											<img src="<?php echo e($m['image'][0]); ?>" width="150" height="150" alt="<?php echo e($title); ?>">
+											
+											<h5>Change image</h5>
+                                            <input type="file" class="form-control" id="manufacturer-image" name="image">
                                         </div>
 										</div>
 										</div>
 										
                                         <div class="row">
-                                            <div class="col-sm-6 pb-2 pb-sm-4 pb-lg-0 pr-0">
-                                                <label class="be-checkbox custom-control custom-checkbox">
-                                                   <span class="custom-control-label">Categories help you group similar products in one logical section.</span>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-6 pl-0">
+                                            <div class="col-sm-12 pl-0">
                                                 <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="add-category-submit">Submit</button>
+                                                    <button class="btn btn-space btn-secondary" id="manufacturer-submit">Submit</button>
                                                 </p>
                                             </div>
                                         </div>
@@ -87,4 +70,4 @@ $subtitle = "Add a new category.";
                         </div>		
 </div>		
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/add-category.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/manufacturer.blade.php ENDPATH**/ ?>

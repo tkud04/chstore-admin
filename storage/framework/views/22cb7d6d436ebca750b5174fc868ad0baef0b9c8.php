@@ -35,7 +35,7 @@ $subtitle = "Add a new manufacturer.";
                             <div class="card">
                                 <h5 class="card-header">Add Manufacturer</h5>
                                 <div class="card-body">
-                                    <form action="<?php echo e(url('add-manufacturer')); ?>" id="add-manufacturer-form" method="post">
+                                    <form action="<?php echo e(url('add-manufacturer')); ?>" id="add-manufacturer-form" method="post" enctype="multipart/form-data">
 										<?php echo csrf_field(); ?>
 
 										<div class="row">
@@ -56,7 +56,7 @@ $subtitle = "Add a new manufacturer.";
                                         <div class="row">
                                             <div class="col-sm-12 pl-0">
                                                 <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="add-category-submit">Submit</button>
+                                                    <button class="btn btn-space btn-secondary" id="add-manufacturer-submit">Submit</button>
                                                 </p>
                                             </div>
                                         </div>

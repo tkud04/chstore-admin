@@ -38,16 +38,32 @@ $subtitle = "Add a new category.";
                                     <form action="{{url('add-category')}}" id="add-category-form" method="post">
 										{!! csrf_field() !!}
 										<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-12">
 										<div class="form-group">
                                             <label>Name <span class="text-danger text-bold">*</span></label>
                                             <input id="add-category-name" type="text" name="name" placeholder="Category name e.g Tablets" class="form-control">
                                         </div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-12">
 										<div class="form-group">
                                             <label>Tag</label>
                                             <input id="add-category-tag" type="text" name="category" value="" placeholder="Tag e.g tablets" class="form-control">
+                                        </div>
+										</div>
+										<div class="col-md-12">
+										<div class="form-group">
+                                            <label>Parent</label>
+                                           <select id="add-category-parent" name="parent" class="form-control">
+											     <option value="0">None</option>
+												 <?php
+												  foreach($categories as $c)
+												  {
+												 ?>
+											     <option value="{{$c['id']}}">{{ucwords($c['name'])}}</option>
+											     <?php
+												  }
+												 ?>
+											  </select>
                                         </div>
 										</div>
 										</div>

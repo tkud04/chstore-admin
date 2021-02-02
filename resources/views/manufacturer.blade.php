@@ -1,6 +1,6 @@
 <?php
-$title = "Add Manufacturer";
-$subtitle = "Add a new manufacturer.";
+$title = ucwords($m['name']);
+$subtitle = "Edit this manufacturer.";
 ?>
 
 @extends('layout')
@@ -26,28 +26,32 @@ $subtitle = "Add a new manufacturer.";
 @stop
 
 @section('page-header')
-@include('page-header',['title' => "Add Manufacturer",'subtitle' => $title])
+@include('page-header',['title' => "Manufacturers",'subtitle' => $title])
 @stop
 
 @section('content')
 <div class="row">
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
-                                <h5 class="card-header">Add Manufacturer</h5>
+                                <h5 class="card-header">Edit Manufacturer</h5>
                                 <div class="card-body">
-                                    <form action="{{url('add-manufacturer')}}" id="add-manufacturer-form" method="post" enctype="multipart/form-data">
+                                    <form action="{{url('manufacturer')}}" id="manufacturer-form" method="post" enctype="multipart/form-data">
 										{!! csrf_field() !!}
+										<input type="hidden" name="xf" value="{{$m['id']}}">
 										<div class="row">
 										<div class="col-md-6">
 										<div class="form-group">
                                             <label>Name <span class="text-danger text-bold">*</span></label>
-                                            <input id="add-manufacturer-name" type="text" name="name" placeholder="Manufacturer name e.g Acer" class="form-control">
+                                            <input id="add-manufacturer-name" type="text" name="name" value="{{$title}}" placeholder="Manufacturer name e.g Acer" class="form-control">
                                         </div>
 										</div>
 										<div class="col-md-6">
 										<div class="form-group">
                                             <label>Image</label>
-                                            <input type="file" class="form-control" id="add-manufacturer-image" name="image">
+											<img src="{{$m['image'][0]}}" width="150" height="150" alt="{{$title}}">
+											
+											<h5>Change image</h5>
+                                            <input type="file" class="form-control" id="manufacturer-image" name="image">
                                         </div>
 										</div>
 										</div>
@@ -55,7 +59,7 @@ $subtitle = "Add a new manufacturer.";
                                         <div class="row">
                                             <div class="col-sm-12 pl-0">
                                                 <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="add-manufacturer-submit">Submit</button>
+                                                    <button class="btn btn-space btn-secondary" id="manufacturer-submit">Submit</button>
                                                 </p>
                                             </div>
                                         </div>

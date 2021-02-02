@@ -362,6 +362,58 @@ $(document).ready(function() {
 	   
     });
 	
+	//ADD MANUFACTURER
+	$("#add-manufacturer-submit").click(e => {
+       e.preventDefault();
+	   
+	   //validation
+	   let amName = $('#add-manufacturer-name').val(), amImages = $(`#add-manufacturer-image`), emptyImage = false,
+		   validation = (amName == "");
+			
+	     for(let i = 0; i < amImages.length; i++){
+			   if(amImages[i].files.length < 1) emptyImage = true;
+		   }
+	        
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all required fields."
+           })
+	   }
+	   else if(emptyImage){
+		   Swal.fire({
+			 icon: 'error',
+             title: "You have an empty image field."
+           })
+	   }
+	   else{	 
+		 $('#add-manufacturer-form').submit();
+	   }
+	   
+	   
+    });
+	
+	
+	//UPDATE MANUFACTURER
+	$("#manufacturer-submit").click(e => {
+       e.preventDefault();
+	   
+	   //validation
+	   let mName = $('#manufacturer-name').val(), validation = (mName == "");
+	   
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all required fields."
+           })
+	   }
+	   else{
+		  $('#manufacturer-form').submit();		  
+	   }
+	   
+	   
+    });
+	
 	//ADD BANNER
 	$("#ab-form-btn").click(e => {
        e.preventDefault();

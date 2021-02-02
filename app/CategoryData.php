@@ -13,6 +13,6 @@ class CategoryData extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'category_id', 'descriptipn', 'meta_title', 'meta_description', 'meta_keywords'
+        'id', 'category_id', 'description', 'meta_title', 'meta_description', 'meta_keywords'
     ];
 }

@@ -2629,6 +2629,8 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 					$v = "add-category";
+					$categories = $this->helpers->getCategories();
+					array_push($cpt,'categories');
 				}
 				else
 				{
@@ -2862,7 +2864,7 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Handle update ticket.
+	 * Handle update category.
 	 *
 	 * @return Response
 	 */
@@ -2888,6 +2890,7 @@ class MainController extends Controller {
 		                    'xf' => 'required',
                              'name' => 'required',
                              'category' => 'required',
+                             'parent' => 'required',
                              'status' => 'required|not_in:none',
 		                   ]);
 						
@@ -3113,11 +3116,11 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 				
-				dd($req);
+				#dd($req);
 				
 				$validator = Validator::make($req,[
 		                    'name' => 'required',
-                             'category' => 'required|unique:categories'
+                             'image' => 'required'
 		                   ]);
 						
 				if($validator->fails())
@@ -3127,6 +3130,21 @@ class MainController extends Controller {
                 }
 				else
 				{
+					
+					$img = $request->file("image");
+					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
+						
+					  if(isset($imgg['status']) && $imgg['status'] == "error")
+					  {
+						  $networkError = true;
+						  #break;
+					  }
+					  else
+					  {
+						$req['image'] = $imgg['public_id'];
+					    $req['delete_token'] = $imgg['delete_token'];				  
+					  }
+					
 					$ret = $this->helpers->addManufacturer($req);
 					$ss = "add-manufacturer-status";
 					if($ret == "error") $ss .= "-error";
@@ -3188,7 +3206,7 @@ class MainController extends Controller {
 					$v = "manufacturer";
 					$m = $this->helpers->getManufacturer($req['xf']);
 					#dd($t);
-					if(count($c) < 1)
+					if(count($m) < 1)
 					{
 						session()->flash("validation-status-error","ok");
 						return redirect()->intended('manufacturers');
@@ -3249,13 +3267,11 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 				
-				dd($req);
+				#dd($req);
 				
 				$validator = Validator::make($req,[
 		                    'xf' => 'required',
-                             'name' => 'required',
-                             'category' => 'required',
-                             'status' => 'required|not_in:none',
+                             'name' => 'required'
 		                   ]);
 						
 				if($validator->fails())
@@ -3265,7 +3281,23 @@ class MainController extends Controller {
                 }
 				else
 				{
-					$ret = $this->helpers->updateCategory($req);
+					if(isset($req['image']))
+					{
+					$img = $request->file("image");
+					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
+						
+					  if(isset($imgg['status']) && $imgg['status'] == "error")
+					  {
+						  $networkError = true;
+						  #break;
+					  }
+					  else
+					  {
+						$req['image'] = $imgg['public_id'];
+					    $req['delete_token'] = $imgg['delete_token'];				  
+					  }
+					}
+					$ret = $this->helpers->updateManufacturer($req);
 					$ss = "update-manufacturer-status";
 					if($ret == "error") $ss .= "-error";
 					session()->flash($ss,"ok");

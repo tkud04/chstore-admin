@@ -13,7 +13,7 @@ class Manufacturers extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'image'
+        'id', 'name', 'image', 'delete_token'
     ];
     
 }
