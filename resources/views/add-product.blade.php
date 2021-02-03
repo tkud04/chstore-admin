@@ -15,6 +15,8 @@ $subtitle = "Add a product to the catalog.";
 
 @section('content')
 <script>
+let apImages = [], apImgCount = 1, apCover = "none";          
+
 $(document).ready(() => {
 	tkAddApartment = "{{csrf_token()}}";
 	
@@ -27,7 +29,7 @@ $(document).ready(() => {
 </script>
 <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right mb-3">
-	    <a href="javascript:void(0)" class="btn btn-primary"><i class="fas fa-save"></i></a>
+	    <a href="javascript:void(0)" id="add-product-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>
 	    <a href="{{url('products')}}" class="btn btn-danger"><i class="fas fa-reply"></i></a>
 	  </div>
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -154,7 +156,7 @@ $(document).ready(() => {
                                             </div>
 											<div class="form-group mt-2">
                                                <label>Requires shipping</label>
-                                               <select id="add-product-requires-shipping" class="form-control">
+                                               <select id="add-product-shipping" class="form-control">
 											     <option value="none">Requires shipping?</option>
 											     <option value="yes">Yes</option>
 											     <option value="no">No</option>
@@ -253,7 +255,7 @@ $(document).ready(() => {
 												  </div>
 												  <div class="col-md-5">
 												    <img id="add-product-preview-0" src="#" alt="preview" style="width: 50px; height: 50px;"/>
-													<a href="javascript:void(0)" onclick="aptSetCoverImage(0)" class="btn btn-theme btn-sm">Set as cover image</a>
+													<a href="javascript:void(0)" onclick="aptSetCoverImage(0)" class="btn btn-primary btn-sm">Set as cover image</a>
 												    <a href="javascript:void(0)" onclick="aptRemoveImage({id: 'add-product',ctr: '0'})" class="btn btn-warning btn-sm">Remove</a>
 												  </div>
 												</div>

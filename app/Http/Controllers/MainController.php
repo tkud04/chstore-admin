@@ -2006,25 +2006,10 @@ class MainController extends Controller {
 				
 				$validator = Validator::make($req,[
 		                    'name' => 'required',
-		                    'url' => 'required|unique:apartments',
-		                    'description' => 'required',
-		                    'category' => 'required|not_in:none',
-		                    'property_type' => 'required|not_in:none',
-		                    'rooms' => 'required|numeric',
-		                    'units' => 'required|numeric',
-		                    'bathrooms' => 'required|numeric',
-		                    'bedrooms' => 'required|numeric',
-		                    'max_adults' => 'required|numeric',
-		                    'amount' => 'required|numeric',
-		                    'address' => 'required',
-		                    'city' => 'required',
-		                    'lga' => 'required',
-		                    'state' => 'required',
-							'country' => 'required',
-		                    'facilities' => 'required',
+		                    'meta_title' => 'required|unique:products',
+		                    'model' => 'required',
 		                    'img_count' => 'required|numeric',
 		                    'cover' => 'required',
-		                    'avb' => 'required|not_in:none',
 		                    'status' => 'required|not_in:none',
 		                   ]);
 						
@@ -2039,7 +2024,7 @@ class MainController extends Controller {
 				
                     for($i = 0; $i < $req['img_count']; $i++)
                     {
-            		  $img = $request->file("pa-image-".$i);
+            		  $img = $request->file("ap-image-".$i);
 					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
 						
 					  if(isset($imgg['status']) && $imgg['status'] == "error")
