@@ -1337,6 +1337,7 @@ $subject = $data['subject'];
 						$temp['category'] = $c->category;
 						$temp['data'] = $this->getCategoryData($c->id);
 						$temp['image'] = $this->getCloudinaryImages([$c->image]);
+						$temp['parent_id'] = $c->parent_id;
 						$temp['parent'] = $this->getCategory($c->parent_id);
 						$temp['status'] = $c->status;
 						$temp['date'] = $c->created_at->format("jS F, Y"); 

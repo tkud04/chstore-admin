@@ -2775,7 +2775,9 @@ class MainController extends Controller {
 					}
 					else
 					{
+						$categories = $this->helpers->getCategories();
 						array_push($cpt,'c');                                 
+						array_push($cpt,'categories');                                 
 					}
 					
 				}

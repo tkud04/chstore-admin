@@ -354,12 +354,18 @@ $(document).ready(function() {
     });
 	
 	//UPDATE CATEGORY
-	$("#update-category-submit").click(e => {
+	$("#category-submit").click(e => {
        e.preventDefault();
 	   
-	   //validation
-	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(), acStatus = $('#add-category-status').val(),
-		   validation = (acName == "" || acTag == "" || acStatus == "none");
+	    //validation
+	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(), acDescription = $('#add-category-description').val(), emptyImage = false,
+	       acParent = $('add-category-parent').val(), acMetaTitle = $('add-category-meta-title').val(), acMetaDescription = $('add-category-meta-description').val(),
+		   acMetaKeywords = $('add-category-meta-keywords').val(), acImages = $('#add-category-image'), acSEOKeywords = $('add-category-seo-keywords').val(),
+		   validation = (acName == "" || acMetaTitle == "");
+	   
+	   for(let i = 0; i < acImages.length; i++){
+			   if(acImages[i].files.length < 1) emptyImage = true;
+		   }
 	   
 	   if(validation){
 		   Swal.fire({
@@ -367,8 +373,14 @@ $(document).ready(function() {
              title: "Please fill all required fields."
            })
 	   }
+	   else if(emptyImage){
+		   Swal.fire({
+			 icon: 'error',
+             title: "You have an empty image field."
+           })
+	   }
 	   else{
-		  $('#update-category-form').submit();		  
+		  $('#add-category-form').submit();		  
 	   }
 	   
 	   
