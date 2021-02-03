@@ -15,10 +15,10 @@ $subtitle = "Add a product to the catalog.";
 
 @section('content')
 <script>
-let apImages = [], apImgCount = 1, apCover = "none";          
+let apImages = [], apImgCount = 1, apCover = "none", tkAddApartment = "{{csrf_token()}}"; 
 
 $(document).ready(() => {
-	tkAddApartment = "{{csrf_token()}}";
+	
 	
 	let addProductDescriptionEditor = new Simditor({
 		textarea: $('#add-product-description'),
@@ -28,9 +28,15 @@ $(document).ready(() => {
 });
 </script>
 <div class="row">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right mb-3">
-	    <a href="javascript:void(0)" id="add-product-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>
-	    <a href="{{url('products')}}" class="btn btn-danger"><i class="fas fa-reply"></i></a>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+	    <div class="text-left" id="ap-loading">
+		  <h4>Processing.. <img src="{{asset('images/loading.gif')}}" class="img img-fluid" alt="Processing.."></h4>
+		</div>
+		<div class="text-right" id="ap-submit">
+	      <a href="javascript:void(0)" id="add-product-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>
+	      <a href="{{url('products')}}" class="btn btn-danger"><i class="fas fa-reply"></i></a>
+	    </div>
+	    
 	  </div>
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="tab-vertical">

@@ -598,7 +598,7 @@ $(document).ready(function() {
              title: "Please upload at least 1 image"
            })
 	   }
-	   else if(aptCover == "none"){
+	   else if(apCover == "none"){
 		   Swal.fire({
 			 icon: 'error',
              title: "Select a cover image."
@@ -608,8 +608,31 @@ $(document).ready(function() {
 	
 		 let fd =  new FormData();
 		 fd.append("name",apName);
+		 fd.append("price",apPrice);
+		 fd.append("meta_title",apMetaTitle);
+		 fd.append("meta_description",apMetaDescription);
+		 fd.append("meta_keywords",apMetaKeywords);
+		 fd.append("model",apModel);
+		 fd.append("sku",apSKU);
+		 fd.append("upc",apUPC);
+		 fd.append("ean",apEAN);
+		 fd.append("jan",apJAN);
+		 fd.append("isbn",apISBN);
+		 fd.append("mpn",apMPN);
+		 fd.append("location",apLocation);
+		 fd.append("tax_class",apTaxClass);
+		 fd.append("qty",apQty);
+		 fd.append("min_qty",apMinQty);
+		 fd.append("shipping",apShipping);
+		 fd.append("date_available",apDateAvailable);
+		 fd.append("length",apLength);
+		 fd.append("width",apWidth);
+		 fd.append("height",apHeight);
+		 fd.append("status",apStatus);
+		 fd.append("manufacturer",apManufacturer);
+		 fd.append("seo_keywords",apSEO);
 		
-		 fd.append("cover",aptCover);
+		 fd.append("cover",apCover);
 		 fd.append("img_count",apImages.length);
 		 
 		 for(let r = 0; r < apImages.length; r++)
@@ -625,84 +648,13 @@ $(document).ready(function() {
 			 console.log("vv: ",vv);
 		 }
 		 **/
-		  fd.append("_token",$('#tk-pa').val());
+		  fd.append("_token",tkAddApartment);
 		  
-		  $('#add-product-submit').hide();
-		  $('#add-product-loading').fadeIn();
+		  $('#ap-submit').hide();
+		  $('#ap-loading').fadeIn();
 		  //addproduct(fd);  
 		  
 	   }
-    });
-	
-	//SUBSCRIPTION PLANS
-	$("#asp-form-btn").click(e => {
-       e.preventDefault();
-	   
-	   let name = $('#asp-name').val(), description = $('#asp-description').val(), amount = $('#asp-amount').val(),
-	       psID = $('#asp-ps-id').val(), frequency = $('#asp-frequency').val(), pc = $('#asp-pc').val(),
-		   validation = (name == "" || parseInt(amount) < 0 || parseInt(pc) < 0 || psID == "" || frequency == "none");
-	   
-	   if(validation){
-		   Swal.fire({
-			   icon: 'error',
-			   title: `Please fill all required fields`
-		   });
-	   }
-	   else{
-		   $('#asp-form').submit();
-	   }
-    });
-	
-	
-	//SEND MESSAGE
-	$('#send-message-type').change(e => {
-		e.preventDefault();
-		let mt = $('#send-message-type').val();
-		
-		if(mt == "email"){
-			showElem('#send-message-email-div');
-		}
-		else{
-			hideElem('#send-message-email-div');
-		}
-	});
-	
-	$('#send-message-submit').click(e => {
-		e.preventDefault();
-		hideElem(['#send-message-type-error','#send-message-subject-error','#send-message-msg-error']);
-		
-		let mt = $('#send-message-type').val(), ms = $('#send-message-subject').val(), mm = $('#send-message-msg').val();
-		let v = (mt == "none" || (ms == "" && mt == "email") || mm == "");
-		
-		if(v){
-			if(mt == "none") showElem('#send-message-type-error');
-			if(ms == "" && mt == "email") showElem('#send-message-subject-error');
-			if(mm == "") showElem('#send-message-msg-error');
-		}
-		else{
-			 $('#send-message-form').submit();
-		}
-	});
-    
-	
-	//ADD APARTMENT TIP
-	$("#aat-form-btn").click(e => {
-       e.preventDefault();
-	   
-	   //validation
-	   let title = $('#aat-title').val(), message = $('#aat-message').val(), validation = (message == "");
-	        
-	        
-	   if(validation){
-		   Swal.fire({
-			 icon: 'error',
-             title: "Please fill all required fields."
-           })
-	   }
-	   
-	   else{	 
-		 $('#aat-form').submit();
-	   }   
     });
 	
 });
