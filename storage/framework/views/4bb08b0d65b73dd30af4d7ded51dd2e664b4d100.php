@@ -35,13 +35,13 @@ $cd = $c['data'];
 ?>
 <div class="row">
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right mb-3">
-	    <a href="javascript:void(0)" id="add-category-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>
-	    <a href="<?php echo e(url('products')); ?>" class="btn btn-danger"><i class="fas fa-reply"></i></a>
+	    <a href="javascript:void(0)" id="category-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>
+	    <a href="<?php echo e(url('categories')); ?>" class="btn btn-danger"><i class="fas fa-reply"></i></a>
 	  </div>
 
 										
  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-    <form action="<?php echo e(url('category')); ?>" id="update-category-form" method="post" enctype="multipart/form-data">
+    <form action="<?php echo e(url('category')); ?>" id="category-form" method="post" enctype="multipart/form-data">
 										<?php echo csrf_field(); ?>
 
 										<input type="hidden" name="xf" value="<?php echo e($c['id']); ?>">

@@ -2910,9 +2910,7 @@ class MainController extends Controller {
 				$validator = Validator::make($req,[
 		                    'xf' => 'required',
                              'name' => 'required',
-                             'category' => 'required',
-                             'parent' => 'required',
-                             'status' => 'required|not_in:none',
+                             'meta_title' => 'required'
 		                   ]);
 						
 				if($validator->fails())
@@ -2922,6 +2920,22 @@ class MainController extends Controller {
                 }
 				else
 				{
+					if(isset($req['image']))
+					{
+					  $img = $request->file("image");
+					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
+						
+					  if(isset($imgg['status']) && $imgg['status'] == "error")
+					  {
+						  $networkError = true;
+						  #break;
+					  }
+					  else
+					  {
+						$req['image'] = $imgg['public_id'];
+					    $req['delete_token'] = $imgg['delete_token'];				  
+					  }
+					}
 					$ret = $this->helpers->updateCategory($req);
 					$ss = "update-category-status";
 					if($ret == "error") $ss .= "-error";

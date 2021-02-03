@@ -1373,7 +1373,7 @@ $subject = $data['subject'];
 			  $c = Categories::where('id',$data['xf'])->first();
 			  
 			  $ret = [];
-			  if(isset($data['name'])) $ret['name'] = $data['name'];
+			  if(isset($data['name'])) $ret['name'] = ucwords($data['name']);
 			  if(isset($data['category'])) $ret['category'] = $data['category'];
 			  if(isset($data['parent'])) $ret['parent_id'] = $data['parent'];
 			  if(isset($data['image'])) $ret['image'] = $data['image'];
