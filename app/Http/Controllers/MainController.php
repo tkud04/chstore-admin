@@ -2005,7 +2005,7 @@ class MainController extends Controller {
 				
 				$validator = Validator::make($req,[
 		                    'name' => 'required',
-		                    'meta_title' => 'required|unique:products',
+		                    'meta_title' => 'required|unique:product_data',
 		                    'model' => 'required',
 		                    'category' => 'required|not_in:none',
 		                    'manufacturer' => 'required|not_in:none',
@@ -2027,26 +2027,28 @@ class MainController extends Controller {
                     for($i = 0; $i < $req['img_count']; $i++)
                     {
             		  $img = $request->file("ap-image-".$i);
-					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
+					  if($img != null)
+					  {
+					     $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
 						
-					  if(isset($imgg['status']) && $imgg['status'] == "error")
-					  {
-						  $networkError = true;
-						  break;
-					  }
-					  else
-					  {
-						$ci = ($req['cover'] != null && $req['cover'] == $i) ? "yes": "no";
-					    $temp = [
-					       'public_id' => $imgg['public_id'],
-					       'delete_token' => $imgg['delete_token'],
-					       'deleted' => "no",
-					       'ci' => $ci,
-						   'type' => "image"
-						  ];
-			             array_push($ird, $temp);  
-					  }
-             	        
+					     if(isset($imgg['status']) && $imgg['status'] == "error")
+					     {
+						   $networkError = true;
+						   break;
+					     }
+					     else
+					     {
+						   $ci = ($req['cover'] != null && $req['cover'] == $i) ? "yes": "no";
+					       $temp = [
+					         'public_id' => $imgg['public_id'],
+					         'delete_token' => $imgg['delete_token'],
+					         'deleted' => "no",
+					         'ci' => $ci,
+						     'type' => "image"
+						   ];
+			               array_push($ird, $temp);  
+					    }
+					 } 
                       										
 					}
 					}

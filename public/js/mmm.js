@@ -582,7 +582,7 @@ $(document).ready(function() {
              title: "Please fill all the required fields"
            })
 	   }
-	   else if(apCover == "none"){
+	   else if(emptyImage == false && apCover == "none"){
 		   Swal.fire({
 			 icon: 'error',
              title: "Select a cover image."
@@ -638,7 +638,7 @@ $(document).ready(function() {
 		  
 		  $('#ap-submit').hide();
 		  $('#ap-loading').fadeIn();
-		  //addproduct(fd);  
+		  addProduct(fd);  
 		  
 	   }
     });
