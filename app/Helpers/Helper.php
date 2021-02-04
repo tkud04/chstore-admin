@@ -894,17 +894,102 @@ $subject = $data['subject'];
 		   function addProduct($data)
            {
            	#$sku = $this->generateSKU();
+			
+			/**
+				
+				 fd.append("name",apName);
+		 fd.append("price",apPrice);
+		 fd.append("meta_title",apMetaTitle);
+		 fd.append("meta_description",apMetaDescription);
+		 fd.append("meta_keywords",apMetaKeywords);
+		 fd.append("model",apModel);
+		 fd.append("sku",apSKU);
+		 fd.append("upc",apUPC);
+		 fd.append("ean",apEAN);
+		 fd.append("jan",apJAN);
+		 fd.append("isbn",apISBN);
+		 fd.append("mpn",apMPN);
+		 fd.append("location",apLocation);
+		 fd.append("tax_class",apTaxClass);
+		 fd.append("qty",apQty);
+		 fd.append("min_qty",apMinQty);
+		 fd.append("shipping",apShipping);
+		 fd.append("date_available",apDateAvailable);
+		 fd.append("length",apLength);
+		 fd.append("width",apWidth);
+		 fd.append("height",apHeight);
+		 fd.append("status",apStatus);
+		 fd.append("manufacturer",apManufacturer);
+		 fd.append("seo_keywords",apSEO);
+		
+		 fd.append("cover",apCover);
+		 fd.append("img_count",apImages.length);
+		 
+				
+				**/
+				$ret = [];
+				
+				$ret['name'] = isset($data['name']) ? $data['name'] : "";
+				$ret['amount'] = isset($data['price']) ? $data['price'] : "0";
+				$ret['description'] = isset($data['description']) ? $data['description'] : "";
+				$ret['meta_title'] = isset($data['meta_title']) ? $data['meta_title'] : "";
+				$ret['meta_description'] = isset($data['meta_description']) ? $data['meta_description'] : "";
+				$ret['meta_keywords'] = isset($data['meta_keywords']) ? $data['meta_keywords'] : "";
+				$ret['model'] = isset($data['model']) ? $data['model'] : "";
+				$ret['sku'] = isset($data['sku']) ? $data['sku'] : "";
+				$ret['upc'] = isset($data['upc']) ? $data['upc'] : "";
+				$ret['ean'] = isset($data['ean']) ? $data['ean'] : "";
+				$ret['jan'] = isset($data['jan']) ? $data['jan'] : "";
+				$ret['isbn'] = isset($data['isbn']) ? $data['isbn'] : "";
+				$ret['mpn'] = isset($data['mpn']) ? $data['mpn'] : "";
+				$ret['location'] = isset($data['location']) ? $data['location'] : "";	
+				$ret['tax_class'] = isset($data['tax_class']) ? $data['tax_class'] : "";
+				$ret['qty'] = isset($data['qty']) ? $data['qty'] : "";
+				$ret['min_qty'] = isset($data['min_qty']) ? $data['min_qty'] : "";
+				$ret['shipping'] = isset($data['shipping']) ? $data['shipping'] : "";
+				$ret['date_available'] = isset($data['date_available']) ? $data['date_available'] : "";
+				$ret['length'] = isset($data['length']) ? $data['length'] : "";
+				$ret['width'] = isset($data['width']) ? $data['width'] : "";
+				$ret['height'] = isset($data['height']) ? $data['height'] : "";
+				$ret['status'] = isset($data['status']) ? $data['status'] : "";
+				$ret['category'] = isset($data['category']) ? $data['category'] : "";
+				$ret['manufacturer'] = isset($data['manufacturer']) ? $data['manufacturer'] : "";
+				$ret['seo_keywords'] = isset($data['seo_keywords']) ? $data['seo_keywords'] : "";
+			
                
            	$ret = Products::create(['name' => $data['name'],                                                                                                          
-                                                      'sku' => $sku, 
-                                                      'qty' => $data['qty'],                                                       
-                                                      'added_by' => $data['user_id'],                                                       
-                                                      'in_catalog' => "no", 
-                                                      'status' => "enabled", 
+                                                      'sku' => $data['sku'], 
+                                                      'model' => $data['model'], 
+                                                      'upc' => $data['model'], 
+                                                      'ean' => $data['model'], 
+                                                      'jan' => $data['model'], 
+                                                      'isbn' => $data['model'], 
+                                                      'mpn' => $data['model'], 
+                                                      'qty' => $data['qty'],                                                           
+                                                      'seo_keywords' => $data['seo_keywords'],                                                           
+                                                      'added_by' => $data['user_id'],
+                                                      'status' =>  $data['status'], 
                                                       ]);
                                                       
-                 $data['sku'] = $ret->sku;                         
-                $pd = $this->createProductData($data);
+                 $data['product_id'] = $ret->id;                         
+                $pd = $this->addProductData([
+				         'product_id' => $ret->id,
+				         'amount' => $data['amount'],
+				         'description' => $data['amount'],
+				         'meta_title' => $data['amount'],
+				         'meta_description' => $data['amount'],
+				         'meta_keywords' => $data['amount'],
+				         'location' => $data['amount'],
+				         'min_qty' => $data['amount'],
+				         'tax_class' => $data['amount'],
+				         'shipping' => $data['amount'],
+				         'date_available' => $data['amount'],
+				         'length' => $data['amount'],
+				         'width' => $data['amount'],
+				         'height' => $data['amount'],
+				         'category' => $data['amount'],
+				         'manufacturer' => $data['amount'],
+				]);
 				$ird = "none";
 				$irdc = 0;
 				if(isset($data['ird']) && count($data['ird']) > 0)
@@ -912,13 +997,13 @@ $subject = $data['subject'];
 					foreach($data['ird'] as $i)
                     {
                     	$this->createProductImage([
-						                           'sku' => $data['sku'],
-												   								   'url' => $i['public_id'],
-								   'delete_token' => $i['delete_token'],
-								   'deleted' => $i['deleted'],
-								   'cover' => $i['ci'],
-								   'type' => $i['type'],
-								   'src_type' => "cloudinary"
+						                           'product_id' => $data['product_id'],
+												   'url' => $i['public_id'],
+								                   'delete_token' => $i['delete_token'],
+								                   'deleted' => $i['deleted'],
+								                   'cover' => $i['ci'],
+								                   'type' => $i['type'],
+								                   'src_type' => "cloudinary"
 						                         ]);
                     }
 				}

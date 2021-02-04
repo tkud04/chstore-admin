@@ -2001,7 +2001,6 @@ class MainController extends Controller {
 				
 				if($hasPermission)
 				{
-				
 				#dd($req);
 				
 				$validator = Validator::make($req,[
@@ -2058,17 +2057,9 @@ class MainController extends Controller {
 					}
 					else
 					{
-						$req['payment_type'] = "card";
-					    $req['user_id'] = "admin";
+						$req['user_id'] = "admin";
 					    $req['ird'] = $ird;
-					    $req['checkin'] = "12pm";
-					    $req['checkout'] = "1pm";
-					    $req['id_required'] = "yes";
-					    $req['children'] = "none";
-					    $req['pets'] = "no";
-					    $req['bank_id'] = "admin";
-				 
-			            $this->helpers->assProduct($req);
+					    $this->helpers->addProduct($req);
 			             $ret = ['status' => "ok"];
 					}
 				 }

@@ -593,6 +593,7 @@ $(document).ready(function() {
 		 let fd =  new FormData();
 		 fd.append("name",apName);
 		 fd.append("price",apPrice);
+		 fd.append("description",apDescription);
 		 fd.append("meta_title",apMetaTitle);
 		 fd.append("meta_description",apMetaDescription);
 		 fd.append("meta_keywords",apMetaKeywords);
@@ -613,6 +614,7 @@ $(document).ready(function() {
 		 fd.append("width",apWidth);
 		 fd.append("height",apHeight);
 		 fd.append("status",apStatus);
+		 fd.append("category",apCategory);
 		 fd.append("manufacturer",apManufacturer);
 		 fd.append("seo_keywords",apSEO);
 		

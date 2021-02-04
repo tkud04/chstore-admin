@@ -13,6 +13,6 @@ class ProductData extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'sku', 'amount', 'description', 'in_stock', 'category'
+        'id', 'product_id', 'amount', 'description', 'in_stock', 'category', 'manufacturer'
     ];
 }
