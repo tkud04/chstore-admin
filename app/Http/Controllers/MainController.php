@@ -2010,8 +2010,6 @@ class MainController extends Controller {
 		                    'model' => 'required',
 		                    'category' => 'required|not_in:none',
 		                    'manufacturer' => 'required|not_in:none',
-		                    'img_count' => 'required|numeric',
-		                    'cover' => 'required',
 		                    'status' => 'required|not_in:none',
 		                   ]);
 						
@@ -2023,7 +2021,10 @@ class MainController extends Controller {
 				{
 					$ird = [];
                     $networkError = false;
-				
+				    
+					$iv = (isset($req['img_count']) && $req['img_count'] > 0 && isset($req['cover']));
+					if($iv)
+					{
                     for($i = 0; $i < $req['img_count']; $i++)
                     {
             		  $img = $request->file("ap-image-".$i);
@@ -2049,6 +2050,7 @@ class MainController extends Controller {
              	        
                       										
 					}
+					}
 					
 					if($networkError)
 					{
@@ -2066,7 +2068,7 @@ class MainController extends Controller {
 					    $req['pets'] = "no";
 					    $req['bank_id'] = "admin";
 				 
-			            $this->helpers->createApartment($req);
+			            $this->helpers->assProduct($req);
 			             $ret = ['status' => "ok"];
 					}
 				 }

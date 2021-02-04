@@ -395,9 +395,9 @@ const updateApartmentPreference = (dt) => {
 	   });
 }
 
-const addApartment = (dt) => {
+const addProduct = (dt) => {
 	//create request
-	const req = new Request("post-apartment",{method: 'POST', body: dt});
+	const req = new Request("add-product",{method: 'POST', body: dt});
 	//console.log(req);
 	
 	
@@ -414,9 +414,13 @@ const addApartment = (dt) => {
 		   }
 	   })
 	   .catch(error => {
-		    alert("Failed to add apartment: " + error);			
-			$('#pa-loading').hide();
-		     $('#pa-submit').fadeIn();
+		     Swal.fire({
+			     icon: 'error',
+                 title: hh,
+                 html: `Failed to add product: <b>${error}</b>`,
+               });
+                $('#ap-loading').hide();
+		        $('#ap-submit').fadeIn();
 	   })
 	   .then(res => {
 		   console.log(res);
@@ -424,10 +428,10 @@ const addApartment = (dt) => {
 		   if(res.status == "ok"){
               Swal.fire({
 			     icon: 'success',
-                 title: "Apartment added!"
+                 title: "Product added!"
                }).then((result) => {
                if (result.value) {                 
-			     window.location = `apartments`;
+			     window.location = `products`;
                 }
               });
 		   }
@@ -441,16 +445,15 @@ const addApartment = (dt) => {
 			   }
 			   else if(res.message == "Technical error"){
 				 hh = `A technical error has occured, please try again.`;  
+			   }else if(res.message == "nothing happened"){
+				 hh = `Nothing happened, please try again.`;  
 			   }
 			   Swal.fire({
 			     icon: 'error',
                  title: hh
-               }).then((result) => {
-               if (result.value) {
-                  $('#pa-loading').hide();
-		          $('#pa-submit').fadeIn();	
-                }
-              });					 
+               });
+                $('#ap-loading').hide();
+		        $('#ap-submit').fadeIn();			   
 		   }
 		  
 		   

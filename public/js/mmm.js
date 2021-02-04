@@ -582,12 +582,6 @@ $(document).ready(function() {
              title: "Please fill all the required fields"
            })
 	   }
-	   else if(emptyImage){
-		   Swal.fire({
-			 icon: 'error',
-             title: "Please upload at least 1 image"
-           })
-	   }
 	   else if(apCover == "none"){
 		   Swal.fire({
 			 icon: 'error',

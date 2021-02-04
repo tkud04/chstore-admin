@@ -891,9 +891,9 @@ $subject = $data['subject'];
            }
 		   
 		   
-		   function createProduct($data)
+		   function addProduct($data)
            {
-           	$sku = $this->generateSKU();
+           	#$sku = $this->generateSKU();
                
            	$ret = Products::create(['name' => $data['name'],                                                                                                          
                                                       'sku' => $sku, 
