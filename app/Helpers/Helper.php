@@ -657,92 +657,7 @@ $subject = $data['subject'];
            }
 		   
 		   
-		   function getProducts()
-           {
-           	$ret = [];
-              $products = Products::where('id','>',"0")->get();
-              $products = $products->sortByDesc('created_at');
-			  
-              if($products != null)
-               {
-				  foreach($products as $p)
-				  {
-					  $pp = $this->getProduct($p->id);
-					  array_push($ret,$pp);
-				  }
-               }                         
-                                                      
-                return $ret;
-           }
-		   
-		   function getProduct($id,$imgId=false)
-           {
-           	$ret = [];
-              $product = Products::where('id',$id)
-			                 ->orWhere('sku',$id)->first();
-       
-              if($product != null)
-               {
-				  $temp = [];
-				  $temp['id'] = $product->id;
-				  $temp['name'] = $product->name;
-				  $temp['sku'] = $product->sku;
-				  $temp['qty'] = $product->qty;
-				  $temp['in_catalog'] = $product->in_catalog;
-				  $temp['status'] = $product->status;
-				  $temp['pd'] = $this->getProductData($product->sku);
-				  $temp['discounts'] = $this->getDiscounts($product->sku);
-				  $imgs = $this->getImages($product->sku);
-				  if($imgId) $temp['imgs'] = $imgs;
-				  $temp['imggs'] = $this->getCloudinaryImages($imgs);
-				  $temp['date'] = $product->created_at->format("jS F,Y h:i A"); 
-				  $ret = $temp;
-               }                         
-                                                      
-                return $ret;
-           }
-
-		   function getProductData($sku)
-           {
-           	$ret = [];
-              $pd = ProductData::where('sku',$sku)->first();
- 
-              if($pd != null)
-               {
-				  $temp = [];
-				  $temp['id'] = $pd->id;
-				  $temp['sku'] = $pd->sku;
-				  $temp['amount'] = $pd->amount;
-				  $temp['description'] = $pd->description;
-				  $temp['in_stock'] = $pd->in_stock;
-				  $temp['category'] = $pd->category;
-				  $ret = $temp;
-               }                         
-                                                      
-                return $ret;
-           }
-		   
-		   function getProductImages($sku)
-           {
-           	$ret = [];
-              $pis = ProductImages::where('sku',$sku)->get();
- 
-            
-              if($pis != null)
-               {
-				  foreach($pis as $pi)
-				  {
-				    $temp = [];
-				    $temp['id'] = $pi->id;
-				    $temp['sku'] = $pi->sku;
-				    $temp['cover'] = $pi->cover;
-				    $temp['url'] = $pi->url;
-				    array_push($ret,$temp);
-				  }
-               }                         
-                                                      
-                return $ret;
-           }
+		  
 		   
 		   function isCoverImage($img)
 		   {
@@ -943,17 +858,17 @@ $subject = $data['subject'];
 				$ret['isbn'] = isset($data['isbn']) ? $data['isbn'] : "";
 				$ret['mpn'] = isset($data['mpn']) ? $data['mpn'] : "";
 				$ret['location'] = isset($data['location']) ? $data['location'] : "";	
-				$ret['tax_class'] = isset($data['tax_class']) ? $data['tax_class'] : "";
+				$ret['tax_class'] = isset($data['tax_class']) ? $data['tax_class'] : "none";
 				$ret['qty'] = isset($data['qty']) ? $data['qty'] : "";
 				$ret['min_qty'] = isset($data['min_qty']) ? $data['min_qty'] : "";
-				$ret['shipping'] = isset($data['shipping']) ? $data['shipping'] : "";
+				$ret['shipping'] = isset($data['shipping']) ? $data['shipping'] : "none";
 				$ret['date_available'] = isset($data['date_available']) ? $data['date_available'] : "";
 				$ret['length'] = isset($data['length']) ? $data['length'] : "";
 				$ret['width'] = isset($data['width']) ? $data['width'] : "";
 				$ret['height'] = isset($data['height']) ? $data['height'] : "";
-				$ret['status'] = isset($data['status']) ? $data['status'] : "";
-				$ret['category'] = isset($data['category']) ? $data['category'] : "";
-				$ret['manufacturer'] = isset($data['manufacturer']) ? $data['manufacturer'] : "";
+				$ret['status'] = isset($data['status']) ? $data['status'] : "none";
+				$ret['category'] = isset($data['category']) ? $data['category'] : "none";
+				$ret['manufacturer'] = isset($data['manufacturer']) ? $data['manufacturer'] : "none";
 				$ret['seo_keywords'] = isset($data['seo_keywords']) ? $data['seo_keywords'] : "";
 			
                
@@ -970,26 +885,26 @@ $subject = $data['subject'];
                                                       'added_by' => $data['user_id'],
                                                       'status' =>  $data['status'], 
                                                       ]);
-                                                      
-                 $data['product_id'] = $ret->id;                         
+                      
                 $pd = $this->addProductData([
 				         'product_id' => $ret->id,
 				         'amount' => $data['amount'],
-				         'description' => $data['amount'],
-				         'meta_title' => $data['amount'],
-				         'meta_description' => $data['amount'],
-				         'meta_keywords' => $data['amount'],
-				         'location' => $data['amount'],
-				         'min_qty' => $data['amount'],
-				         'tax_class' => $data['amount'],
+				         'description' => $data['description'],
+				         'meta_title' => $data['meta_title'],
+				         'meta_description' => $data['meta_description'],
+				         'meta_keywords' => $data['meta_keywords'],
+				         'location' => $data['location'],
+				         'min_qty' => $data['min_qty'],
+				         'tax_class' => $data['tax_class'],
 				         'shipping' => $data['amount'],
-				         'date_available' => $data['amount'],
-				         'length' => $data['amount'],
-				         'width' => $data['amount'],
-				         'height' => $data['amount'],
-				         'category' => $data['amount'],
-				         'manufacturer' => $data['amount'],
+				         'date_available' => $data['shipping'],
+				         'length' => $data['length'],
+				         'width' => $data['width'],
+				         'height' => $data['height'],
+				         'category' => $data['category'],
+				         'manufacturer' => $data['manufacturer'],
 				]);
+				
 				$ird = "none";
 				$irdc = 0;
 				if(isset($data['ird']) && count($data['ird']) > 0)
@@ -1012,14 +927,26 @@ $subject = $data['subject'];
            }
            function createProductData($data)
            {
-           	$in_stock = (isset($data["in_stock"])) ? "new" : $data["in_stock"];
+           	
            
-           	$ret = ProductData::create(['sku' => $data['sku'],                                                                                                          
-                                                      'description' => $data['description'], 
-                                                      'amount' => $data['amount'],                                                      
-                                                      'category' => $data['category'],                                                       
-                                                      'in_stock' => $in_stock                                              
-                                                      ]);
+           	$ret = ProductData::create([
+				         'product_id' => $data['product_id'],
+				         'amount' => $data['amount'],
+				         'description' => $data['description'],
+				         'meta_title' => $data['meta_title'],
+				         'meta_description' => $data['meta_description'],
+				         'meta_keywords' => $data['meta_keywords'],
+				         'location' => $data['location'],
+				         'min_qty' => $data['min_qty'],
+				         'tax_class' => $data['tax_class'],
+				         'shipping' => $data['amount'],
+				         'date_available' => $data['shipping'],
+				         'length' => $data['length'],
+				         'width' => $data['width'],
+				         'height' => $data['height'],
+				         'category' => $data['category'],
+				         'manufacturer' => $data['manufacturer']
+						 ]);
                                                       
                 return $ret;
            }
@@ -1027,7 +954,7 @@ $subject = $data['subject'];
            function createProductImage($data)
            {
 			   $cover = isset($data['cover']) ? $data['cover'] : "no";
-           	$ret = ProductImages::create(['sku' => $data['sku'],                                                                                                          
+           	$ret = ProductImages::create(['product_id' => $data['product_id'],                                                                                                          
                                                       'url' => $data['url'],                                                       
                                                       'cover' => $data['cover'],                                                    
                                                       'type' => $data['type'],                                                      
@@ -1038,6 +965,130 @@ $subject = $data['subject'];
                                                       
                 return $ret;
            }
+		   
+		    function getProducts()
+           {
+           	$ret = [];
+              $products = Products::where('id','>',"0")->get();
+              $products = $products->sortByDesc('created_at');
+			  
+              if($products != null)
+               {
+				  foreach($products as $p)
+				  {
+					  $pp = $this->getProduct($p->id);
+					  array_push($ret,$pp);
+				  }
+               }                         
+                                                      
+                return $ret;
+           }
+		   
+		   function getProduct($id,$imgId=false)
+           {
+           	$ret = [];
+              $product = Products::where('id',$id)
+			                 ->orWhere('sku',$id)->first();
+       
+              if($product != null)
+               {
+				  $temp = [];
+				  $temp['id'] = $product->id;
+				  $temp['name'] = $product->name;
+				  $temp['sku'] = $product->sku;
+				  $temp['model'] = $product->model;
+				  $temp['upc'] = $product->upc;
+				  $temp['ean'] = $product->ean;
+				  $temp['jan'] = $product->jan;
+				  $temp['isbn'] = $product->isbn;
+				  $temp['mpn'] = $product->mpn;
+				  $temp['qty'] = $product->qty;
+				  $temp['seo_keywords'] = $product->seo_keywords;
+				  $temp['status'] = $product->status;
+				  $temp['data'] = $this->getProductData($product->id);
+				  #$temp['discounts'] = $this->getDiscounts($product->sku);
+				  $imgs = $this->getImages($product->sku);
+				  if($imgId) $temp['imgs'] = $imgs;
+				  $temp['imggs'] = $this->getCloudinaryImages($imgs);
+				  $temp['date'] = $product->created_at->format("jS F,Y h:i A"); 
+				  $ret = $temp;
+               }                         
+                                                      
+                return $ret;
+           }
+
+		   function getProductData($sku)
+           {
+           	$ret = [];
+              $pd = ProductData::where('sku',$sku)->first();
+ 
+ /**
+ 'product_id' => $data['product_id'],
+				         'amount' => $data['amount'],
+				         'description' => $data['description'],
+				         'meta_title' => $data['meta_title'],
+				         'meta_description' => $data['meta_description'],
+				         'meta_keywords' => $data['meta_keywords'],
+				         'location' => $data['location'],
+				         'min_qty' => $data['min_qty'],
+				         'tax_class' => $data['tax_class'],
+				         'shipping' => $data['amount'],
+				         'date_available' => $data['shipping'],
+				         'length' => $data['length'],
+				         'width' => $data['width'],
+				         'height' => $data['height'],
+				         'category' => $data['category'],
+				         'manufacturer' => $data['manufacturer']
+ **/
+ 
+              if($pd != null)
+               {
+				  $temp = [];
+				  $temp['id'] = $pd->id;
+				  $temp['product_id'] = $pd->sku;
+				  $temp['amount'] = $pd->amount;
+				  $temp['description'] = $pd->description;
+				  $temp['meta_title'] = $pd->in_stock;
+				  $temp['meta_description'] = $pd->category;
+				  $temp['meta_keywords'] = $pd->category;
+				  $temp['location'] = $pd->category;
+				  $temp['min_qty'] = $pd->category;
+				  $temp['tax_class'] = $pd->category;
+				  $temp['shipping'] = $pd->category;
+				  $temp['date_available'] = $pd->category;
+				  $temp['length'] = $pd->category;
+				  $temp['width'] = $pd->category;
+				  $temp['height'] = $pd->category;
+				  $temp['category'] = $pd->category;
+				  $temp['manufacturer'] = $pd->category;
+				  $ret = $temp;
+               }                         
+                                                      
+                return $ret;
+           }
+		   
+		   function getProductImages($sku)
+           {
+           	$ret = [];
+              $pis = ProductImages::where('sku',$sku)->get();
+ 
+            
+              if($pis != null)
+               {
+				  foreach($pis as $pi)
+				  {
+				    $temp = [];
+				    $temp['id'] = $pi->id;
+				    $temp['sku'] = $pi->sku;
+				    $temp['cover'] = $pi->cover;
+				    $temp['url'] = $pi->url;
+				    array_push($ret,$temp);
+				  }
+               }                         
+                                                      
+                return $ret;
+           }
+		   
 		   
 		   function createDiscount($data)
            {
