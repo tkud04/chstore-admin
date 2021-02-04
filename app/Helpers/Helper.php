@@ -841,7 +841,15 @@ $subject = $data['subject'];
                        for($x = 0; $x < count($dt); $x++)
 						 {
 							 $ird = isset($dt[$x]['url']) ? $dt[$x]['url'] : $dt[$x];
-                            $imgg = "https://res.cloudinary.com/dkrf5ih0l/image/upload/v1585236664/".$ird;
+							 if($ird == "" || $ird == null)
+							 {
+								 $imgg = asset("images/avatar-2.jpg");
+							 }
+							 else
+							 {
+								 $imgg = "https://res.cloudinary.com/dkrf5ih0l/image/upload/v1585236664/".$ird;
+							 }
+                            
                             array_push($ret,$imgg); 
                          }
 					}

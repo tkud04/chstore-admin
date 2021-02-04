@@ -18,7 +18,7 @@ $subtitle = "Add a product to the catalog.";
 let apImages = [], apImgCount = 1, apCover = "none", tkAddApartment = "<?php echo e(csrf_token()); ?>"; 
 
 $(document).ready(() => {
-	
+	hideElem(["#ap-loading"]);
 	
 	let addProductDescriptionEditor = new Simditor({
 		textarea: $('#add-product-description'),
@@ -29,8 +29,8 @@ $(document).ready(() => {
 </script>
 <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
-	    <div class="text-left" id="ap-loading">
-		  <h4>Processing.. <img src="<?php echo e(asset('images/loading.gif')); ?>" class="img img-fluid" alt="Processing.."></h4>
+	    <div class="text-left" >
+		  <h4 id="ap-loading">Processing.. <img src="<?php echo e(asset('images/loading.gif')); ?>" class="img img-fluid" alt="Processing.."></h4>
 		</div>
 		<div class="text-right" id="ap-submit">
 	      <a href="javascript:void(0)" id="add-product-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>

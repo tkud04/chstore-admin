@@ -340,12 +340,7 @@ $(document).ready(function() {
              title: "Please fill all required fields."
            })
 	   }
-	   else if(emptyImage){
-		   Swal.fire({
-			 icon: 'error',
-             title: "You have an empty image field."
-           })
-	   }
+	   
 	   else{
 		  $('#add-category-form').submit();		  
 	   }
@@ -398,12 +393,7 @@ $(document).ready(function() {
              title: "Please fill all required fields."
            })
 	   }
-	   else if(emptyImage){
-		   Swal.fire({
-			 icon: 'error',
-             title: "You have an empty image field."
-           })
-	   }
+	   
 	   else{	 
 		 $('#add-manufacturer-form').submit();
 	   }
@@ -637,7 +627,7 @@ $(document).ready(function() {
 		 
 		 for(let r = 0; r < apImages.length; r++)
 		 {
-		    let imgg = aptImages[r];
+		    let imgg = apImages[r];
 			let imgName = `ap-image-${r}`;
             //console.log("imgg name: ",imgName);			
             fd.append(imgName,imgg.files[0]);   			   			

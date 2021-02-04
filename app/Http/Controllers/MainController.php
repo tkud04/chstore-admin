@@ -2008,6 +2008,8 @@ class MainController extends Controller {
 		                    'name' => 'required',
 		                    'meta_title' => 'required|unique:products',
 		                    'model' => 'required',
+		                    'category' => 'required|not_in:none',
+		                    'manufacturer' => 'required|not_in:none',
 		                    'img_count' => 'required|numeric',
 		                    'cover' => 'required',
 		                    'status' => 'required|not_in:none',
@@ -2667,8 +2669,7 @@ class MainController extends Controller {
 				
 				$validator = Validator::make($req,[
 		                    'name' => 'required',
-		                    'meta_title' => 'required',
-                             'image' => 'required'
+		                    'meta_title' => 'required'
 		                   ]);
 						
 				if($validator->fails())
@@ -2678,6 +2679,8 @@ class MainController extends Controller {
                 }
 				else
 				{
+					if(isset($req['image']))
+					{
 					$img = $request->file("image");
 					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
 						
@@ -2691,7 +2694,13 @@ class MainController extends Controller {
 						$req['image'] = $imgg['public_id'];
 					    $req['delete_token'] = $imgg['delete_token'];				  
 					  }
-					
+					}
+					else
+					{
+						$req['image'] = "";
+						$req['delete_token'] = "";
+						
+					}
 					$ret = $this->helpers->addCategory($req);
 					$ss = "add-category-status";
 					if($ret == "error") $ss .= "-error";
@@ -3139,8 +3148,7 @@ class MainController extends Controller {
 				#dd($req);
 				
 				$validator = Validator::make($req,[
-		                    'name' => 'required',
-                             'image' => 'required'
+		                    'name' => 'required'
 		                   ]);
 						
 				if($validator->fails())
@@ -3150,7 +3158,8 @@ class MainController extends Controller {
                 }
 				else
 				{
-					
+					if(isset($req['image']))
+					{
 					$img = $request->file("image");
 					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
 						
@@ -3164,7 +3173,13 @@ class MainController extends Controller {
 						$req['image'] = $imgg['public_id'];
 					    $req['delete_token'] = $imgg['delete_token'];				  
 					  }
-					
+					}
+					else
+					{
+						$req['image'] = "";
+						$req['delete_token'] = "";
+						
+					}
 					$ret = $this->helpers->addManufacturer($req);
 					$ss = "add-manufacturer-status";
 					if($ret == "error") $ss .= "-error";

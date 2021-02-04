@@ -296,7 +296,7 @@ const aptRemoveImage = dt => {
 }
 
 const aptSetCoverImage = ctr => {
-	aptCover = ctr;
+	apCover = ctr;
 	//r.remove();
 }
 
