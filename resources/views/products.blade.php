@@ -60,7 +60,7 @@ $subtitle = "View all products";
 												
 
 											   $name = $p['name'];
-											   $pd = $p['pd'];
+											   $pd = $p['data'];
 											   $uu = url('product')."?xf=".$p['id'];
 											    $sss = $p['status'];
 												

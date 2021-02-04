@@ -675,15 +675,14 @@ $subject = $data['subject'];
                 return $temp;
            }
 		   
-		   function getImages($sku)
+		   function getImages($xf)
 		   {
 			   $ret = [];
-			   $records = $this->getProductImages($sku);
 			   
-			   $coverImage = ProductImages::where('sku',$sku)
+			   $coverImage = ProductImages::where('product_id',$xf)
 			                              ->where('cover',"yes")->first();
 										  
-               $otherImages = ProductImages::where('sku',$sku)
+               $otherImages = ProductImages::where('product_id',$xf)
 			                              ->where('cover',"!=","yes")->get();
 			  
                if($coverImage != null)
@@ -838,37 +837,37 @@ $subject = $data['subject'];
 				$ret['seo_keywords'] = isset($data['seo_keywords']) && $data['seo_keywords'] != null ? $data['seo_keywords'] : "";
 			
                
-           	$ret = Products::create(['name' => $data['name'],                                                                                                          
-                                                      'sku' => $data['sku'], 
-                                                      'model' => $data['model'], 
-                                                      'upc' => $data['upc'], 
-                                                      'ean' => $data['ean'], 
-                                                      'jan' => $data['jan'], 
-                                                      'isbn' => $data['isbn'], 
-                                                      'mpn' => $data['mpn'], 
-                                                      'qty' => $data['qty'],                                                           
-                                                      'seo_keywords' => $data['seo_keywords'],                                                           
-                                                      'added_by' => $data['user_id'],
-                                                      'status' =>  $data['status'], 
+           	$rett = Products::create(['name' => $ret['name'],                                                                                                          
+                                                      'sku' => $ret['sku'], 
+                                                      'model' => $ret['model'], 
+                                                      'upc' => $ret['upc'], 
+                                                      'ean' => $ret['ean'], 
+                                                      'jan' => $ret['jan'], 
+                                                      'isbn' => $ret['isbn'], 
+                                                      'mpn' => $ret['mpn'], 
+                                                      'qty' => $ret['qty'],                                                           
+                                                      'seo_keywords' => $ret['seo_keywords'],                                                           
+                                                      'added_by' => "admin",
+                                                      'status' =>  $ret['status'], 
                                                       ]);
                       
                 $pd = $this->addProductData([
-				         'product_id' => $ret->id,
-				         'amount' => $data['amount'],
-				         'description' => $data['description'],
-				         'meta_title' => $data['meta_title'],
-				         'meta_description' => $data['meta_description'],
-				         'meta_keywords' => $data['meta_keywords'],
-				         'location' => $data['location'],
-				         'min_qty' => $data['min_qty'],
-				         'tax_class' => $data['tax_class'],
-				         'shipping' => $data['amount'],
-				         'date_available' => $data['shipping'],
-				         'length' => $data['length'],
-				         'width' => $data['width'],
-				         'height' => $data['height'],
-				         'category' => $data['category'],
-				         'manufacturer' => $data['manufacturer'],
+				         'product_id' => $rett->id,
+				         'amount' => $ret['amount'],
+				         'description' => $ret['description'],
+				         'meta_title' => $ret['meta_title'],
+				         'meta_description' => $ret['meta_description'],
+				         'meta_keywords' => $ret['meta_keywords'],
+				         'location' => $ret['location'],
+				         'min_qty' => $ret['min_qty'],
+				         'tax_class' => $ret['tax_class'],
+				         'shipping' => $ret['amount'],
+				         'date_available' => $ret['shipping'],
+				         'length' => $ret['length'],
+				         'width' => $ret['width'],
+				         'height' => $ret['height'],
+				         'category' => $ret['category'],
+				         'manufacturer' => $ret['manufacturer'],
 				]);
 				
 				$ird = "none";
@@ -878,7 +877,7 @@ $subject = $data['subject'];
 					foreach($data['ird'] as $i)
                     {
                     	$this->createProductImage([
-						                           'product_id' => $data['product_id'],
+						                           'product_id' => $rett->id,
 												   'url' => $i['public_id'],
 								                   'delete_token' => $i['delete_token'],
 								                   'deleted' => $i['deleted'],
@@ -958,6 +957,7 @@ $subject = $data['subject'];
        
               if($product != null)
                {
+				   #dd($product);
 				  $temp = [];
 				  $temp['id'] = $product->id;
 				  $temp['name'] = $product->name;
@@ -973,7 +973,7 @@ $subject = $data['subject'];
 				  $temp['status'] = $product->status;
 				  $temp['data'] = $this->getProductData($product->id);
 				  #$temp['discounts'] = $this->getDiscounts($product->sku);
-				  $imgs = $this->getImages($product->sku);
+				  $imgs = $this->getImages($product->id);
 				  if($imgId) $temp['imgs'] = $imgs;
 				  $temp['imggs'] = $this->getCloudinaryImages($imgs);
 				  $temp['date'] = $product->created_at->format("jS F,Y h:i A"); 
@@ -1017,7 +1017,7 @@ $subject = $data['subject'];
 		   function getProductImages($xf)
            {
            	$ret = [];
-              $pis = ProductImages::where('product_id',$product_id)->get();
+              $pis = ProductImages::where('product_id',$xf)->get();
  
             
               if($pis != null)

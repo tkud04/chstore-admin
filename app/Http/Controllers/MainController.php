@@ -2283,7 +2283,7 @@ class MainController extends Controller {
 				$v = "products";
 				$req = $request->all();
                 $products = $this->helpers->getProducts();
-				#dd($products);
+				dd($products);
                 array_push($cpt,'products');
                 }
 				else
