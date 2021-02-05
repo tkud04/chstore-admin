@@ -634,11 +634,97 @@ $(document).ready(function() {
 			 console.log("vv: ",vv);
 		 }
 		 **/
-		  fd.append("_token",tkAddApartment);
+		  fd.append("_token",tkAddProduct);
 		  
 		  $('#ap-submit').hide();
 		  $('#ap-loading').fadeIn();
 		  addProduct(fd);  
+		  
+	   }
+    });
+	
+	//EDIT PRODUCT
+	$("#product-submit").click(e => {
+       e.preventDefault();
+	   console.log("product submit");
+	   
+	   //side 1 validation
+	   let apXF = $('#product-xf').val(), apName = $('#product-name').val(), apMetaTitle = $('#product-meta-title').val(), apPrice = $('#product-price').val(),
+	   apMetaDescription = $('#product-meta-description').val(),apMetaKeywords = $('#product-meta-keywords').val(),apDescription = $('#product-description').val(),
+	       apCategory = $('#product-category').val(), apModel = $('#product-model').val(),apSKU = $('#product-sku').val(),
+	       apUPC = $('#product-upc').val(), apEAN = $('#product-ean').val(), apJAN = $('#product-jan').val(),
+		   apISBN = $('#product-isbn').val(), apMPN = $('#product-mpn').val(), apLocation = $('#product-location').val(),
+		   apTaxClass = $('#product-tax-class').val(), apQty = $('#product-qty').val(), apMinQty = $('#product-min-qty').val(),
+		   apShipping = $('#product-shipping').val(), apDateAvailable = $('#product-date-available').val(),
+		   apWidth = $('#product-width').val(), apHeight = $('#product-height').val(), apLength = $('#product-length').val(),
+		   apStatus = $('#product-status').val(), apManufacturer = $('#product-manufacturer').val(), apSEO = $('#add-seo-keywords').val(),
+		   
+		   validation = (apXF == "" || apName == "" || apMetaTitle == "" || apModel == "" || apManufacturer == "none" || apCategory == "none"),
+		   apImages = $(`#product-images input[type=file]`), emptyImage = false;
+		   
+		   for(let i = 0; i < apImages.length; i++){
+			   if(apImages[i].files.length < 1) emptyImage = true;
+		   }
+		  
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all the required fields"
+           })
+	   }
+	   
+	   else{
+	
+		 let fd =  new FormData();
+		 fd.append("xf",apXF);
+		 fd.append("name",apName);
+		 fd.append("price",apPrice);
+		 fd.append("description",apDescription);
+		 fd.append("meta_title",apMetaTitle);
+		 fd.append("meta_description",apMetaDescription);
+		 fd.append("meta_keywords",apMetaKeywords);
+		 fd.append("model",apModel);
+		 fd.append("sku",apSKU);
+		 fd.append("upc",apUPC);
+		 fd.append("ean",apEAN);
+		 fd.append("jan",apJAN);
+		 fd.append("isbn",apISBN);
+		 fd.append("mpn",apMPN);
+		 fd.append("location",apLocation);
+		 fd.append("tax_class",apTaxClass);
+		 fd.append("qty",apQty);
+		 fd.append("min_qty",apMinQty);
+		 fd.append("shipping",apShipping);
+		 fd.append("date_available",apDateAvailable);
+		 fd.append("length",apLength);
+		 fd.append("width",apWidth);
+		 fd.append("height",apHeight);
+		 fd.append("status",apStatus);
+		 fd.append("category",apCategory);
+		 fd.append("manufacturer",apManufacturer);
+		 fd.append("seo_keywords",apSEO);
+		
+		 fd.append("cover",apCover);
+		 fd.append("img_count",apImages.length);
+		 
+		 for(let r = 0; r < apImages.length; r++)
+		 {
+		    let imgg = apImages[r];
+			let imgName = `ap-image-${r}`;
+            //console.log("imgg name: ",imgName);			
+            fd.append(imgName,imgg.files[0]);   			   			
+		 }
+		 
+		 /**
+		 for(let vv of fd.values()){
+			 console.log("vv: ",vv);
+		 }
+		 **/
+		  fd.append("_token",tkProduct);
+		  
+		  $('#ap-submit').hide();
+		  $('#ap-loading').fadeIn();
+		  updateProduct(fd);  
 		  
 	   }
     });

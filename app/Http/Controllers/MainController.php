@@ -2086,170 +2086,6 @@ class MainController extends Controller {
 		}
     }
 	
-	/**
-	 * Show the Add Products view.
-	 *
-	 * @return Response
-	 */
-	public function getBulkUploadProducts(Request $request)
-    {
-		$user = null;
-		$nope = false;
-		$v = "";
-		
-		$signals = $this->helpers->signals;
-		$plugins = $this->helpers->getPlugins();
-		$cpt = ['user','signals','plugins'];
-				
-		if(Auth::check())
-		{
-			$user = Auth::user();
-			
-			if($this->helpers->isAdmin($user))
-			{
-				$hasPermission = $this->helpers->hasPermission($user->id,['view_tickets','edit_tickets']);
-				#dd($hasPermission);
-				$req = $request->all();
-				
-				if($hasPermission)
-				{
-					$v = "buup";
-					$c = $this->helpers->getCategories();
-					array_push($cpt,'c');
-				}
-				else
-				{
-					session()->flash("permissions-status-error","ok");
-					return redirect()->intended('/');
-				}
-								
-			}
-			else
-			{
-				Auth::logout();
-				$u = url('/');
-				return redirect()->intended($u);
-			}
-		}
-		else
-		{
-			$v = "login";
-		}
-		return view($v,compact($cpt));
-    }
-	
-	/**
-	 * Handle add products.
-	 *
-	 * @return Response
-	 */
-	public function postBulkUploadProducts(Request $request)
-    {
-		$user = null;
-		if(Auth::check())
-		{
-			$user = Auth::user();
-			
-			if($this->helpers->isAdmin($user))
-			{
-				$hasPermission = $this->helpers->hasPermission($user->id,['view_apartments','edit_apartments']);
-				#dd($hasPermission);
-				$req = $request->all();
-				$ret = ['status' => "error",'message' => "nothing happened"];
-				
-				if($hasPermission)
-				{
-				
-				#dd($req);
-				
-				$validator = Validator::make($req,[
-		                    'dt' => 'required',
-		                   ]);
-						
-				if($validator->fails())
-                {
-                  $ret['message'] = "validation";
-                }
-				else
-				{
-					$dtt = json_decode($req['dt']);
-					$id = substr($dtt->id,1);
-				$p = $dtt->data;
-				
-				$rr = [
-				  'name' => $p->name,
-				  'category' => $p->category,
-                             'description' => $p->desc,                        
-                             'in_stock' => $p->status,                        
-                             'amount' => $p->price,
-                             'qty' => $p->stock,
-				];
-				
-				$coverImg = isset($req[$id."-cover"]) ? $req[$id."-cover"] : null;
-				$img = isset($req[$id.'-images']) ? $request->file($id.'-images') : null;
-                $ird = [];
-					$ird = [];
-                    $networkError = false;
-				
-                    for($i = 0; $i < count($img); $i++)
-                    {           
-             	      $imgg = $this->helpers->uploadCloudImage($img[$i]->getRealPath());
-						
-					  if(isset($imgg['status']) && $imgg['status'] == "error")
-					  {
-						  $networkError = true;
-						  break;
-					  }
-					  else
-					  {
-						$ci = ($coverImg != null && $coverImg == $i) ? "yes": "no";
-					    $temp = [
-					       'public_id' => $imgg['public_id'],
-					       'delete_token' => $imgg['delete_token'],
-					       'deleted' => "no",
-					       'ci' => $ci,
-						   'type' => "image"
-						  ];
-			             array_push($ird, $temp);  
-					  }
-             	        
-                      										
-					}
-					
-					if($networkError)
-					{
-						$ret['message'] = "network";
-					}
-					else
-					{
-						$rr['user_id'] = "admin";
-					    $rr['ird'] = $ird;
-
-			            $this->helpers->createProduct($rr);
-			             $ret = ['status' => "ok"];
-					}
-				 }
-				 return json_encode($ret);
-				}
-				else
-				{
-					session()->flash("permissions-status-error","ok");
-					return redirect()->intended("/");
-				}
-			}
-			else
-			{
-				Auth::logout();
-				$u = url('/');
-				return redirect()->intended($u);
-			}
-		}
-		else
-		{
-			return redirect()->intended('/');
-		}
-    }
-	
 	
 	/**
 	 * Show list of products on the platform.
@@ -2340,7 +2176,7 @@ class MainController extends Controller {
 				{
 					$v = "product";
 					$p = $this->helpers->getProduct($req['xf'],['host' => true,'imgId' => true]);
-					dd($p);
+					#dd($p);
 					if(count($p) < 1)
 					{
 						session()->flash("validation-status-error","ok");
@@ -2382,8 +2218,116 @@ class MainController extends Controller {
 		return view($v,compact($cpt));
     }
 	
+	/**
+	 * Handle update product.
+	 *
+	 * @return Response
+	 */
+	public function postProduct(Request $request)
+    {
+		$user = null;
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			
+			if($this->helpers->isAdmin($user))
+			{
+				$hasPermission = $this->helpers->hasPermission($user->id,['view_apartments','edit_apartments']);
+				#dd($hasPermission);
+				$req = $request->all();
+				$ret = ['status' => "error",'message' => "nothing happened"];
+				
+				if($hasPermission)
+				{
+				#dd($req);
+				
+				$validator = Validator::make($req,[
+		                    'xf' => 'required',
+		                    'name' => 'required',
+		                    'meta_title' => 'required',
+		                    'model' => 'required',
+		                    'category' => 'required|not_in:none',
+		                    'manufacturer' => 'required|not_in:none',
+		                    'status' => 'required|not_in:none',
+		                   ]);
+						
+				if($validator->fails())
+                {
+                  $ret['message'] = "validation";
+                }
+				else
+				{
+					$ird = [];
+                    $networkError = false;
+				    
+					$iv = (isset($req['img_count']) && $req['img_count'] > 0 && isset($req['cover']));
+					if($iv)
+					{
+                    for($i = 0; $i < $req['img_count']; $i++)
+                    {
+            		  $img = $request->file("ap-image-".$i);
+					  if($img != null)
+					  {
+					     $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
+						
+					     if(isset($imgg['status']) && $imgg['status'] == "error")
+					     {
+						   $networkError = true;
+						   break;
+					     }
+					     else
+					     {
+						   $ci = ($req['cover'] != null && $req['cover'] == $i) ? "yes": "no";
+					       $temp = [
+					         'public_id' => $imgg['public_id'],
+					         'delete_token' => $imgg['delete_token'],
+					         'deleted' => "no",
+					         'ci' => $ci,
+						     'type' => "image"
+						   ];
+			               array_push($ird, $temp);  
+					    }
+					 } 
+                      										
+					}
+					}
+					
+					if($networkError)
+					{
+						$ret['message'] = "network";
+					}
+					else
+					{
+						$req['user_id'] = "admin";
+					    $req['ird'] = $ird;
+					    $this->helpers->updateProduct($req);
+			             $ret = ['status' => "ok"];
+					}
+				 }
+				 return json_encode($ret);
+				}
+				else
+				{
+					session()->flash("permissions-status-error","ok");
+					return redirect()->intended("/");
+				}
+			}
+			else
+			{
+				Auth::logout();
+				$u = url('/');
+				return redirect()->intended($u);
+			}
+		}
+		else
+		{
+			return redirect()->intended('/');
+		}
+    }
+	
+	
 	 /**
-	 * Handle Remove Apartment.
+	 * Handle Remove Product.
 	 *
 	 * @return Response
 	 */

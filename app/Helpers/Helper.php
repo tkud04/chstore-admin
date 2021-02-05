@@ -824,7 +824,7 @@ $subject = $data['subject'];
 				$ret['mpn'] = isset($data['mpn']) && $data['mpn'] != null ? $data['mpn'] : "";
 				$ret['location'] = isset($data['location']) && $data['location'] != null ? $data['location'] : "";	
 				$ret['tax_class'] = isset($data['tax_class']) && $data['tax_class'] != null ? $data['tax_class'] : "none";
-				$ret['qty'] = isset($data['qty']) && $data['qty'] != null ? $data['qty'] : "";
+				$ret['qty'] = isset($data['qty']) && $data['qty'] != null ? $data['qty'] : "0";
 				$ret['min_qty'] = isset($data['min_qty']) && $data['min_qty'] != null ? $data['min_qty'] : "";
 				$ret['shipping'] = isset($data['shipping']) && $data['shipping'] != null ? $data['shipping'] : "none";
 				$ret['date_available'] = isset($data['date_available']) && $data['date_available'] != null ? $data['date_available'] : "";
@@ -995,7 +995,7 @@ $subject = $data['subject'];
 				  $temp['product_id'] = $pd->product_id;
 				  $temp['amount'] = $pd->amount;
 				  $temp['description'] = $pd->description;
-				  $temp['meta_title'] = $pd->meta_description;
+				  $temp['meta_title'] = $pd->meta_title;
 				  $temp['meta_description'] = $pd->meta_description;
 				  $temp['meta_keywords'] = $pd->meta_keywords;
 				  $temp['location'] = $pd->location;
@@ -1003,6 +1003,7 @@ $subject = $data['subject'];
 				  $temp['tax_class'] = $pd->tax_class;
 				  $temp['shipping'] = $pd->shipping;
 				  $temp['date_available'] = $pd->date_available;
+				  $temp['da'] = Carbon::parse($pd['date_available']);
 				  $temp['length'] = $pd->length;
 				  $temp['width'] = $pd->width;
 				  $temp['height'] = $pd->height;
@@ -1046,49 +1047,49 @@ $subject = $data['subject'];
 			  
 		     if($p != null && $pd != null)
 		     {
-				$ret['name'] = isset($data['name']) ? $data['name'] : "";
-				$ret['amount'] = isset($data['price']) ? $data['price'] : "0";
-				$ret['description'] = isset($data['description']) ? $data['description'] : "";
-				$ret['meta_title'] = isset($data['meta_title']) ? $data['meta_title'] : "";
-				$ret['meta_description'] = isset($data['meta_description']) ? $data['meta_description'] : "";
-				$ret['meta_keywords'] = isset($data['meta_keywords']) ? $data['meta_keywords'] : "";
-				$ret['model'] = isset($data['model']) ? $data['model'] : "";
-				$ret['sku'] = isset($data['sku']) ? $data['sku'] : "";
-				$ret['upc'] = isset($data['upc']) ? $data['upc'] : "";
-				$ret['ean'] = isset($data['ean']) ? $data['ean'] : "";
-				$ret['jan'] = isset($data['jan']) ? $data['jan'] : "";
-				$ret['isbn'] = isset($data['isbn']) ? $data['isbn'] : "";
-				$ret['mpn'] = isset($data['mpn']) ? $data['mpn'] : "";
-				$ret['location'] = isset($data['location']) ? $data['location'] : "";	
-				$ret['tax_class'] = isset($data['tax_class']) ? $data['tax_class'] : "none";
-				$ret['qty'] = isset($data['qty']) ? $data['qty'] : "";
-				$ret['min_qty'] = isset($data['min_qty']) ? $data['min_qty'] : "";
-				$ret['shipping'] = isset($data['shipping']) ? $data['shipping'] : "none";
-				$ret['date_available'] = isset($data['date_available']) ? $data['date_available'] : "";
-				$ret['length'] = isset($data['length']) ? $data['length'] : "";
-				$ret['width'] = isset($data['width']) ? $data['width'] : "";
-				$ret['height'] = isset($data['height']) ? $data['height'] : "";
-				$ret['status'] = isset($data['status']) ? $data['status'] : "none";
-				$ret['category'] = isset($data['category']) ? $data['category'] : "none";
-				$ret['manufacturer'] = isset($data['manufacturer']) ? $data['manufacturer'] : "none";
-				$ret['seo_keywords'] = isset($data['seo_keywords']) ? $data['seo_keywords'] : "";
+				$ret['name'] = isset($data['name']) && $data['name'] != null ? $data['name'] : "";
+				$ret['amount'] = isset($data['price']) && $data['price'] != null ? $data['price'] : "0";
+				$ret['description'] = isset($data['description']) && $data['description'] != null ? $data['description'] : "";
+				$ret['meta_title'] = isset($data['meta_title']) && $data['meta_title'] != null ? $data['meta_title'] : "";
+				$ret['meta_description'] = isset($data['meta_description']) && $data['meta_description'] != null ? $data['meta_description'] : "";
+				$ret['meta_keywords'] = isset($data['meta_keywords']) && $data['meta_keywords'] != null ? $data['meta_keywords'] : "";
+				$ret['model'] = isset($data['model']) && $data['model'] != null ? $data['model'] : "";
+				$ret['sku'] = isset($data['sku']) && $data['sku'] != null ? $data['sku'] : "";
+				$ret['upc'] = isset($data['upc']) && $data['upc'] != null ? $data['upc'] : "";
+				$ret['ean'] = isset($data['ean']) && $data['ean'] != null ? $data['ean'] : "";
+				$ret['jan'] = isset($data['jan']) && $data['jan'] != null ? $data['jan'] : "";
+				$ret['isbn'] = isset($data['isbn']) && $data['isbn'] != null ? $data['isbn'] : "";
+				$ret['mpn'] = isset($data['mpn']) && $data['mpn'] != null ? $data['mpn'] : "";
+				$ret['location'] = isset($data['location']) && $data['location'] != null ? $data['location'] : "";	
+				$ret['tax_class'] = isset($data['tax_class']) && $data['tax_class'] != null ? $data['tax_class'] : "none";
+				$ret['qty'] = isset($data['qty']) && $data['qty'] != null ? $data['qty'] : "0";
+				$ret['min_qty'] = isset($data['min_qty']) && $data['min_qty'] != null ? $data['min_qty'] : "";
+				$ret['shipping'] = isset($data['shipping']) && $data['shipping'] != null ? $data['shipping'] : "none";
+				$ret['date_available'] = isset($data['date_available']) && $data['date_available'] != null ? $data['date_available'] : "";
+				$ret['length'] = isset($data['length']) && $data['length'] != null ? $data['length'] : "";
+				$ret['width'] = isset($data['width']) && $data['width'] != null ? $data['width'] : "";
+				$ret['height'] = isset($data['height']) && $data['height'] != null ? $data['height'] : "";
+				$ret['status'] = isset($data['status']) && $data['status'] != null ? $data['status'] : "none";
+				$ret['category'] = isset($data['category']) && $data['category'] != null ? $data['category'] : "none";
+				$ret['manufacturer'] = isset($data['manufacturer']) && $data['manufacturer'] != null ? $data['manufacturer'] : "none";
+				$ret['seo_keywords'] = isset($data['seo_keywords']) && $data['seo_keywords'] != null ? $data['seo_keywords'] : "";
 				
 				$p->update(['name' => $ret['name'],                                                                                                          
                                                       'sku' => $ret['sku'], 
                                                       'model' => $ret['model'], 
-                                                      'upc' => $ret['model'], 
-                                                      'ean' => $ret['model'], 
-                                                      'jan' => $ret['model'], 
-                                                      'isbn' => $ret['model'], 
-                                                      'mpn' => $ret['model'], 
+                                                      'upc' => $ret['upc'], 
+                                                      'ean' => $ret['ean'], 
+                                                      'jan' => $ret['jan'], 
+                                                      'isbn' => $ret['isbn'], 
+                                                      'mpn' => $ret['mpn'], 
                                                       'qty' => $ret['qty'],                                                           
                                                       'seo_keywords' => $ret['seo_keywords'],                                                           
-                                                      'added_by' => $ret['user_id'],
+                                                      'added_by' => "admin",
                                                       'status' =>  $ret['status'], 
                                                       ]);
                       
                 $pd->update([
-				         'product_id' => $ret->id,
+				         'product_id' => $p->id,
 				         'amount' => $ret['amount'],
 				         'description' => $ret['description'],
 				         'meta_title' => $ret['meta_title'],
@@ -1097,8 +1098,8 @@ $subject = $data['subject'];
 				         'location' => $ret['location'],
 				         'min_qty' => $ret['min_qty'],
 				         'tax_class' => $ret['tax_class'],
-				         'shipping' => $ret['amount'],
-				         'date_available' => $ret['shipping'],
+				         'shipping' => $ret['shipping'],
+				         'date_available' => $ret['date_available'],
 				         'length' => $ret['length'],
 				         'width' => $ret['width'],
 				         'height' => $ret['height'],

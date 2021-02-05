@@ -434,6 +434,7 @@ const addProduct = (dt) => {
 			     window.location = `products`;
                 }
               });
+			  window.location = `products`;
 		   }
 		   else if(res.status == "error"){
 			   let hh = ``;
@@ -459,7 +460,78 @@ const addProduct = (dt) => {
 		   
 		  
 	   }).catch(error => {
-		     alert("Failed to add apartment: " + error);			
+		     alert("Failed to add product: " + error);			
+			$('#pa-loading').hide();
+		     $('#pa-submit').fadeIn();			
+	   });
+}
+
+const updateProduct = (dt) => {
+	//create request
+	const req = new Request("product",{method: 'POST', body: dt});
+	//console.log(req);
+	
+	
+	//fetch request
+	fetch(req)
+	   .then(response => {
+		   if(response.status === 200){
+			   //console.log(response);
+			   
+			   return response.json();
+		   }
+		   else{
+			   return {status: "error", message: "Technical error"};
+		   }
+	   })
+	   .catch(error => {
+		     Swal.fire({
+			     icon: 'error',
+                 title: hh,
+                 html: `Failed to update product: <b>${error}</b>`,
+               });
+                $('#ap-loading').hide();
+		        $('#ap-submit').fadeIn();
+	   })
+	   .then(res => {
+		   console.log(res);
+          
+		   if(res.status == "ok"){
+              Swal.fire({
+			     icon: 'success',
+                 title: "Product updated!"
+               }).then((result) => {
+               if (result.value) {                 
+			     window.location = `products`;
+                }
+              });
+			  window.location = `products`;
+		   }
+		   else if(res.status == "error"){
+			   let hh = ``;
+			   if(res.message == "validation"){
+				 hh = `Please fill all required fields and try again.`;  
+			   }
+			   else if(res.message == "network"){
+				 hh = `A network error has occured, please check your connection and try again.`;  
+			   }
+			   else if(res.message == "Technical error"){
+				 hh = `A technical error has occured, please try again.`;  
+			   }else if(res.message == "nothing happened"){
+				 hh = `Nothing happened, please try again.`;  
+			   }
+			   Swal.fire({
+			     icon: 'error',
+                 title: hh
+               });
+                $('#ap-loading').hide();
+		        $('#ap-submit').fadeIn();			   
+		   }
+		  
+		   
+		  
+	   }).catch(error => {
+		     alert("Failed to update product: " + error);			
 			$('#pa-loading').hide();
 		     $('#pa-submit').fadeIn();			
 	   });

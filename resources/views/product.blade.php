@@ -19,6 +19,7 @@ $pd = $p['data'];
 $imgs = $p['imggs'];
 $category = $pd['category'];
 $manufacturer = $pd['manufacturer'];
+$da = $pd['da'];
 ?>
 <script>
 let apImages = [], apImgCount = 1, apCover = "none", tkProduct = "{{csrf_token()}}"; 
@@ -72,6 +73,7 @@ $(document).ready(() => {
 									   
 									    <div class="row">
 										  <div class="col-md-12">
+										  <input type="hidden" id="product-xf" value="{{$p['id']}}">
 										    <div class="form-group">
                                               <label>Product name <span class="req">*</span></label>
                                               <input id="product-name" type="text" value="{{$p['name']}}" placeholder="Product name" class="form-control">
@@ -144,11 +146,11 @@ $(document).ready(() => {
                                             </div>
 											<div class="form-group mt-2">
                                                <label>Location</label>
-                                               <input id="product-location" type="text" value="{{$p['location']}}" placeholder="Location" class="form-control">
+                                               <input id="product-location" type="text" value="{{$pd['location']}}" placeholder="Location" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                <label> Price (&#163;)</label>
-                                               <input id="product-price" type="text" value="{{$p['amount']}}" placeholder="Price" class="form-control">
+                                               <input id="product-price" type="text" value="{{number_format($pd['amount'],2)}}" placeholder="Price" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                <label>Tax class</label>
@@ -160,7 +162,7 @@ $(document).ready(() => {
 												  {
 												  $ss = $pd['tax_class'] == $k ? " selected='selected'" : "";
 												 ?>
-											     <option value="{{k}}"{{$ss}}>{{$v}}</option>
+											     <option value="{{$k}}"{{$ss}}>{{$v}}</option>
 												 <?php
 												  }
 												 ?>
@@ -194,7 +196,7 @@ $(document).ready(() => {
                                             </div>
 											<div class="form-group mt-2">
                                                <label>Date available</label>
-                                               <input id="product-date-available" type="date" value="{{$pd['date_available']}}" placeholder="Date available" class="form-control">
+                                               <input id="product-date-available" type="date" value="{{$da->format('Y-m-d')}}" placeholder="Date available" class="form-control">
                                             </div>
 											<div class="row">
 											  <div class="col-md-12">
@@ -309,25 +311,28 @@ $(document).ready(() => {
 													  </ol>
                                                       <div class="carousel-inner">
 													    <?php
-														
+														  for($j = 0; $j < count($imgs); $j++)
+														  {
+															  $cClass = "";
+															  if($j == 0) $cClass = " active";
+															  else if($j == 1) $cClass = " carousel-item-next";
 														?>
-                                                        <div class="carousel-item active carousel-item-left">
-                                                          <img class="d-block w-100" src="../assets/images/card-img-1.jpg" alt="First slide">
+                                                        <div class="carousel-item{{$cClass}}">
+                                                          <img class="d-block" src="{{$imgs[$j]}}" alt="{{$p['name']}}">
                                                         </div>
-                                        <div class="carousel-item carousel-item-next carousel-item-left">
-                                            <img class="d-block w-100" src="../assets/images/card-img-2.jpg" alt="Second slide">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img class="d-block w-100" src="../assets/images/card-img-3.jpg" alt="Third slide">
-                                        </div>
+														<?php
+														  }
+														?>
                                                       </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                       <span class="sr-only">Previous</span>  </a>
-                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>  </a>
-                                </div>
+                                                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Previous</span>  
+													  </a>
+                                                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Next</span>
+													  </a>
+                                                    </div>
 								                 <?php
 												   }
 												 ?>
@@ -366,7 +371,7 @@ $(document).ready(() => {
                                               <label>
 											   Keywords <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique."><i class="fas fa-question-circle"></i> </a>
 											   </label>
-                                              <input id="product-seo-keywords" type="text" placeholder="Keywords" class="form-control">
+                                              <input id="product-seo-keywords" type="text" value="{{$p['seo_keywords']}}" placeholder="Keywords" class="form-control">
                                             </div>
 											
 										  </div>

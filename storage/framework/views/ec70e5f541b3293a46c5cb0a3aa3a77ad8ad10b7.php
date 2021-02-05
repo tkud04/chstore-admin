@@ -82,8 +82,8 @@ $subtitle = "View all products";
                                                <td><img class="img-fluid" onclick="window.location='<?php echo e($uu); ?>'" src="<?php echo e($imgs[0]); ?>" alt="<?php echo e($name); ?>" style="cursor: pointer; width: 100px; height: 100px;"/></td> 
 											   <td> <a href="<?php echo e($uu); ?>"><h4><?php echo e(ucwords($name)); ?></h4></a> </td> 
 												<td><a href="<?php echo e($uu); ?>"><h4><?php echo e($p['model']); ?></h4></a></td>	
-                                                <td>&#163;<?php echo e(number_format($pd['amount'],2)); ?></td><td><?php echo e($p['qty']); ?></td>
-                                                <td><?php echo e($p['date']); ?></td>
+                                                <td>&#163;<?php echo e(number_format($pd['amount'],2)); ?></td>
+												<td><?php echo e($p['qty']); ?></td>
                                                 <td><span class="label label-<?php echo e($statusClass); ?>"><?php echo e(strtoupper($sss)); ?></span></td>
                                                 <td>
 												 <a class="btn btn-<?php echo e($arrClass); ?> btn-sm" href="<?php echo e($arr); ?>"><?php echo e($arrText); ?></a>

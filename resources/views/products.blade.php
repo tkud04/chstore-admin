@@ -82,8 +82,8 @@ $subtitle = "View all products";
                                                <td><img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/></td> 
 											   <td> <a href="{{$uu}}"><h4>{{ucwords($name)}}</h4></a> </td> 
 												<td><a href="{{$uu}}"><h4>{{$p['model']}}</h4></a></td>	
-                                                <td>&#163;{{number_format($pd['amount'],2)}}</td><td>{{$p['qty']}}</td>
-                                                <td>{{$p['date']}}</td>
+                                                <td>&#163;{{number_format($pd['amount'],2)}}</td>
+												<td>{{$p['qty']}}</td>
                                                 <td><span class="label label-{{$statusClass}}">{{strtoupper($sss)}}</span></td>
                                                 <td>
 												 <a class="btn btn-{{$arrClass}} btn-sm" href="{{$arr}}">{{$arrText}}</a>
