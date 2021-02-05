@@ -2283,7 +2283,7 @@ class MainController extends Controller {
 				$v = "products";
 				$req = $request->all();
                 $products = $this->helpers->getProducts();
-				dd($products);
+				#dd($products);
                 array_push($cpt,'products');
                 }
 				else
@@ -2339,16 +2339,20 @@ class MainController extends Controller {
 				if(isset($req['xf']))
 				{
 					$v = "product";
-					$product = $this->helpers->getProduct($req['xf'],['host' => true,'imgId' => true]);
-					dd($product);
-					if(count($product) < 1)
+					$p = $this->helpers->getProduct($req['xf'],['host' => true,'imgId' => true]);
+					dd($p);
+					if(count($p) < 1)
 					{
 						session()->flash("validation-status-error","ok");
 						return redirect()->intended('products');
 					}
 					else
 					{
-						array_push($cpt,'product');                                 
+						 $manufacturers = $this->helpers->getManufacturers();
+				         $categories = $this->helpers->getCategories();
+				         array_push($cpt,'manufacturers');
+				         array_push($cpt,'categories');
+						 array_push($cpt,'p');                                 
 					}
 				}
 				else

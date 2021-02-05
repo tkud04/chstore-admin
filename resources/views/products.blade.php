@@ -40,10 +40,11 @@ $subtitle = "View all products";
                                     <table class="table table-striped table-bordered first etuk-table">
                                         <thead>
                                             <tr>
-                                                <th>Product</th>
-                                                <th>Stock</th>
-												<th>Price</th>
-                                                <th>Date Added</th>
+                                                <th>Image</th>
+                                                <th>Product name</th>
+												<th>Model</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -78,22 +79,10 @@ $subtitle = "View all products";
 												   $ar = 3;
 										  ?>
                                             <tr>
-                                               <td>
-												  <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/>
-												  <a href="{{$uu}}"><h4>{{ucwords($name)}}</h4></a>					  
-												  SKU: <a href="{{$uu}}"><h4>{{$p['sku']}}</h4></a><br>	
-                                                    <h3>
-												   @for($i = 0; $i < $ar; $i++)
-												     <i class="fas fa-star"></i>
-											       @endfor
-												  </h3>													  
-												</td>
-												<td>
-												{{$p['qty']}}					  
-												</td>
-                                                <td>
-												  &#163;{{number_format($pd['amount'],2)}}<br>
-												</td>
+                                               <td><img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/></td> 
+											   <td> <a href="{{$uu}}"><h4>{{ucwords($name)}}</h4></a> </td> 
+												<td><a href="{{$uu}}"><h4>{{$p['model']}}</h4></a></td>	
+                                                <td>&#163;{{number_format($pd['amount'],2)}}</td><td>{{$p['qty']}}</td>
                                                 <td>{{$p['date']}}</td>
                                                 <td><span class="label label-{{$statusClass}}">{{strtoupper($sss)}}</span></td>
                                                 <td>

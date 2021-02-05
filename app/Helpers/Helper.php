@@ -741,14 +741,14 @@ $subject = $data['subject'];
 		   {
 			   $ret = [];
                  # dd($dt);       
-               if(count($dt) < 1) { $ret = ["img/no-image.png"]; }
+               if(count($dt) < 1) { $ret = [asset("images/avatar-2.jpg")]; }
                
 			   else
 			   {
                    $ird = isset($dt[0]['url']) ? $dt[0]['url'] : $dt[0];
 				   if($ird == "none")
 					{
-					   $ret = ["img/no-image.png"];
+					   $imgg = asset("images/avatar-2.jpg");
 					}
 				   else
 					{
@@ -861,8 +861,8 @@ $subject = $data['subject'];
 				         'location' => $ret['location'],
 				         'min_qty' => $ret['min_qty'],
 				         'tax_class' => $ret['tax_class'],
-				         'shipping' => $ret['amount'],
-				         'date_available' => $ret['shipping'],
+				         'shipping' => $ret['shipping'],
+				         'date_available' => $ret['date_available'],
 				         'length' => $ret['length'],
 				         'width' => $ret['width'],
 				         'height' => $ret['height'],
@@ -904,8 +904,8 @@ $subject = $data['subject'];
 				         'location' => $data['location'],
 				         'min_qty' => $data['min_qty'],
 				         'tax_class' => $data['tax_class'],
-				         'shipping' => $data['amount'],
-				         'date_available' => $data['shipping'],
+				         'shipping' => $data['shipping'],
+				         'date_available' => $data['date_available'],
 				         'length' => $data['length'],
 				         'width' => $data['width'],
 				         'height' => $data['height'],
