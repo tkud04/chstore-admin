@@ -66,6 +66,14 @@ Route::get('remove-product', 'MainController@getRemoveProduct');
 Route::get('ups', 'MainController@getUpdateProductStatus');
 Route::get('tph', 'MainController@getTopPerformingHosts');
 
+//Information
+Route::get('information', 'MainController@getInformation');
+Route::get('add-information', 'MainController@getAddInformation');
+Route::get('edit-information', 'MainController@getEditInformation');
+Route::post('add-information', 'MainController@postAddInformation');
+Route::post('edit-information', 'MainController@postEditInformation');
+Route::get('remove-information', 'MainController@getRemoveInformation');
+
 //Reviews
 Route::get('reviews', 'MainController@getReviews');
 Route::get('arr', 'MainController@getApproveRejectReview');

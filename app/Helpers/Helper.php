@@ -18,6 +18,7 @@ use App\Discounts;
 use App\ProductData;
 use App\ProductImages;
 use App\Reviews;
+use App\Information;
 use App\Ads;
 use App\Banners;
 use App\Orders;
@@ -86,7 +87,9 @@ class Helper implements HelperContract
 					 "add-manufacturer-status" => "Manufacturer added",
                      "remove-manufacturer-status" => "Manufacturer removed",
                      "update-manufacturer-status" => "Manufacturer updated",
-                     
+                     "add-information-status" => "Information added",
+                     "update-information-status" => "Information updated",
+                     "remove-information-status" => "Information removed",
 					 //ERRORS
 					 "login-status-error" => "There was a problem signing in, please contact support.",
 					 "signup-status-error" => "There was a problem signing in, please contact support.",
@@ -117,7 +120,9 @@ class Helper implements HelperContract
 					"bulk-upload-products-status-error" => "There was a problem uploading products, please try again.",
 					"add-manufacturer-status-error" => "There was a problem adding the manufacturer, please try again.",
                      "remove-manufacturer-status-error" => "There was a problem removing the manufacturer, please try again.",
-                     "update-manufacturer-status-error" => "There was a problem updating the manufacturer, please try again."
+                     "update-manufacturer-status-error" => "There was a problem updating the manufacturer, please try again.",
+					 "add-information-status-error" => "There was a problem adding information, please try again.",
+					 "update-information-status-error" => "There was a problem updating information, please try again.",
                    ],
 				   'errors' => []
 				   ];
@@ -1572,6 +1577,81 @@ $subject = $data['subject'];
 				  $m->delete();
 			   }
 		   }
+		   
+		   
+		    function addInformation($data)
+           {
+           	$i = Information::create([
+			   'title' => $data['title'],
+			   'content' => $data['content']
+			]);                          
+            return $i;
+           }
+		   
+		   function getInformation()
+           {
+           	$ret = [];
+           	$ii = Information::where('id','>','0')->get();
+              // dd($cart);
+			  
+              if($ii != null)
+               {           	
+               	foreach($ii as $i) 
+                    {
+						$temp = $this->getInformationSingle($i->id);
+						array_push($ret,$temp);
+                    }
+               }                                 
+                                                      
+                return $ret;
+           }
+		   
+		   function getInformationSingle($id)
+           {
+           	$ret = [];
+           	$i = Information::where('id',$id)->first();
+              // dd($cart);
+			  
+              if($i != null)
+               {           	
+						$temp = [];
+						$temp['id'] = $i->id;
+						$temp['title'] = $i->title;
+						$temp['content'] = $i->content;
+						$temp['date'] = $i->created_at->format("jS F, Y"); 
+						$ret = $temp;
+               }                                 
+                                                      
+                return $ret;
+           }
+		   
+		   function updateInformation($data)
+           {
+			  $i = Information::where('id',$data['xf'])->first();
+			  
+			  $ret = [];
+			  if(isset($data['title'])) $ret['title'] = $data['title'];
+			  if(isset($data['content'])) $ret['content'] = $data['content'];
+			  
+			if($i != null)
+			{
+				$i->update($ret);
+			}
+
+                return "ok";
+           }
+		   
+		   function removeInformation($dt)
+		   {
+			   $ret = [];
+			   $i = Information::where('id',$dt)->first();
+			   
+			   if(!is_null($i))
+			   {
+				  $i->delete();
+			   }
+		   }
+		   
 		   
 		   function createAd($data)
            {

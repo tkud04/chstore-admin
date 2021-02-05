@@ -422,6 +422,53 @@ $(document).ready(function() {
 	   
     });
 	
+	//ADD INFORMATION
+	$("#add-information-submit").click(e => {
+       e.preventDefault();
+	   
+	   //validation
+	   let aiTitle = $('#add-information-title').val(), aiContent = $('#add-information-content').val(),
+   	       validation = (aiTitle == "" || aiContent == "");
+			
+	        
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all required fields."
+           })
+	   }
+	   
+	   else{	 
+		 $('#add-information-form').submit();
+	   }
+	   
+	   
+    });
+	
+	
+	//UPDATE INFORMATION
+	$("#information-submit").click(e => {
+       e.preventDefault();
+	   
+	   //validation
+	   let aiTitle = $('#add-information-title').val(), aiContent = $('#add-information-content').val(),
+   	       validation = (aiTitle == "" || aiContent == "");
+			
+	        
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all required fields."
+           })
+	   }
+	   
+	   else{	 
+		 $('#information-form').submit();
+	   }
+	   
+	   
+    });
+	
 	//ADD BANNER
 	$("#ab-form-btn").click(e => {
        e.preventDefault();
