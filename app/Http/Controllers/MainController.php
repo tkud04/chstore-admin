@@ -5346,7 +5346,7 @@ class MainController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getPlans(Request $request)
+	public function getOrders(Request $request)
     {
 		$user = null;
 		$v = "";
@@ -5370,7 +5370,7 @@ class MainController extends Controller {
 				
 				if($hasPermission)
 				{
-				 $v = "plans";
+				 $v = "orders";
 				 $plans = $this->helpers->getPlans();
 				 #dd($posts);
 				 array_push($cpt,'plans');
@@ -5397,11 +5397,11 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Show the Add Plan view.
+	 * Show the Add Order view.
 	 *
 	 * @return Response
 	 */
-	public function getAddPlan(Request $request)
+	public function getAddOrder(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -5423,7 +5423,7 @@ class MainController extends Controller {
 				
 				if($hasPermission)
 				{
-					$v = "add-plan";
+					$v = "add-order";
 					
 				}
 				else
@@ -5448,11 +5448,11 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Handle add plan.
+	 * Handle add order.
 	 *
 	 * @return Response
 	 */
-	public function postAddPlan(Request $request)
+	public function postAddOrder(Request $request)
     {
 		$user = null;
 		if(Auth::check())
@@ -5517,11 +5517,11 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Show the Update Plan view.
+	 * Show the Update Order view.
 	 *
 	 * @return Response
 	 */
-	public function getUpdatePlan(Request $request)
+	public function getUpdateOrder(Request $request)
     {
 		$user = null;
 		$nope = false;
@@ -5548,7 +5548,7 @@ class MainController extends Controller {
                 
 				if(isset($req['xf']))
 				{
-					$v = "plan";
+					$v = "order";
 					$p = $this->helpers->getPlan($req['xf']);
 				    #dd($p);
 					if(count($p) < 1)
@@ -5591,11 +5591,11 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Handle update plan.
+	 * Handle update order.
 	 *
 	 * @return Response
 	 */
-	public function postUpdatePlan(Request $request)
+	public function postUpdateOrder(Request $request)
     {
 		$user = null;
 		
@@ -5662,11 +5662,11 @@ class MainController extends Controller {
 	
 	
 	/**
-	 * Handle remove plan.
+	 * Handle remove order.
 	 *
 	 * @return Response
 	 */
-	public function getRemovePlan(Request $request)
+	public function getRemoveOrder(Request $request)
     {
 		$user = null;
 		if(Auth::check())

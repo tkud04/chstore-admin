@@ -146,14 +146,13 @@ Route::get('post', 'MainController@getUpdatePost');
 Route::post('post', 'MainController@postUpdatePost');
 Route::get('remove-post', 'MainController@getRemovePost');
 
-//Plans
-Route::get('plans', 'MainController@getPlans');
-Route::get('add-plan', 'MainController@getAddPlan');
-Route::post('add-plan', 'MainController@postAddPlan');
-Route::get('plan', 'MainController@getUpdatePlan');
-Route::post('plan', 'MainController@postUpdatePlan');
-Route::get('remove-plan', 'MainController@getRemovePlan');
-Route::get('ed-plan', 'MainController@getEnableDisablePlan');
+//Orders
+Route::get('orders', 'MainController@getOrders');
+Route::get('add-order', 'MainController@getAddOrder');
+Route::post('add-order', 'MainController@postAddOrder');
+Route::get('order', 'MainController@getUpdateOrder');
+Route::post('order', 'MainController@postUpdateOrder');
+Route::get('remove-order', 'MainController@getRemoveOrder');
 
 //Reservation Logs
 Route::get('respond-to-reservation', 'MainController@getRespondToReservation');
