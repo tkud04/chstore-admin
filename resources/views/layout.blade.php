@@ -22,6 +22,11 @@
 	 <!-- bootstrap bundle js -->
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.js')}}"></script>
 	
+			<!--AutoComplete.js--> 
+    <link href="{{asset('lib/autocomplete/css/autoComplete.css')}}" rel="stylesheet">
+    <script src="{{asset('lib/autocomplete/js/autoComplete.js')}}"></script>
+    <script src="{{asset('lib/autocomplete/js/index.js')}}"></script>
+	
 	<!-- custom js -->
 	<script src="{{asset('js/helpers.js').'?ver='.rand(56,99999)}}"></script>
 	<script src="{{asset('js/mmm.js').'?ver='.rand(56,99999)}}"></script>

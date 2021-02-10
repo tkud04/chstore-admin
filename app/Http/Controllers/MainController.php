@@ -5342,7 +5342,7 @@ class MainController extends Controller {
     }
 	
 	/**
-	 * Show list of subscription plans.
+	 * Show list of orders.
 	 *
 	 * @return Response
 	 */
@@ -5371,9 +5371,9 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 				 $v = "orders";
-				 $plans = $this->helpers->getPlans();
+				 $orders = $this->helpers->getOrders();
 				 #dd($posts);
-				 array_push($cpt,'plans');
+				 array_push($cpt,'orders');
 				}
 				else
 				{
@@ -5468,7 +5468,7 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 				
-				#dd($req);
+				dd($req);
 				
 				$validator = Validator::make($req,[
 		                     'name' => 'required',
