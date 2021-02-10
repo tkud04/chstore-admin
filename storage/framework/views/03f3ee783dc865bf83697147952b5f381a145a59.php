@@ -15,10 +15,19 @@ $subtitle = "Add an order.";
 
 <?php $__env->startSection('content'); ?>
 <script>
-let products = [], pCover = "none", tkAddOrder = "<?php echo e(csrf_token()); ?>"; 
+let products = [], pCover = "none", tkAddOrder = "<?php echo e(csrf_token()); ?>"; orderProducts = [];
 
 $(document).ready(() => {
 	hideElem(["#ao-loading"]);
+	
+	 <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+	  products.push({
+		  id: "<?php echo e($p['id']); ?>", 
+		  model: "<?php echo e($p['model']); ?>", 
+		  qty: "<?php echo e($p['qty']); ?>", 
+		  amount: "<?php echo e($p['data']['amount']); ?>"
+		  });
+ <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 });
 </script>
 <div class="row">
@@ -70,9 +79,54 @@ $(document).ready(() => {
 												 ?>
 											   </select>
                                             </div>
-											
+											<div class="mt-5">
+                                             <table class="table table-striped table-bordered first etuk-table">
+                                              <thead>
+                                                <tr>
+                                                  <th>Product</th>
+                                                  <th>Model</th>
+												  <th>Quantity</th>
+                                                  <th>Unit price</th>
+                                                  <th>Total</th>
+                                                  <th>Action</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody id="add-order-products">
+										      
+									    	  </tbody>
+											 </table>
+										     </div>
+											 <div class="row mt-5">
+											   <div class="col-md-6">
+											     <div class="form-group">
+                                                   <label>Product <span class="req">*</span></label>
+                                                   <select id="add-order-product" class="form-control">
+											         <option value="none">Select product</option>
+												      <?php											      
+												        foreach($products as $p)
+												        {
+												      ?>
+											          <option value="<?php echo e($p['id']); ?>"><?php echo e(ucwords($p['name'])); ?></option>
+												      <?php
+												        }
+												       ?>
+											       </select>
+                                                 </div>
+											   </div>
+											   <div class="col-md-6">
+											     <div class="form-group">
+                                                   <label>Quantity <span class="req">*</span></label>
+                                                   <input id="add-order-qty" type="number" placeholder="Quantity" class="form-control">
+                                                 </div>
+											   </div>
+											   <div class="col-sm-12 pl-0">
+                                                <p class="text-right">
+                                                    <button class="btn btn-space btn-secondary" id="add-order-product-submit"><i class="fas fa-plus"></i> Add</button>
+                                                </p>
+                                               </div>
+											 </div>
+										   </div>
 										  </div>
-										</div>
                                        </div>
                                     </div>
 									<div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
@@ -298,6 +352,5 @@ $(document).ready(() => {
                                 </div>
                             </div>
       </div>
-</div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/add-order.blade.php ENDPATH**/ ?>

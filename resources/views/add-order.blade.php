@@ -15,10 +15,20 @@ $subtitle = "Add an order.";
 
 @section('content')
 <script>
-let products = [], pCover = "none", tkAddOrder = "{{csrf_token()}}"; 
+let products = [], pCover = "none", tkAddOrder = "{{csrf_token()}}"; orderProducts = [];
 
 $(document).ready(() => {
 	hideElem(["#ao-loading"]);
+	
+	 @foreach($products as $p)
+	  products.push({
+		  id: "{{$p['id']}}", 
+		  name: "{{$p['name']}}", 
+		  model: "{{$p['model']}}", 
+		  qty: "{{$p['qty']}}", 
+		  amount: "{{$p['data']['amount']}}"
+		  });
+ @endforeach
 });
 </script>
 <div class="row">
@@ -70,9 +80,54 @@ $(document).ready(() => {
 												 ?>
 											   </select>
                                             </div>
-											
+											<div class="mt-5">
+                                             <table class="table table-striped table-bordered first etuk-table">
+                                              <thead>
+                                                <tr>
+                                                  <th>Product</th>
+                                                  <th>Model</th>
+												  <th>Quantity</th>
+                                                  <th>Unit price</th>
+                                                  <th>Total</th>
+                                                  <th>Action</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody id="add-order-products">
+										      
+									    	  </tbody>
+											 </table>
+										     </div>
+											 <div class="row mt-5">
+											   <div class="col-md-6">
+											     <div class="form-group">
+                                                   <label>Product <span class="req">*</span></label>
+                                                   <select id="add-order-product" class="form-control">
+											         <option value="none">Select product</option>
+												      <?php											      
+												        foreach($products as $p)
+												        {
+												      ?>
+											          <option value="{{$p['id']}}">{{ucwords($p['name'])}}</option>
+												      <?php
+												        }
+												       ?>
+											       </select>
+                                                 </div>
+											   </div>
+											   <div class="col-md-6">
+											     <div class="form-group">
+                                                   <label>Quantity <span class="req">*</span></label>
+                                                   <input id="add-order-qty" type="number" placeholder="Quantity" class="form-control">
+                                                 </div>
+											   </div>
+											   <div class="col-sm-12 pl-0">
+                                                <p class="text-right">
+                                                    <button class="btn btn-space btn-secondary" id="add-order-product-submit"><i class="fas fa-plus"></i> Add</button>
+                                                </p>
+                                               </div>
+											 </div>
+										   </div>
 										  </div>
-										</div>
                                        </div>
                                     </div>
 									<div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
@@ -298,5 +353,4 @@ $(document).ready(() => {
                                 </div>
                             </div>
       </div>
-</div>
 @stop

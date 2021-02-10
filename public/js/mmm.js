@@ -776,4 +776,20 @@ $(document).ready(function() {
 	   }
     });
 	
+	//ORDERS
+	$("#add-order-product-submit").click(e => {
+       e.preventDefault();
+	   let p = $('#add-order-product').val(), q = $('#add-order-qty').val(), validation = (p == "none" || q == "" || (typeof q === 'undefined') || parseInt(q) < 1);
+	   
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all the required fields"
+           })
+	   }
+	   else{
+		   orderProducts.push({p: p,q: q});
+		   refreshProducts();
+	   }
+	});
 });

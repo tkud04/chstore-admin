@@ -5425,7 +5425,9 @@ class MainController extends Controller {
 				{
 					$v = "add-order";
 					$customers = $this->helpers->getUsers();
+					$products = $this->helpers->getProducts();
 					array_push($cpt,'customers');
+					array_push($cpt,'products');
 				}
 				else
 				{

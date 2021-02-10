@@ -1039,3 +1039,17 @@ const buupFire = () => {
 		    alert("Failed to send message: " + error);			
 	   });
 }
+
+
+const refreshProducts = () => {
+	console.log(orderProducts);
+	
+	//clear 
+	$('#add-order-products').html("");
+	
+	//new vals
+	for(let i = 0; i < orderProducts.length; i++){
+		let op = orderProducts[i], p = products.find(pp => pp.id == op.p);
+        console.log("p: ",p);		
+	} 
+}
