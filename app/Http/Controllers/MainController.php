@@ -2704,7 +2704,7 @@ class MainController extends Controller {
 				{
 					$v = "category";
 					$c = $this->helpers->getCategory($req['xf']);
-					#dd($t);
+					#dd($c);
 					if(count($c) < 1)
 					{
 						session()->flash("validation-status-error","ok");

@@ -15,7 +15,7 @@ $subtitle = "Add a product to the catalog.";
 
 @section('content')
 <script>
-let apImages = [], apImgCount = 1, apCover = "none", tkProduct = "{{csrf_token()}}"; 
+let apImages = [], apImgCount = 1, apCover = "none", tkAddProduct = "{{csrf_token()}}"; 
 
 $(document).ready(() => {
 	hideElem(["#ap-loading"]);
@@ -150,9 +150,9 @@ $(document).ready(() => {
 												  
 												  foreach($tcs as $k => $v)
 												  {
-												  $ss = $pd['tax_class'] == $k ? " selected='selected'" : "";
+												  
 												 ?>
-											     <option value="{{k}}"{{$ss}}>{{$v}}</option>
+											     <option value="{{$k}}">{{$v}}</option>
 												 <?php
 												  }
 												 ?>

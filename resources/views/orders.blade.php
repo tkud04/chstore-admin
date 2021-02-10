@@ -1,6 +1,6 @@
 <?php
-$title = "Categories";
-$subtitle = "View all categories";
+$title = "Orders";
+$subtitle = "View all orders";
 ?>
 
 @extends('layout')
@@ -33,35 +33,38 @@ $subtitle = "View all categories";
 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">View all categories<a class="btn btn-primary ml-3" href="{{url('add-category')}}">Add Category</a></h5>
+                            <h5 class="card-header">View all orders<a class="btn btn-primary ml-3" href="{{url('add-order')}}">Add Order</a></h5>
                             <h5 class="card-header</h5>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first etuk-table">
                                         <thead>
                                             <tr>
-                                                <th>Category</th>
-												<th>Date Added</th>
-                                                <th>Status</th>
+                                                <th>Order ID</th>
+                                                <th>Customer</th>
+												<th>Status</th>
+                                                <th>Total</th>
+                                                <th>Date added</th>
+                                                <th>Date modified</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 										  <?php
-										   if(count($categories) > 0)
+										  
+										   if(count($orders) > 0)
 										   {
-											  foreach($categories as $c)
+											  foreach($orders as $o)
 											   {
-												 $parent = ['name' => ""];
-												 if(count($c['parent']) > 0) $parent = $c['parent'];
-												 $pp = $parent['name'] == "" ? "" : $parent['name']." > ";
-												  
 												$statusClass = "danger";
 												$arrClass = "success";
 												$arrText = "Enable";
 												
-												$uu = url('category')."?xf=".$c['id'];
-											    $sss = $c['status'];
+
+											   $name = $p['name'];
+											   $pd = $p['data'];
+											   $uu = url('product')."?xf=".$p['id'];
+											    $sss = $p['status'];
 												
 												if($sss == "enabled")
 												{
@@ -69,18 +72,19 @@ $subtitle = "View all categories";
 													$arrClass = "warning";
 													$arrText = "Disable";
 												}
-											   $imgs = $c['image'];
+											   $imgs = $p['imggs'];
 
-												   $arr = url('edc')."?xf=".$c['id']."&type=".strtolower($arrText);
-												   $dr = url('remove-category')."?xf=".$c['id'];
+												   $arr = url('ups')."?xf=".$p['id']."&type=".strtolower($arrText);
+												   $dr = url('remove-product')."?xf=".$p['id'];
+												   #$ar = $a['rating'];
+												   $ar = 3;
 										  ?>
                                             <tr>
-                                               <td>
-												  <img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$c['name']}}" style="cursor: pointer; width: 100px; height: 100px;"/> 	 
-												  <a href="{{$uu}}"><h4>{{ucwords($pp)}}{{ucwords($c['name'])}}</h4></a><br>												  
-												  Tag: <a href="{{$uu}}"><h4 class="badge badge-primary">{{$c['category']}}</h4></a><br>							  
-												</td>
-												<td>{{$c['date']}}</td>
+                                               <td><img class="img-fluid" onclick="window.location='{{$uu}}'" src="{{$imgs[0]}}" alt="{{$name}}" style="cursor: pointer; width: 100px; height: 100px;"/></td> 
+											   <td> <a href="{{$uu}}"><h4>{{ucwords($name)}}</h4></a> </td> 
+												<td><a href="{{$uu}}"><h4>{{$p['model']}}</h4></a></td>	
+                                                <td>&#163;{{number_format($pd['amount'],2)}}</td>
+												<td>{{$p['qty']}}</td>
                                                 <td><span class="label label-{{$statusClass}}">{{strtoupper($sss)}}</span></td>
                                                 <td>
 												 <a class="btn btn-{{$arrClass}} btn-sm" href="{{$arr}}">{{$arrText}}</a>

@@ -15,7 +15,7 @@ $subtitle = "Add a product to the catalog.";
 
 <?php $__env->startSection('content'); ?>
 <script>
-let apImages = [], apImgCount = 1, apCover = "none", tkAddApartment = "<?php echo e(csrf_token()); ?>"; 
+let apImages = [], apImgCount = 1, apCover = "none", tkAddProduct = "<?php echo e(csrf_token()); ?>"; 
 
 $(document).ready(() => {
 	hideElem(["#ap-loading"]);
@@ -66,7 +66,7 @@ $(document).ready(() => {
 										  <div class="col-md-12">
 										    <div class="form-group">
                                               <label>Product name <span class="req">*</span></label>
-                                              <input id="add-product-name" type="text" placeholder="Enter a title for your tip" class="form-control">
+                                              <input id="add-product-name" type="text" placeholder="Product name" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                <label for="aat-message">Description</label>
@@ -145,9 +145,17 @@ $(document).ready(() => {
 											<div class="form-group mt-2">
                                                <label>Tax class</label>
                                                <select id="add-product-tax-class" class="form-control">
-											     <option value="none">Select tax class</option>
-											     <option value="taxable-goods">Taxable goods</option>
-											     <option value="downloadable-products">Taxable goods</option>
+											    <?php
+											     $tcs = ['none' => "Select tax class",'taxable-goods' => "Taxable goods", 'downloadable-products' => "Downloadable products"];
+												  
+												  foreach($tcs as $k => $v)
+												  {
+												  
+												 ?>
+											     <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
+												 <?php
+												  }
+												 ?>
 											   </select>
                                             </div>
 											<div class="form-group mt-2">

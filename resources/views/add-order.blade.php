@@ -15,7 +15,7 @@ $subtitle = "Add an order.";
 
 @section('content')
 <script>
-let products = [], pCover = "none", tkOrder = "{{csrf_token()}}"; 
+let products = [], pCover = "none", tkAddOrder = "{{csrf_token()}}"; 
 
 $(document).ready(() => {
 	hideElem(["#ao-loading"]);
@@ -36,13 +36,13 @@ $(document).ready(() => {
                             <div class="tab-vertical">
                                 <ul class="nav nav-tabs" id="myTab3" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active show" id="general-tab" data-toggle="tab" href="#customer" role="tab" aria-controls="customer" aria-selected="true">Customer Details</a>
+                                        <a class="nav-link active show" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="data-tab" data-toggle="tab" href="#data" role="tab" aria-controls="data" aria-selected="false">Data</a>
+                                        <a class="nav-link" id="payment-tab" data-toggle="tab" href="#payment" role="tab" aria-controls="payment" aria-selected="false">Payment Details</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="links-tab" data-toggle="tab" href="#links" role="tab" aria-controls="links" aria-selected="false">Links</a>
+                                        <a class="nav-link" id="shipping-tab" data-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">Shipping</a>
                                     </li>
 									<li class="nav-item">
                                         <a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="links" aria-selected="false">Images</a>
