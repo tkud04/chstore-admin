@@ -3,19 +3,19 @@ $title = "Add Order";
 $subtitle = "Add an order.";
 ?>
 
-@extends('layout')
-
-@section('title',$title)
 
 
-@section('page-header')
-@include('page-header',['title' => $title,'subtitle' => $subtitle])
-@stop
+<?php $__env->startSection('title',$title); ?>
 
 
-@section('content')
+<?php $__env->startSection('page-header'); ?>
+<?php echo $__env->make('page-header',['title' => $title,'subtitle' => $subtitle], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('content'); ?>
 <script>
-let products = [], pCover = "none", tkAddOrder = "{{csrf_token()}}"; 
+let products = [], pCover = "none", tkAddOrder = "<?php echo e(csrf_token()); ?>"; 
 
 $(document).ready(() => {
 	hideElem(["#ao-loading"]);
@@ -24,11 +24,11 @@ $(document).ready(() => {
 <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
 	    <div class="text-left" >
-		  <h4 id="ao-loading">Processing.. <img src="{{asset('images/loading.gif')}}" class="img img-fluid" alt="Processing.."></h4>
+		  <h4 id="ao-loading">Processing.. <img src="<?php echo e(asset('images/loading.gif')); ?>" class="img img-fluid" alt="Processing.."></h4>
 		</div>
 		<div class="text-right" id="ao-submit">
 	      <a href="javascript:void(0)" id="add-order-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>
-	      <a href="{{url('orders')}}" class="btn btn-danger"><i class="fas fa-reply"></i></a>
+	      <a href="<?php echo e(url('orders')); ?>" class="btn btn-danger"><i class="fas fa-reply"></i></a>
 	    </div>
 	    
 	  </div>
@@ -64,7 +64,7 @@ $(document).ready(() => {
 												  foreach($customers as $c)
 												  {
 												 ?>
-											     <option value="{{$c['id']}}">{{$c['fname']." ".$c['lname']}}</option>
+											     <option value="<?php echo e($c['id']); ?>"><?php echo e($c['fname']." ".$c['lname']); ?></option>
 												 <?php
 												  }
 												 ?>
@@ -138,7 +138,7 @@ $(document).ready(() => {
 												  foreach($tcs as $k => $v)
 												  {
 												  ?>
-											     <option value="{{$k}}">{{$v}}</option>
+											     <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
 												 <?php
 												  }
 												 ?>
@@ -219,7 +219,7 @@ $(document).ready(() => {
 												  foreach($manufacturers as $m)
 												  {
 												 ?>
-											     <option value="{{$m['id']}}">{{ucwords($m['name'])}}</option>
+											     <option value="<?php echo e($m['id']); ?>"><?php echo e(ucwords($m['name'])); ?></option>
 											     <?php
 												  }
 												 ?>
@@ -234,7 +234,7 @@ $(document).ready(() => {
 												  foreach($categories as $c)
 												  {
 												 ?>
-											     <option value="{{$c['id']}}">{{ucwords($c['name'])}}</option>
+											     <option value="<?php echo e($c['id']); ?>"><?php echo e(ucwords($c['name'])); ?></option>
 											     <?php
 												  }
 												 ?>
@@ -299,4 +299,5 @@ $(document).ready(() => {
                             </div>
       </div>
 </div>
-@stop
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/add-order.blade.php ENDPATH**/ ?>

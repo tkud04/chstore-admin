@@ -5424,7 +5424,8 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 					$v = "add-order";
-					
+					$customers = $this->helpers->getUsers();
+					array_push($cpt,'customers');
 				}
 				else
 				{
