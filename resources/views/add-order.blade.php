@@ -15,7 +15,7 @@ $subtitle = "Add an order.";
 
 @section('content')
 <script>
-let products = [], pCover = "none", tkAddOrder = "{{csrf_token()}}"; orderProducts = [];
+let xf = ""; products = [], pCover = "none", tkAddOrder = "{{csrf_token()}}"; orderProducts = [];
 
 $(document).ready(() => {
 	hideElem(["#ao-loading"]);
@@ -101,9 +101,9 @@ $(document).ready(() => {
 											   <div class="col-md-6">
 											     <div class="form-group">
                                                    <label>Product <span class="req">*</span></label>
-                                                   <select id="add-order-product" class="form-control">
-											         <option value="none">Select product</option>
-												      <?php											      
+                                                   <input id="add-order-product" type="text" placeholder="Select product" class="form-control" list="add-order-product-list">
+												   <datalist id="add-order-product-list"> 
+													<?php											      
 												        foreach($products as $p)
 												        {
 												      ?>
@@ -111,7 +111,7 @@ $(document).ready(() => {
 												      <?php
 												        }
 												       ?>
-											       </select>
+											       </datalist>
                                                  </div>
 											   </div>
 											   <div class="col-md-6">

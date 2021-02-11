@@ -777,9 +777,17 @@ $(document).ready(function() {
     });
 	
 	//ORDERS
+	$('#add-order-product-list').change(e =>{
+		e.preventDefault();
+		console.log(this);
+		xf = $(this).attr('data-xf');
+		
+	});
+	
+	
 	$("#add-order-product-submit").click(e => {
        e.preventDefault();
-	   let p = $('#add-order-product').val(), q = $('#add-order-qty').val(), validation = (p == "none" || q == "" || (typeof q === 'undefined') || parseInt(q) < 1);
+	   let p = $('#add-order-product').val(), q = $('#add-order-qty').val(), validation = (p == "" || q == "" || (typeof q === 'undefined') || parseInt(q) < 1);
 	   
 	   if(validation){
 		   Swal.fire({
