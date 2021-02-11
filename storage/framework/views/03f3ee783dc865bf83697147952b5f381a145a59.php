@@ -23,6 +23,7 @@ $(document).ready(() => {
 	 <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 	  products.push({
 		  id: "<?php echo e($p['id']); ?>", 
+		  name: "<?php echo e($p['name']); ?>", 
 		  model: "<?php echo e($p['model']); ?>", 
 		  qty: "<?php echo e($p['qty']); ?>", 
 		  amount: "<?php echo e($p['data']['amount']); ?>"

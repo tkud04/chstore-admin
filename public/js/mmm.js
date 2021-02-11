@@ -788,7 +788,17 @@ $(document).ready(function() {
            })
 	   }
 	   else{
-		   orderProducts.push({p: p,q: q});
+		   console.log("orderProducts before find: ",orderProducts);
+		   let xe = orderProducts.find(item => item.p == p);
+		   console.log("xe: ",xe);
+		   
+		   if(typeof(xe) === "undefined"){
+		    orderProducts.push({p: p,q: q});
+		   }
+		   else{
+			   xe.qty = q;
+		   }
+		   console.log("orderProducts after find: ",orderProducts);
 		   refreshProducts();
 	   }
 	});

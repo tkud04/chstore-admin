@@ -1043,13 +1043,24 @@ const buupFire = () => {
 
 const refreshProducts = () => {
 	console.log(orderProducts);
-	
+	let html = ``;
 	//clear 
 	$('#add-order-products').html("");
 	
 	//new vals
 	for(let i = 0; i < orderProducts.length; i++){
 		let op = orderProducts[i], p = products.find(pp => pp.id == op.p);
-        console.log("p: ",p);		
+        //console.log(`p at : ${i}`,p);	
+
+     //draw
+      	 html = `<tr>
+		          <td>${p.name}</td>
+		          <td>${p.model}</td>
+		          <td>${op.q}</td>
+		          <td>&#0163;${p.amount}</td>
+		          <td>&#0163;${parseInt(p.amount) * parseInt(op.q)}</td>
+		          <td><a href="javascript:void(0)" onclick="removeProduct(op)" class="btn btn-danger"><i class="fas fa-delete"></i></a></td>
+				 </tr>`;
+		 $('#add-order-products').append(html);
 	} 
 }
