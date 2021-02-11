@@ -136,16 +136,20 @@ $(document).ready(() => {
 									   
 									    <div class="row">
 										  <div class="col-md-12">
-										    <div class="form-group">
-                                              <label>Model <span class="req">*</span></label>
-                                              <input id="add-product-model" type="text" placeholder="Model" class="form-control">
+										   <div class="row">
+										    <div class="col-md-6">
+										      <div class="form-group">
+                                                <label>First Name <span class="req">*</span></label>
+                                                <input id="add-order-fname" type="text" placeholder="First name" class="form-control">
+                                              </div>
                                             </div>
-											<div class="form-group mt-2">
-                                               <label>
-											   SKU <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Store Keeping Unit"><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                               <input id="add-product-sku" type="text" placeholder="SKU" class="form-control">
-                                            </div>
+											<div class="col-md-6">
+											  <div class="form-group mt-2">
+                                                 <label>Last Name <span class="req">*</span></label>
+                                                 <input id="add-order-lname" type="text" placeholder="Last name" class="form-control">
+                                              </div>
+											</div>
+										   </div>
 											<div class="form-group mt-2">
                                               <label>
 											   UPC <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Universal Product Code"><i class="fas fa-question-circle"></i> </a>

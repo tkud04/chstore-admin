@@ -796,7 +796,9 @@ $(document).ready(function() {
 		    orderProducts.push({p: p,q: q});
 		   }
 		   else{
-			   orderProducts.map(xe => xe.qty = q);
+			   for(let o = 0; o < orderProducts.length; o++){ 
+			      if(orderProducts[o].p == xe.p) orderProducts[o].q = q;
+			   }
 		   }
 		   console.log("orderProducts after find: ",orderProducts);
 		   refreshProducts();

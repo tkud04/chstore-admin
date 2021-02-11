@@ -1059,8 +1059,22 @@ const refreshProducts = () => {
 		          <td>${op.q}</td>
 		          <td>&#0163;${p.amount}</td>
 		          <td>&#0163;${parseInt(p.amount) * parseInt(op.q)}</td>
-		          <td><a href="javascript:void(0)" onclick="removeProduct(op)" class="btn btn-danger"><i class="fas fa-delete"></i></a></td>
+		          <td><a href="javascript:void(0)" onclick="removeProduct({p: ${op.p},q: ${op.q}})" class="btn btn-danger"><i class="fas fa-minus"></i></a></td>
 				 </tr>`;
 		 $('#add-order-products').append(html);
 	} 
+}
+
+const removeProduct = dt => {
+	let ret = [];
+	
+	for(let i = 0; i < orderProducts.length; i++){
+		let op = orderProducts[i];
+		if(op.p != dt.p){
+			ret.push(op);
+		}
+	}
+	
+	orderProducts = ret;
+	refreshProducts();
 }
