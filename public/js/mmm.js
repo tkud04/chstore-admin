@@ -796,7 +796,7 @@ $(document).ready(function() {
 		    orderProducts.push({p: p,q: q});
 		   }
 		   else{
-			   xe.qty = q;
+			   orderProducts.map(xe => xe.qty = q);
 		   }
 		   console.log("orderProducts after find: ",orderProducts);
 		   refreshProducts();
