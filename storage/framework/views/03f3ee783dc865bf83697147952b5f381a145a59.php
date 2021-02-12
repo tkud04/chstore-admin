@@ -151,109 +151,41 @@ $(document).ready(() => {
 											</div>
 										   </div>
 											<div class="form-group mt-2">
-                                              <label>
-											   UPC <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Universal Product Code"><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                               <input id="add-product-upc" type="text" placeholder="UPC" class="form-control">
+                                              <label>Company </label>
+                                               <input id="add-order-company" type="text" placeholder="Company" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                                <label>
-											   EAN <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="European Article Number"><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                               <input id="add-product-ean" type="text" placeholder="EAN" class="form-control">
+                                                <label>Address 1 <span class="req">*</span></label>
+                                               <input id="add-order-address-1" type="text" placeholder="Address line 1" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                               <label>
-											   JAN <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Japanese Article Number"><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                               <input id="add-product-jan" type="text" placeholder="JAN" class="form-control">
+                                                <label>Address 2</label>
+                                               <input id="add-order-address-2" type="text" placeholder="Address line 2" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                               <label>
-											   ISBN <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="International Standard Book Number"><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                               <input id="add-product-isbn" type="text" placeholder="ISBN" class="form-control">
+                                                <label>City <span class="req">*</span></label>
+                                               <input id="add-order-city" type="text" placeholder="City" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                               <label>
-											   MPN <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Manufacturer Part Number"><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                               <input id="add-product-mpn" type="text" placeholder="MPN" class="form-control">
+                                                <label>Region/State <span class="req">*</span></label>
+                                               <input id="add-order-region" type="text" placeholder="Region or state" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                               <label>Location</label>
-                                               <input id="add-product-location" type="text" placeholder="Location" class="form-control">
+                                                <label>Postcode</label>
+                                               <input id="add-order-postcode" type="text" placeholder="Postcode" class="form-control">
                                             </div>
+											
 											<div class="form-group mt-2">
-                                               <label> Price</label>
-                                               <input id="add-product-price" type="text" placeholder="Price" class="form-control">
-                                            </div>
-											<div class="form-group mt-2">
-                                               <label>Tax class</label>
-                                               <select id="add-product-tax-class" class="form-control">
+                                               <label>Country <span class="req">*</span></label>
+                                               <select id="add-order-country" class="form-control">
 											    <?php
-											     $tcs = ['none' => "Select tax class",'taxable-goods' => "Taxable goods", 'downloadable-products' => "Downloadable products"];
-												  
-												  foreach($tcs as $k => $v)
+											      foreach($countries as $k => $v)
 												  {
 												  ?>
-											     <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
+											     <option value="<?php echo e($k); ?>"><?php echo e(ucwords($v)); ?></option>
 												 <?php
 												  }
 												 ?>
-											   </select>
-                                            </div>
-											<div class="form-group mt-2">
-                                               <label>Quantity </label>
-                                               <input id="add-product-qty" type="number" placeholder="Quantity" class="form-control">
-                                            </div>
-											<div class="form-group mt-2">
-                                               <label>
-											   Minimum quantity <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Force a minimum ordered amount"><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                               <input id="add-product-min-qty" type="text" placeholder="MPN" class="form-control">
-                                            </div>
-											<div class="form-group mt-2">
-                                               <label>Requires shipping</label>
-                                               <select id="add-product-shipping" class="form-control">
-											     <option value="none">Requires shipping?</option>
-											     <option value="yes">Yes</option>
-											     <option value="no">No</option>
-											   </select>
-                                            </div>
-											<div class="form-group mt-2">
-                                               <label>Date available</label>
-                                               <input id="add-product-date-available" type="date" placeholder="Date available" class="form-control">
-                                            </div>
-											<div class="row">
-											  <div class="col-md-12">
-											    <h5>Dimensions</h5>
-											  </div>
-											  <div class="col-md-4">
-											    <div class="form-group mt-2">
-                                                  <label>Length</label>
-                                                  <input id="add-product-length" type="text" placeholder="0.0000000" class="form-control">
-                                               </div>
-                                              </div>
-											  <div class="col-md-4">
-											    <div class="form-group mt-2">
-                                                  <label>Width</label>
-                                                  <input id="add-product-width" type="text" placeholder="0.0000000" class="form-control">
-                                               </div>
-                                              </div>
-											  <div class="col-md-4">
-											    <div class="form-group mt-2">
-                                                  <label>Height</label>
-                                                  <input id="add-product-height" type="text" placeholder="0.0000000" class="form-control">
-                                               </div>
-                                              </div>
-                                           </div>
-										   <div class="form-group mt-2">
-                                               <label>Status</label>
-                                               <select id="add-product-status" class="form-control">
-											     <option value="none">Select status</option>
-											     <option value="enabled" selected="selected">Enabled</option>
-											     <option value="disabled">Disabled</option>
 											   </select>
                                             </div>
 										  </div>
@@ -272,7 +204,7 @@ $(document).ready(() => {
 											$manufacturers = [];
 											?>
                                               <label>Manufacturer <span class="req">*</span></label>
-                                              <select id="add-product-manufacturer" class="form-control">
+                                              <select id="add-order-manufacturer" class="form-control">
 											     <option value="none">Select manufacturer</option>
 												 <?php
 												  foreach($manufacturers as $m)
@@ -286,7 +218,7 @@ $(document).ready(() => {
                                             </div>
 											<div class="form-group mt-2">
                                               <label>Category <span class="req">*</span></label>
-                                              <select id="add-product-category" class="form-control">
+                                              <select id="add-order-category" class="form-control">
 											     <option value="none">Select category</option>
 												 <?php
 												 $categories = [];
@@ -311,21 +243,29 @@ $(document).ready(() => {
 										  <div class="col-md-12">
 										    <div class="form-group">
 												<label>Images<i class="req">*</i></label>
-												<div id="add-product-images">
-												<div id="add-product-image-div-0" class="row">
+												<div id="add-order-images">
+												<div id="add-order-image-div-0" class="row">
 												  <div class="col-md-7">
-												    <input type="file" class="form-control" onchange="readURL2(this,{id: 'add-product',ctr: '0'})" id="add-product-image-0" name="add-product-images[]">												    
+												    <input type="file" class="form-control" onchange="readURL2(this,{id: 'add-order',ctr: '0'})" id="add-order-image-0" name="add-order-images[]">												    
 												  </div>
 												  <div class="col-md-5">
-												    <img id="add-product-preview-0" src="#" alt="preview" style="width: 50px; height: 50px;"/>
+												    <img id="add-order-preview-0" src="#" alt="preview" style="width: 50px; height: 50px;"/>
 													<a href="javascript:void(0)" onclick="aptSetCoverImage(0)" class="btn btn-primary btn-sm">Set as cover image</a>
-												    <a href="javascript:void(0)" onclick="aptRemoveImage({id: 'add-product',ctr: '0'})" class="btn btn-warning btn-sm">Remove</a>
+												    <a href="javascript:void(0)" onclick="aptRemoveImage({id: 'add-order',ctr: '0'})" class="btn btn-warning btn-sm">Remove</a>
 												  </div>
 												</div>
 												</div>
 											</div>
+											 <div class="form-group mt-2">
+                                               <label>Status</label>
+                                               <select id="add-order-status" class="form-control">
+											     <option value="none">Select status</option>
+											     <option value="enabled" selected="selected">Enabled</option>
+											     <option value="disabled">Disabled</option>
+											   </select>
+                                            </div>
 											<div class="form-group">
-											    <a href="javascript:void(0)" onclick="aptAddImage({id: 'add-product'})" class="btn btn-warning btn-sm">Add image</a>
+											    <a href="javascript:void(0)" onclick="aptAddImage({id: 'add-order'})" class="btn btn-warning btn-sm">Add image</a>
 											    <ol class="form-control-plaintext">
 												  <li>Recommended dimensions: Your images should not exceed <b>1280x880</b></li>
 												  <li>Maximum file size: Your images must not be more than <b>1.5MB</b></li>
@@ -345,7 +285,7 @@ $(document).ready(() => {
                                               <label>
 											   Keywords <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique."><i class="fas fa-question-circle"></i> </a>
 											   </label>
-                                              <input id="add-product-seo-keywords" type="text" placeholder="Keywords" class="form-control">
+                                              <input id="add-order-seo-keywords" type="text" placeholder="Keywords" class="form-control">
                                             </div>
 											
 										  </div>
