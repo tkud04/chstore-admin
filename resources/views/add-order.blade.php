@@ -140,44 +140,45 @@ $(document).ready(() => {
 										    <div class="col-md-6">
 										      <div class="form-group">
                                                 <label>First Name <span class="req">*</span></label>
-                                                <input id="add-order-fname" type="text" placeholder="First name" class="form-control">
+                                                <input id="add-order-payment-fname" type="text" placeholder="First name" class="form-control">
                                               </div>
                                             </div>
 											<div class="col-md-6">
 											  <div class="form-group mt-2">
                                                  <label>Last Name <span class="req">*</span></label>
-                                                 <input id="add-order-lname" type="text" placeholder="Last name" class="form-control">
+                                                 <input id="add-order-payment-lname" type="text" placeholder="Last name" class="form-control">
                                               </div>
 											</div>
 										   </div>
 											<div class="form-group mt-2">
                                               <label>Company </label>
-                                               <input id="add-order-company" type="text" placeholder="Company" class="form-control">
+                                               <input id="add-order-payment-company" type="text" placeholder="Company" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Address 1 <span class="req">*</span></label>
-                                               <input id="add-order-address-1" type="text" placeholder="Address line 1" class="form-control">
+                                               <input id="add-order-payment-address-1" type="text" placeholder="Address line 1" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Address 2</label>
-                                               <input id="add-order-address-2" type="text" placeholder="Address line 2" class="form-control">
+                                               <input id="add-order-payment-address-2" type="text" placeholder="Address line 2" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>City <span class="req">*</span></label>
-                                               <input id="add-order-city" type="text" placeholder="City" class="form-control">
+                                               <input id="add-order-payment-city" type="text" placeholder="City" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Region/State <span class="req">*</span></label>
-                                               <input id="add-order-region" type="text" placeholder="Region or state" class="form-control">
+                                               <input id="add-order-payment-region" type="text" placeholder="Region or state" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Postcode</label>
-                                               <input id="add-order-postcode" type="text" placeholder="Postcode" class="form-control">
+                                               <input id="add-order-payment-postcode" type="text" placeholder="Postcode" class="form-control">
                                             </div>
 											
 											<div class="form-group mt-2">
                                                <label>Country <span class="req">*</span></label>
-                                               <select id="add-order-country" class="form-control">
+                                               <select id="add-order-payment-country" class="form-control">
+											    <option value="none">Select country</option>
 											    <?php
 											      foreach($countries as $k => $v)
 												  {
@@ -199,40 +200,62 @@ $(document).ready(() => {
 									   
 									    <div class="row">
 										  <div class="col-md-12">
-										    <div class="form-group">
-											<?php
-											$manufacturers = [];
-											?>
-                                              <label>Manufacturer <span class="req">*</span></label>
-                                              <select id="add-order-manufacturer" class="form-control">
-											     <option value="none">Select manufacturer</option>
-												 <?php
-												  foreach($manufacturers as $m)
-												  {
-												 ?>
-											     <option value="{{$m['id']}}">{{ucwords($m['name'])}}</option>
-											     <?php
-												  }
-												 ?>
-											  </select>
+										   <div class="row">
+										    <div class="col-md-6">
+										      <div class="form-group">
+                                                <label>First Name <span class="req">*</span></label>
+                                                <input id="add-order-shipping-fname" type="text" placeholder="First name" class="form-control">
+                                              </div>
+                                            </div>
+											<div class="col-md-6">
+											  <div class="form-group mt-2">
+                                                 <label>Last Name <span class="req">*</span></label>
+                                                 <input id="add-order-shipping-lname" type="text" placeholder="Last name" class="form-control">
+                                              </div>
+											</div>
+										   </div>
+											<div class="form-group mt-2">
+                                              <label>Company </label>
+                                               <input id="add-order-shipping-company" type="text" placeholder="Company" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                              <label>Category <span class="req">*</span></label>
-                                              <select id="add-order-category" class="form-control">
-											     <option value="none">Select category</option>
-												 <?php
-												 $categories = [];
-												  foreach($categories as $c)
+                                                <label>Address 1 <span class="req">*</span></label>
+                                               <input id="add-order-shipping-address-1" type="text" placeholder="Address line 1" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                                <label>Address 2</label>
+                                               <input id="add-order-shipping-address-2" type="text" placeholder="Address line 2" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                                <label>City <span class="req">*</span></label>
+                                               <input id="add-order-shipping-city" type="text" placeholder="City" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                                <label>Region/State <span class="req">*</span></label>
+                                               <input id="add-order-shipping-region" type="text" placeholder="Region or state" class="form-control">
+                                            </div>
+											<div class="form-group mt-2">
+                                                <label>Postcode</label>
+                                               <input id="add-order-shipping-postcode" type="text" placeholder="Postcode" class="form-control">
+                                            </div>
+											
+											<div class="form-group mt-2">
+                                               <label>Country <span class="req">*</span></label>
+                                               <select id="add-order-country" class="form-control">
+											    <option value="none">Select country</option>
+											    <?php
+											      foreach($countries as $k => $v)
 												  {
-												 ?>
-											     <option value="{{$c['id']}}">{{ucwords($c['name'])}}</option>
-											     <?php
+												  ?>
+											     <option value="{{$k}}">{{ucwords($v)}}</option>
+												 <?php
 												  }
 												 ?>
-											  </select>
+											   </select>
                                             </div>
 										  </div>
 										</div>
+                                        
                                        </div>
                                     </div>
 									<div class="tab-pane fade" id="totals" role="tabpanel" aria-labelledby="totals-tab">
@@ -241,21 +264,22 @@ $(document).ready(() => {
 									   
 									    <div class="row">
 										  <div class="col-md-12">
-										    <div class="form-group">
-												<label>Images<i class="req">*</i></label>
-												<div id="add-order-images">
-												<div id="add-order-image-div-0" class="row">
-												  <div class="col-md-7">
-												    <input type="file" class="form-control" onchange="readURL2(this,{id: 'add-order',ctr: '0'})" id="add-order-image-0" name="add-order-images[]">												    
-												  </div>
-												  <div class="col-md-5">
-												    <img id="add-order-preview-0" src="#" alt="preview" style="width: 50px; height: 50px;"/>
-													<a href="javascript:void(0)" onclick="aptSetCoverImage(0)" class="btn btn-primary btn-sm">Set as cover image</a>
-												    <a href="javascript:void(0)" onclick="aptRemoveImage({id: 'add-order',ctr: '0'})" class="btn btn-warning btn-sm">Remove</a>
-												  </div>
-												</div>
-												</div>
-											</div>
+										   <div class="mt-5">
+                                             <table class="table table-striped table-bordered first etuk-table">
+                                              <thead>
+                                                <tr>
+                                                  <th>Product</th>
+                                                  <th>Model</th>
+												  <th>Quantity</th>
+                                                  <th>Unit price</th>
+                                                  <th>Total</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody id="add-order-products-review">
+										      
+									    	  </tbody>
+											 </table>
+										     </div>
 											 <div class="form-group mt-2">
                                                <label>Status</label>
                                                <select id="add-order-status" class="form-control">
@@ -264,30 +288,6 @@ $(document).ready(() => {
 											     <option value="disabled">Disabled</option>
 											   </select>
                                             </div>
-											<div class="form-group">
-											    <a href="javascript:void(0)" onclick="aptAddImage({id: 'add-order'})" class="btn btn-warning btn-sm">Add image</a>
-											    <ol class="form-control-plaintext">
-												  <li>Recommended dimensions: Your images should not exceed <b>1280x880</b></li>
-												  <li>Maximum file size: Your images must not be more than <b>1.5MB</b></li>
-												</ol>
-											</div>
-										  </div>
-										</div>
-                                       </div>
-                                    </div>
-									<div class="tab-pane fade" id="seo" role="tabpanel" aria-labelledby="seo-tab">
-                                      <h5 class="card-header">SEO</h5>
-                                       <div class="card-body">
-									   
-									    <div class="row">
-										  <div class="col-md-12">
-										    <div class="form-group">
-                                              <label>
-											   Keywords <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique."><i class="fas fa-question-circle"></i> </a>
-											   </label>
-                                              <input id="add-order-seo-keywords" type="text" placeholder="Keywords" class="form-control">
-                                            </div>
-											
 										  </div>
 										</div>
                                        </div>

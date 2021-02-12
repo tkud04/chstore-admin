@@ -1041,11 +1041,11 @@ const buupFire = () => {
 }
 
 
-const refreshProducts = () => {
+const refreshProducts = dt => {
 	console.log(orderProducts);
-	let html = ``;
+	let html = ``, hh = ``,s = 0, t = 0;
 	//clear 
-	$('#add-order-products').html("");
+	$(`${dt.target}`).html("");
 	
 	//new vals
 	for(let i = 0; i < orderProducts.length; i++){
@@ -1053,7 +1053,9 @@ const refreshProducts = () => {
         //console.log(`p at : ${i}`,p);	
 
      //draw
-      	 html = `<tr>
+      	
+        if(dt.type == "normal"){
+			hh = `<tr>
 		          <td>${p.name}</td>
 		          <td>${p.model}</td>
 		          <td>${op.q}</td>
@@ -1061,8 +1063,33 @@ const refreshProducts = () => {
 		          <td>&#0163;${parseInt(p.amount) * parseInt(op.q)}</td>
 		          <td><a href="javascript:void(0)" onclick="removeProduct({p: ${op.p},q: ${op.q}})" class="btn btn-danger"><i class="fas fa-minus"></i></a></td>
 				 </tr>`;
-		 $('#add-order-products').append(html);
-	} 
+		}
+		else if(dt.type == "review"){
+			hh = `<tr>
+		          <td>${p.name}</td>
+		          <td>${p.model}</td>
+		          <td>${op.q}</td>
+		          <td>&#0163;${p.amount}</td>
+		          <td>&#0163;${parseInt(p.amount) * parseInt(op.q)}</td>
+		          </tr>`;
+		}
+		
+		 html += hh;
+	}
+	
+	if(dt.type == "review"){
+		hh = `<tr>
+		          <td colspan="4">Subtotal</td>
+		          <td>&#0163;${s}</td>
+		          </tr>
+				  <tr>
+		          <td colspan="4">Total</td>
+		          <td>&#0163;${t}</td>
+		          </tr>`;
+		html += hh;
+	}
+      console.log('html: ',html);
+		$(`${dt.target}`).html(html);
 }
 
 const removeProduct = dt => {

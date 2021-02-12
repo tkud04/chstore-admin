@@ -809,7 +809,8 @@ $(document).ready(function() {
 			   }
 		   }
 		   console.log("orderProducts after find: ",orderProducts);
-		   refreshProducts();
+		   refreshProducts({type: "normal", target: "#add-order-products"});
+		   refreshProducts({type: "review", target: "#add-order-products-review"});
 	   }
 	});
 });
