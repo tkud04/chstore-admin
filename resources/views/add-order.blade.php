@@ -281,6 +281,19 @@ $(document).ready(() => {
 											 </table>
 										     </div>
 											 <div class="form-group mt-2">
+                                               <label>Payment type</label>
+                                               <select id="add-order-payment-type" class="form-control">
+											     <option value="none">Select payment type</option>
+											     <option value="card" selected="selected">Credit/debit card</option>
+											   </select>
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label>Shipping type</label>
+                                               <select id="add-order-shipping-type" class="form-control">
+											     <option value="none">Select shipping type</option>
+											     <option value="free" selected="selected">Free shipping</option>
+											   </select>
+                                            </div><div class="form-group mt-2">
                                                <label>Status</label>
                                                <select id="add-order-status" class="form-control">
 											     <option value="none">Select status</option>
