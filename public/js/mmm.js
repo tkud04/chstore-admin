@@ -779,7 +779,6 @@ $(document).ready(function() {
 	//ORDERS
 	$('#add-order-product-list').change(e =>{
 		e.preventDefault();
-		console.log(this);
 		xf = $(this).attr('data-xf');
 		
 	});
@@ -796,9 +795,7 @@ $(document).ready(function() {
            })
 	   }
 	   else{
-		   console.log("orderProducts before find: ",orderProducts);
 		   let xe = orderProducts.find(item => item.p == p);
-		   console.log("xe: ",xe);
 		   
 		   if(typeof(xe) === "undefined"){
 		    orderProducts.push({p: p,q: q});
@@ -808,9 +805,78 @@ $(document).ready(function() {
 			      if(orderProducts[o].p == xe.p) orderProducts[o].q = q;
 			   }
 		   }
-		   console.log("orderProducts after find: ",orderProducts);
 		   refreshProducts({type: "normal", target: "#add-order-products"});
 		   refreshProducts({type: "review", target: "#add-order-products-review"});
 	   }
 	});
+	
+	$("#add-order-submit").click(e => {
+       e.preventDefault();
+	   
+	   //side 1 validation
+	   let aoCustomer = $('#add-order-customer').val(), aoPaymentFname = $('add-order-payment-fname').val(), aoPaymentLname = $('add-order-payment-lname').val(),
+	       aoPaymentCompany = $('add-order-payment-company').val(), aoPaymentAddress1 = $('add-order-payment-address-1').val(),aoPaymentAddress2 = $('add-order-payment-address-2').val(),
+	       aoPaymentCity = $('add-order-payment-city').val(), aoPaymentRegion = $('add-order-payment-region').val(), aoPaymentPostcode = $('add-order-payment-postcode').val(),
+		   aoPaymentCountry = $('add-order-payment-country').val(), side1Validation = (aoCustomer == "none" || aoPaymentFname == "" || aoPaymentLname == "" || aoPaymentAddress1 == "" || aoPaymentCity == "" || aoPaymentRegion == "" || aoPaymentCountry == "none"),
+		   
+		   aoShippingFname = $('add-order-shipping-fname').val(), aoShippingLname = $('add-order-shipping-lname').val(),
+	       aoShippingCompany = $('add-order-shipping-company').val(), aoShippingAddress1 = $('add-order-shipping-address-1').val(),aoShippingAddress2 = $('add-order-shipping-address-2').val(),
+	       aoShippingCity = $('add-order-shipping-city').val(), aoShippingRegion = $('add-order-shipping-region').val(), 
+		   aoShippingPostcode = $('add-order-shipping-postcode').val(), aoShippingCountry = $('add-order-shipping-country').val(),
+		   side2Validation = (aoShippingFname == "" || aoShippingLname == "" || aoShippingAddress1 == "" || aoShippingCity == "" || aoShippingRegion == "" || aoShippingCountry == "none"),
+		   
+		   aoPaymentType = $('add-order-payment-type').val(), aoShippingType = $('add-order-shipping-type').val(), aoComment = $('add-order-comment').val(), aoStatus = $('add-order-status').val(),
+		   side3Validation = (aoPaymentType == "none" || aoShippingType == "none" || aoStatus == "none"); 
+		  
+	   if(side1Validation || side2Validation || side3Validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all the required fields"
+           })
+	   }
+	   else if(orderProducts.length < 1){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please add a product."
+           })
+	   }
+	   
+	   else{
+	      
+		 let fd =  new FormData(), payload = {
+		 customer: aoCustomer,
+		 payment_fname: aoPaymentFname,
+		 payment_lname: aoPaymentLname,
+		 payment_company: aoPaymentCompany,
+		 payment_address_1: aoPaymentAddress1,
+		 payment_address_2: aoPaymentAddress2,
+		 payment_city: aoPaymentCity,
+		 payment_region: aoPaymentRegion,
+		 payment_postcode: aoPaymentPostcode,
+		 payment_country: aoPaymentCountry,
+		 payment_fname: aoPaymentFname,
+		 payment_lname: aoPaymentLname,
+		 payment_company: aoPaymentCompany,
+		 payment_address_1: aoPaymentAddress1,
+		 payment_address_2: aoPaymentAddress2,
+		 payment_city: aoPaymentCity,
+		 payment_region: aoPaymentRegion,
+		 payment_postcode: aoPaymentPostcode,
+		 payment_country: aoPaymentCountry,
+		 products: JSON.stringify(orderProducts),
+		 _token: tkAddOrder
+		 };
+		 
+		 console.log("payload: ",payload);
+		  
+		  for(let i in payload){
+			  fd.append(i,payload[i]);
+		  }
+		  
+		  $('#ao-submit').hide();
+		  $('#ao-loading').fadeIn();
+		  //addOrder(fd);  
+		  
+	   }
+    });
 });

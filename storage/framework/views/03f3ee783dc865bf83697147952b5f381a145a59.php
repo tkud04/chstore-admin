@@ -241,7 +241,7 @@ $(document).ready(() => {
 											
 											<div class="form-group mt-2">
                                                <label>Country <span class="req">*</span></label>
-                                               <select id="add-order-country" class="form-control">
+                                               <select id="add-order-shipping-country" class="form-control">
 											    <option value="none">Select country</option>
 											    <?php
 											      foreach($countries as $k => $v)
@@ -281,13 +281,56 @@ $(document).ready(() => {
 											 </table>
 										     </div>
 											 <div class="form-group mt-2">
-                                               <label>Status</label>
-                                               <select id="add-order-status" class="form-control">
-											     <option value="none">Select status</option>
-											     <option value="enabled" selected="selected">Enabled</option>
-											     <option value="disabled">Disabled</option>
+                                               <label>Payment type <span class="req">*</span></label>
+                                               <select id="add-order-payment-type" class="form-control">
+											     <option value="none">Select payment type</option>
+											     <option value="card" selected="selected">Credit/debit card</option>
 											   </select>
                                             </div>
+											<div class="form-group mt-2">
+                                               <label>Shipping type <span class="req">*</span></label>
+                                               <select id="add-order-shipping-type" class="form-control">
+											     <option value="none">Select shipping type</option>
+											     <option value="free" selected="selected">Free shipping</option>
+											   </select>
+                                            </div>
+											<div class="form-group mt-2">
+                                                <label>Comment</label>
+                                               <textarea rows="8" id="add-order-comment" type="text" placeholder="Comment" class="form-control"></textarea>
+                                            </div>
+											<div class="form-group mt-2">
+                                               <label>Status <span class="req">*</span></label>
+                                               <select id="add-order-status" class="form-control">											   
+											     <option value="none">Select status</option>
+											     <?php
+												   $statuses = [
+												     'cancelled' => "Cancelled",
+												     'canceled-reversal' => "Cancelled Reversal",
+												     'chargeback' => "Chargeback",
+												     'completed' => "Completed",
+												     'denied' => "Denied",
+												     'expired' => "Expired",
+												     'failed' => "Failed",
+												     'pending' => "Pending",
+												     'processed' => "Processed",
+												     'processing' => "Processing",
+												     'refunded' => "Refunded",
+												     'reversed' => "Reversed",
+												     'shipped' => "Shipped",
+												     'voided' => "Voided",
+												   ];
+												   
+												   foreach($statuses as $k => $v)
+												   {
+													 $ss = $k == "processing" ? " selected='selected'" : "";   
+												 ?>
+												  <option value="<?php echo e($k); ?>"<?php echo e($ss); ?>><?php echo e($v); ?></option>
+												 <?php
+												   }
+												 ?>
+											   </select>
+                                            </div>
+											
 										  </div>
 										</div>
                                        </div>

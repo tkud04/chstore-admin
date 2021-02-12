@@ -1042,7 +1042,6 @@ const buupFire = () => {
 
 
 const refreshProducts = dt => {
-	console.log(orderProducts);
 	let html = ``, hh = ``,s = 0, t = 0;
 	//clear 
 	$(`${dt.target}`).html("");
@@ -1088,8 +1087,7 @@ const refreshProducts = dt => {
 		          </tr>`;
 		html += hh;
 	}
-      console.log('html: ',html);
-		$(`${dt.target}`).html(html);
+     	$(`${dt.target}`).html(html);
 }
 
 const removeProduct = dt => {
