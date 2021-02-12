@@ -805,242 +805,6 @@ const generateRandomString = (length) => {
 	return ret;
 }
 
-const BUUPAddRow = () => {
-	
-	let str = `
-	 <tr id="buup-${buupCounter}" style="margin-bottom: 20px; border-bottom: 1px solid #fff;">
-	 <td><input type="text" placeholder="Product name" class="form-control name"></td>
-	   <td><input type="text" placeholder="Product description" class="form-control desc"></td>
-	   <td><input type="number"  placeholder="Price in NGN" class="form-control price"></td>
-	   <td><input type="number"  placeholder="Stock" class="form-control stock"></td>
-	   <td>
-	     <select class="category" >
-		 <option value="none">Select category</option>
-		  ${categories.map(k => "<option value='" + k + "'>" + k.toUpperCase() + "</option>").join("")}
-		 </select>
-	   </td>
-	   <td>
-	    <select class="status" >
-		<option value="none">Select status</option>
-		 <option value="in_stock">In stock</option>
-		 <option value="new">New</option>
-		 <option value="out_of_stock">Out of stock</option>
-		</select>
-	   </td>
-	   <td style="margin-top: 20px;" width="20%">
-	    <div>
-		  <div id="buup-${buupCounter}-images-div" class="row">
-	        <div class="col-md-6">
-	         <input type="file" placeholder="Upload image"  data-ic="0" class="form-control images" onchange="readURL(this,'${buupCounter}')" name="buup-${buupCounter}-images[]">
-		    </div>
-			<div class="col-md-6">
-			    <div class="row">
-			      <div class="col-md-7">
-	                <img id="buup-${buupCounter}-preview-0" src="#" alt="preview" style="width: 50px; height: 50px;"/>
-			      </div>
-			      <div class="col-md-5">
-			        <input type="radio" style="display: inline !important;" name="buup-${buupCounter}-cover" value="0">
-			      </div>
-			    </div>
-			  </div>
-		  </div>
-	    </div>
-	   </td>
-	   <td>
-	   <button onclick="BUUPAddImage('${buupCounter}'); return false;" class="btn btn-primary">Add image</button>
-	   <button onclick="BUUPRemoveRow('${buupCounter}'); return false;" class="btn btn-danger">Cancel</button>
-	  
-	   </td>
-	 </tr>
-	`;
-	++buupCounter;
-	$('#buup-table').append(str);
-}
-
-const BUUPRemoveRow = (ctr) => {
-	let r = $(`#buup-${ctr}`);
-	console.log(r);
-	r.remove();
-	--buupCounter;
-}
-
-const BUUPAddImage = (ctr) => {
-	let i = $(`#buup-${ctr}-images-div`), imgCount = $(`#buup-${ctr}-images-div input[type=file]`).length;
-	console.log(imgCount);
-	i.append(`<div class="col-md-6">
-	          <input type="file" placeholder="Upload image" data-ic="${imgCount}" onchange="readURL(this,'${ctr}')" class="form-control images" name="buup-${ctr}-images[]">
-			  </div>
-			  <div class="col-md-6">
-			    <div class="row">
-			      <div class="col-md-7">
-	                <img id="buup-${ctr}-preview-${imgCount}" src="#" alt="preview" style="width: 50px; height: 50px;"/>
-			      </div>
-			      <div class="col-md-5">
-			        <input type="radio" style="display: inline !important;" name="buup-${ctr}-cover" value="${imgCount}">
-			      </div>
-			    </div>
-			  </div>
-	  `);
-}
-
-const showSelectError = (type,err) => {
-	$(`#${type}-select-${err}-error`).fadeIn();
-}
-
-const hideElems = (cls) => {
-	switch(cls){
-		case 'bup':
-		  $('#bup-select-product-error').hide();
-		  $('#bup-select-qty-error').hide();
-		break;
-		
-		case 'buup':
-		  $('#buup-select-product-error').hide();
-		  $('#buup-select-qty-error').hide();
-		break;
-	}
-}
-
-const BUUP = () => {
-	hideElems('buup');
-	console.log("BUUPlist length: ",buupCounter);
-	
-	
-	if(buupCounter < 1){
-		showSelectError('buup','product');
-	}
-	else{
-	ret = [], hasUnfilledQty = false;
-
-	for(let i = 0; i < buupCounter; i++){
-		let BUPitem = `#buup-${i}`;
-		name = $(`${BUPitem} input.name`).val();
-		desc = $(`${BUPitem} input.desc`).val();
-		price = $(`${BUPitem} input.price`).val();
-		stock = $(`${BUPitem} input.stock`).val();
-		category = $(`${BUPitem} select.category`).val();
-		status = $(`${BUPitem} select.status`).val();
-		
-			if(name != "" && desc != "" && parseInt(price) > 0 && parseInt(stock) > 0 && category != "none" && status != "none"){
-				let temp = {
-					id: BUPitem,
-					data:{
-					  name: name,
-					  desc: desc,
-					  price: price,
-					  stock: stock,
-					  category: category,
-					  status: status,
-					}
-				};
-				BUUPlist.push(temp);
-			}
-			else{
-				hasUnfilledQty = true;
-			}		
-	}
-	
-	   if(hasUnfilledQty){
-		   showSelectError('buup','validation');
-	   }
-	   else{
-		 //console.log("ret: ",ret);
-		 
-		 /**
-		 $('#buup-dt').val(JSON.stringify(ret));
-		$('#buup-form').submit();
-		
-		 **/
-		 $('#button-box').hide();
-		 $('#result-box').fadeIn();
-		 
-		 buupFire();
-	   }
-  }
-}
-
-const buupFire = () => {
-	 let bc = localStorage.getItem("buupCtr");
-	     if(!bc) bc = "0";
-		 
-		 
-		
-		 let fd = new FormData();
-		 fd.append("dt",JSON.stringify(BUUPlist[bc]));
-		 imgs = []; covers = [];
-		
-		//imgs = $(`${BUPitem}-image`)[0].files;
-		imgs = $(`${BUUPlist[bc].id}-images-div input[type=file]`);
-		cover = $(`${BUUPlist[bc].id}-images-div input[type=radio]:checked`);
-		console.log("imgs: ",imgs);
-		console.log("cover: ",cover);
-		
-		for(let r = 0; r < imgs.length; r++)
-		 {
-		    let imgg = imgs[r];
-			let imgName = imgg.getAttribute("name");
-            console.log("imgg name: ",imgName);			
-            console.log("cover: ",cover.val());
-            fd.append(imgName,imgg.files[0]);   			   			
-		 }
-		 
-		 fd.append(cover.attr("name"),cover.val());
-		 
-		 
-		 fd.append("_token",$('#tk').val());
-		 console.log("fd: ",fd);
-         
-	
-	//create request
-	const req = new Request("buup",{method: 'POST', body: fd});
-	//console.log(req);
-	
-	
-	//fetch request
-	fetch(req)
-	   .then(response => {
-		   if(response.status === 200){
-			   //console.log(response);
-			   
-			   return response.json();
-		   }
-		   else{
-			   return {status: "error:", message: "Network error"};
-		   }
-	   })
-	   .catch(error => {
-		    alert("Failed to upload product: " + error);			
-	   })
-	   .then(res => {
-		   console.log(res);
-          bc = parseInt(bc) + 1;
-			     localStorage.setItem("buupCtr",bc);
-				 
-		   if(res.status == "ok"){
-                  $('#result-ctr').html(bc);
-		   }
-		   else if(res.status == "error"){
-				     alert("An unknown network error has occured. Please refresh the app or try again later");			   
-		   }
-		   
-		    setTimeout(function(){
-			       if(bc >= buupCounter){
-					  $('#result-box').hide();
-					  $("#finish-box").fadeIn();
-					  window.location = "buup";
-				  }
-                  else{
-					 buupFire();
-				  }				  
-		    },4000);
-		   
-		  
-	   }).catch(error => {
-		    alert("Failed to send message: " + error);			
-	   });
-}
-
-
 const refreshProducts = dt => {
 	let html = ``, hh = ``,s = 0, t = 0;
 	//clear 
@@ -1050,7 +814,8 @@ const refreshProducts = dt => {
 	for(let i = 0; i < orderProducts.length; i++){
 		let op = orderProducts[i], p = products.find(pp => pp.id == op.p);
         //console.log(`p at : ${i}`,p);	
-
+        let ss = parseInt(p.amount) * parseInt(op.q);
+		s += ss; t = s;
      //draw
       	
         if(dt.type == "normal"){
@@ -1059,8 +824,8 @@ const refreshProducts = dt => {
 		          <td>${p.model}</td>
 		          <td>${op.q}</td>
 		          <td>&#0163;${p.amount}</td>
-		          <td>&#0163;${parseInt(p.amount) * parseInt(op.q)}</td>
-		          <td><a href="javascript:void(0)" onclick="removeProduct({p: ${op.p},q: ${op.q}})" class="btn btn-danger"><i class="fas fa-minus"></i></a></td>
+		          <td>&#0163;${ss}</td>
+		          <td><a href="javascript:void(0)" onclick="removeProduct({p: ${op.p},q: ${op.q},t: 'add-order'})" class="btn btn-danger"><i class="fas fa-minus"></i></a></td>
 				 </tr>`;
 		}
 		else if(dt.type == "review"){
@@ -1069,10 +834,9 @@ const refreshProducts = dt => {
 		          <td>${p.model}</td>
 		          <td>${op.q}</td>
 		          <td>&#0163;${p.amount}</td>
-		          <td>&#0163;${parseInt(p.amount) * parseInt(op.q)}</td>
+		          <td>&#0163;${ss}</td>
 		          </tr>`;
 		}
-		
 		 html += hh;
 	}
 	
@@ -1101,5 +865,78 @@ const removeProduct = dt => {
 	}
 	
 	orderProducts = ret;
-	refreshProducts();
+	refreshProducts({type: "normal", target: `#${dt.t}-products`});
+    refreshProducts({type: "review", target: `#${dt.t}-products-review`});
+}
+
+
+const addOrder = (dt) => {
+	//create request
+	const req = new Request("add-order",{method: 'POST', body: dt});
+	//console.log(req);
+	
+	
+	//fetch request
+	fetch(req)
+	   .then(response => {
+		   if(response.status === 200){
+			   //console.log(response);
+			   
+			   return response.json();
+		   }
+		   else{
+			   return {status: "error", message: "Technical error"};
+		   }
+	   })
+	   .catch(error => {
+		     Swal.fire({
+			     icon: 'error',
+                 title: hh,
+                 html: `Failed to add order: <b>${error}</b>`,
+               });
+                $('#ao-loading').hide();
+		        $('#ao-submit').fadeIn();
+	   })
+	   .then(res => {
+		   console.log(res);
+          
+		   if(res.status == "ok"){
+              Swal.fire({
+			     icon: 'success',
+                 title: "Order added!"
+               }).then((result) => {
+               if (result.value) {                 
+			     window.location = `orders`;
+                }
+              });
+			  window.location = `orders`;
+		   }
+		   else if(res.status == "error"){
+			   let hh = ``;
+			   if(res.message == "validation"){
+				 hh = `Please fill all required fields and try again.`;  
+			   }
+			   else if(res.message == "network"){
+				 hh = `A network error has occured, please check your connection and try again.`;  
+			   }
+			   else if(res.message == "Technical error"){
+				 hh = `A technical error has occured, please try again.`;  
+			   }else if(res.message == "nothing happened"){
+				 hh = `Nothing happened, please try again.`;  
+			   }
+			   Swal.fire({
+			     icon: 'error',
+                 title: hh
+               });
+                $('#ao-loading').hide();
+		        $('#ao-submit').fadeIn();			   
+		   }
+		  
+		   
+		  
+	   }).catch(error => {
+		     alert("Failed to add order: " + error);			
+			$('#ao-loading').hide();
+		     $('#ao-submit').fadeIn();			
+	   });
 }

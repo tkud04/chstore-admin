@@ -264,7 +264,7 @@ $(document).ready(() => {
 									   
 									    <div class="row">
 										  <div class="col-md-12">
-										   <div class="mt-5">
+										   <div class="mt-5 mb-5">
                                              <table class="table table-striped table-bordered first etuk-table">
                                               <thead>
                                                 <tr>

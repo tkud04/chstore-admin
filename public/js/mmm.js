@@ -326,8 +326,8 @@ $(document).ready(function() {
 	   
 	   //validation
 	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(), acDescription = $('#add-category-description').val(), emptyImage = false,
-	       acParent = $('add-category-parent').val(), acMetaTitle = $('add-category-meta-title').val(), acMetaDescription = $('add-category-meta-description').val(),
-		   acMetaKeywords = $('add-category-meta-keywords').val(), acImages = $('#add-category-image'), acSEOKeywords = $('add-category-seo-keywords').val(),
+	       acParent = $('#add-category-parent').val(), acMetaTitle = $('#add-category-meta-title').val(), acMetaDescription = $('#add-category-meta-description').val(),
+		   acMetaKeywords = $('#add-category-meta-keywords').val(), acImages = $('#add-category-image'), acSEOKeywords = $('#add-category-seo-keywords').val(),
 		   validation = (acName == "" || acMetaTitle == "");
 	   
 	   for(let i = 0; i < acImages.length; i++){
@@ -807,6 +807,9 @@ $(document).ready(function() {
 		   }
 		   refreshProducts({type: "normal", target: "#add-order-products"});
 		   refreshProducts({type: "review", target: "#add-order-products-review"});
+		   
+		   $('#add-order-product').val("");
+		   $('#add-order-qty').val(""); 
 	   }
 	});
 	
@@ -814,18 +817,18 @@ $(document).ready(function() {
        e.preventDefault();
 	   
 	   //side 1 validation
-	   let aoCustomer = $('#add-order-customer').val(), aoPaymentFname = $('add-order-payment-fname').val(), aoPaymentLname = $('add-order-payment-lname').val(),
-	       aoPaymentCompany = $('add-order-payment-company').val(), aoPaymentAddress1 = $('add-order-payment-address-1').val(),aoPaymentAddress2 = $('add-order-payment-address-2').val(),
-	       aoPaymentCity = $('add-order-payment-city').val(), aoPaymentRegion = $('add-order-payment-region').val(), aoPaymentPostcode = $('add-order-payment-postcode').val(),
-		   aoPaymentCountry = $('add-order-payment-country').val(), side1Validation = (aoCustomer == "none" || aoPaymentFname == "" || aoPaymentLname == "" || aoPaymentAddress1 == "" || aoPaymentCity == "" || aoPaymentRegion == "" || aoPaymentCountry == "none"),
+	   let aoCustomer = $('#add-order-customer').val(), aoPaymentFname = $('#add-order-payment-fname').val(), aoPaymentLname = $('#add-order-payment-lname').val(),
+	       aoPaymentCompany = $('#add-order-payment-company').val(), aoPaymentAddress1 = $('#add-order-payment-address-1').val(),aoPaymentAddress2 = $('#add-order-payment-address-2').val(),
+	       aoPaymentCity = $('#add-order-payment-city').val(), aoPaymentRegion = $('#add-order-payment-region').val(), aoPaymentPostcode = $('#add-order-payment-postcode').val(),
+		   aoPaymentCountry = $('#add-order-payment-country').val(), side1Validation = (aoCustomer == "none" || aoPaymentFname == "" || aoPaymentLname == "" || aoPaymentAddress1 == "" || aoPaymentCity == "" || aoPaymentRegion == "" || aoPaymentCountry == "none"),
 		   
-		   aoShippingFname = $('add-order-shipping-fname').val(), aoShippingLname = $('add-order-shipping-lname').val(),
-	       aoShippingCompany = $('add-order-shipping-company').val(), aoShippingAddress1 = $('add-order-shipping-address-1').val(),aoShippingAddress2 = $('add-order-shipping-address-2').val(),
-	       aoShippingCity = $('add-order-shipping-city').val(), aoShippingRegion = $('add-order-shipping-region').val(), 
-		   aoShippingPostcode = $('add-order-shipping-postcode').val(), aoShippingCountry = $('add-order-shipping-country').val(),
+		   aoShippingFname = $('#add-order-shipping-fname').val(), aoShippingLname = $('#add-order-shipping-lname').val(),
+	       aoShippingCompany = $('#add-order-shipping-company').val(), aoShippingAddress1 = $('#add-order-shipping-address-1').val(),aoShippingAddress2 = $('#add-order-shipping-address-2').val(),
+	       aoShippingCity = $('#add-order-shipping-city').val(), aoShippingRegion = $('#add-order-shipping-region').val(), 
+		   aoShippingPostcode = $('#add-order-shipping-postcode').val(), aoShippingCountry = $('#add-order-shipping-country').val(),
 		   side2Validation = (aoShippingFname == "" || aoShippingLname == "" || aoShippingAddress1 == "" || aoShippingCity == "" || aoShippingRegion == "" || aoShippingCountry == "none"),
 		   
-		   aoPaymentType = $('add-order-payment-type').val(), aoShippingType = $('add-order-shipping-type').val(), aoComment = $('add-order-comment').val(), aoStatus = $('add-order-status').val(),
+		   aoPaymentType = $('#add-order-payment-type').val(), aoShippingType = $('#add-order-shipping-type').val(), aoComment = $('#add-order-comment').val(), aoStatus = $('#add-order-status').val(),
 		   side3Validation = (aoPaymentType == "none" || aoShippingType == "none" || aoStatus == "none"); 
 		  
 	   if(side1Validation || side2Validation || side3Validation){
@@ -854,15 +857,19 @@ $(document).ready(function() {
 		 payment_region: aoPaymentRegion,
 		 payment_postcode: aoPaymentPostcode,
 		 payment_country: aoPaymentCountry,
-		 payment_fname: aoPaymentFname,
-		 payment_lname: aoPaymentLname,
-		 payment_company: aoPaymentCompany,
-		 payment_address_1: aoPaymentAddress1,
-		 payment_address_2: aoPaymentAddress2,
-		 payment_city: aoPaymentCity,
-		 payment_region: aoPaymentRegion,
-		 payment_postcode: aoPaymentPostcode,
-		 payment_country: aoPaymentCountry,
+		 shipping_fname: aoShippingFname,
+		 shipping_lname: aoShippingLname,
+		 shipping_company: aoShippingCompany,
+		 shipping_address_1: aoShippingAddress1,
+		 shipping_address_2: aoShippingAddress2,
+		 shipping_city: aoShippingCity,
+		 shipping_region: aoShippingRegion,
+		 shipping_postcode: aoShippingPostcode,
+		 shipping_country: aoShippingCountry,
+		 payment_type: aoPaymentType,
+		 shipping_type: aoShippingType,
+		 comment: aoComment,
+		 status: aoStatus,
 		 products: JSON.stringify(orderProducts),
 		 _token: tkAddOrder
 		 };
@@ -875,7 +882,7 @@ $(document).ready(function() {
 		  
 		  $('#ao-submit').hide();
 		  $('#ao-loading').fadeIn();
-		  //addOrder(fd);  
+		  addOrder(fd);  
 		  
 	   }
     });

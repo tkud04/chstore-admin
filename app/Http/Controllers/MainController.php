@@ -5460,6 +5460,8 @@ class MainController extends Controller {
 	public function postAddOrder(Request $request)
     {
 		$user = null;
+		$ret = ['status' => "error", 'message' => "nothing happened"];
+		
 		if(Auth::check())
 		{
 			$user = Auth::user();
@@ -5472,7 +5474,8 @@ class MainController extends Controller {
 
 				if($hasPermission)
 				{
-				
+					$ret = ['status' => "ok",'message' =>json_encode($req)];
+				/**
 				dd($req);
 				
 				$validator = Validator::make($req,[
@@ -5500,24 +5503,24 @@ class MainController extends Controller {
 			            return redirect()->intended("plans");
 					
 				}
+				**/
 				}
 				else
 				{
-					session()->flash("permissions-status-error","ok");
-					return redirect()->intended("/");
+					$ret['message'] = "Technical error";
 				}
 			}
 			else
 			{
-				Auth::logout();
-				$u = url('/');
-				return redirect()->intended($u);
+				$ret['message'] = "Technical error";
 			}
 		}
 		else
 		{
-			return redirect()->intended('/');
+			$ret['message'] = "Technical error";
 		}
+		
+		return json_encode($ret);
     }
 	
 	

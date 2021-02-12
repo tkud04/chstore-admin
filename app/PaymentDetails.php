@@ -13,7 +13,7 @@ class PaymentDetails extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id','fname', 'lname', 'company', 'address_1', 'address_2', 'city', 'zip', 'country'
+        'user_id','fname', 'lname', 'company', 'address_1', 'address_2', 'city', 'region', 'zip', 'country'
     ];
     
 }
