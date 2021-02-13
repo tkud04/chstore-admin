@@ -5476,6 +5476,32 @@ class MainController extends Controller {
 				{
 					$ret = ['status' => "ok",'message' =>json_encode($req)];
 				/**
+				
+				customer: aoCustomer,
+		 payment_fname: aoPaymentFname,
+		 payment_lname: aoPaymentLname,
+		 payment_company: aoPaymentCompany,
+		 payment_address_1: aoPaymentAddress1,
+		 payment_address_2: aoPaymentAddress2,
+		 payment_city: aoPaymentCity,
+		 payment_region: aoPaymentRegion,
+		 payment_postcode: aoPaymentPostcode,
+		 payment_country: aoPaymentCountry,
+		 shipping_fname: aoShippingFname,
+		 shipping_lname: aoShippingLname,
+		 shipping_company: aoShippingCompany,
+		 shipping_address_1: aoShippingAddress1,
+		 shipping_address_2: aoShippingAddress2,
+		 shipping_city: aoShippingCity,
+		 shipping_region: aoShippingRegion,
+		 shipping_postcode: aoShippingPostcode,
+		 shipping_country: aoShippingCountry,
+		 payment_type: aoPaymentType,
+		 shipping_type: aoShippingType,
+		 comment: aoComment,
+		 status: aoStatus,
+		 products: JSON.stringify(orderProducts),
+				
 				dd($req);
 				
 				$validator = Validator::make($req,[
