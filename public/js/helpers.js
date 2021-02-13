@@ -825,7 +825,7 @@ const refreshProducts = dt => {
 		          <td>${op.q}</td>
 		          <td>&#0163;${p.amount}</td>
 		          <td>&#0163;${ss}</td>
-		          <td><a href="javascript:void(0)" onclick="removeProduct({p: ${op.p},q: ${op.q},t: 'add-order'})" class="btn btn-danger"><i class="fas fa-minus"></i></a></td>
+		          <td><a href="javascript:void(0)" onclick="removeProduct({p: ${op.p},q: ${op.q},t: '${dt.t}'})" class="btn btn-danger"><i class="fas fa-minus"></i></a></td>
 				 </tr>`;
 		}
 		else if(dt.type == "review"){
@@ -847,7 +847,7 @@ const refreshProducts = dt => {
 		          </tr>
 				  <tr>
 		          <td colspan="4">Total</td>
-		          <td>&#0163;<span id="add-order-total">${t}</span></td>
+		          <td>&#0163;<span id="${dt.t}-total">${t}</span></td>
 		          </tr>`;
 		html += hh;
 	}
@@ -865,8 +865,8 @@ const removeProduct = dt => {
 	}
 	
 	orderProducts = ret;
-	refreshProducts({type: "normal", target: `#${dt.t}-products`});
-    refreshProducts({type: "review", target: `#${dt.t}-products-review`});
+	refreshProducts({type: "normal", target: `#${dt.t}-products`, t: dt.t});
+    refreshProducts({type: "review", target: `#${dt.t}-products-review`, t: dt.t});
 }
 
 
@@ -938,5 +938,76 @@ const addOrder = (dt) => {
 		     alert("Failed to add order: " + error);			
 			$('#ao-loading').hide();
 		     $('#ao-submit').fadeIn();			
+	   });
+}
+
+const updateOrder = (dt) => {
+	//create request
+	const req = new Request("order",{method: 'POST', body: dt});
+	//console.log(req);
+	
+	
+	//fetch request
+	fetch(req)
+	   .then(response => {
+		   if(response.status === 200){
+			   //console.log(response);
+			   
+			   return response.json();
+		   }
+		   else{
+			   return {status: "error", message: "Technical error"};
+		   }
+	   })
+	   .catch(error => {
+		     Swal.fire({
+			     icon: 'error',
+                 title: hh,
+                 html: `Failed to update order: <b>${error}</b>`,
+               });
+                $('#eo-loading').hide();
+		        $('#eo-submit').fadeIn();
+	   })
+	   .then(res => {
+		   console.log(res);
+          
+		   if(res.status == "ok"){
+              Swal.fire({
+			     icon: 'success',
+                 title: "Order updated!"
+               }).then((result) => {
+               if (result.value) {                 
+			     window.location = `orders`;
+                }
+              });
+			  window.location = `orders`;
+		   }
+		   else if(res.status == "error"){
+			   let hh = ``;
+			   if(res.message == "validation"){
+				 hh = `Please fill all required fields and try again.`;  
+			   }
+			   else if(res.message == "network"){
+				 hh = `A network error has occured, please check your connection and try again.`;  
+			   }
+			   else if(res.message == "Technical error"){
+				 hh = `A technical error has occured, please try again.`;  
+			   }else if(res.message == "nothing happened"){
+				 hh = `Nothing happened, please try again.`;  
+			   }
+			   Swal.fire({
+			     icon: 'error',
+                 title: hh
+               });
+                $('#eo-loading').hide();
+		        $('#eo-submit').fadeIn();			   
+		   }
+		  
+		   
+		  
+	   }).catch(error => {
+		     alert("Failed to update order: " + error);			
+			$('#eo-loading').hide();
+		     $('#eo-submit').fadeIn();			
 	   });
 }

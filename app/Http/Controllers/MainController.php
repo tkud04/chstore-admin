@@ -5372,7 +5372,7 @@ class MainController extends Controller {
 				{
 				 $v = "orders";
 				 $orders = $this->helpers->getOrders();
-				 dd($orders);
+				# dd($orders);
 				 array_push($cpt,'orders');
 				}
 				else
@@ -5558,16 +5558,23 @@ class MainController extends Controller {
 				if(isset($req['xf']))
 				{
 					$v = "order";
-					$p = $this->helpers->getPlan($req['xf']);
-				    #dd($p);
-					if(count($p) < 1)
+					$o = $this->helpers->getOrder($req['xf']);
+				    #dd($o);
+					if(count($o) < 1)
 					{
 						session()->flash("validation-status-error","ok");
-						return redirect()->intended('plans');
+						return redirect()->intended('o');
 					}
 					else
 					{
-						array_push($cpt,'p');                                 
+						if(isset($req['type']) && $req['type'] == "edit") $v = "edit-order";
+						array_push($cpt,'o');                                 
+						$customers = $this->helpers->getUsers();
+					    $products = $this->helpers->getProducts();
+					    $countries = $this->helpers->countries;
+					    array_push($cpt,'customers');
+				        array_push($cpt,'products');
+					    array_push($cpt,'countries');                                 
 					}
 					
 				}
@@ -5607,6 +5614,7 @@ class MainController extends Controller {
 	public function postUpdateOrder(Request $request)
     {
 		$user = null;
+		$ret = ['status' => "error", 'message' => "nothing happened"];
 		
 		if(Auth::check())
 		{
@@ -5616,57 +5624,58 @@ class MainController extends Controller {
 			{
 				$hasPermission = $this->helpers->hasPermission($user->id,['view_users','edit_users']);
 				#dd($hasPermission);
-				
-				if($hasPermission)
-				{
-				
 				$req = $request->all();
-				#dd($req);
-				
+
+				if($hasPermission)
+				{			
 				$validator = Validator::make($req,[
-		                     'xf' => 'required',
-		                     'name' => 'required',
-                             'amount' => 'required|numeric',
-							 'pc' => 'required|numeric',
-							 'frequency' => 'required',
-                             'ps_id' => 'required'
+		                     'amount' => 'required|numeric',
+		                     'customer' => 'required|numeric',
+                             'payment_fname' => 'required',
+                             'payment_lname' => 'required',
+                             'payment_address_1' => 'required',
+                             'payment_city' => 'required',
+                             'payment_lname' => 'required',
+                             'payment_region' => 'required',
+							 'payment_country' => 'required',
+                             'shipping_fname' => 'required',
+                             'shipping_lname' => 'required',
+                             'shipping_address_1' => 'required',
+                             'shipping_city' => 'required',
+                             'shipping_region' => 'required',
+                             'shipping_country' => 'required',
+                             'payment_type' => 'required',
+                             'shipping_type' => 'required',
+                             'status' => 'required',
+                             'products' => 'required',
 		                   ]);
 						
-				if($validator->fails())
-                {
-                  session()->flash("validation-status-error","ok");
-			      return redirect()->back()->withInput();
-                }
-				else
-				{
-					
-					    $req['added_by'] = $user->id;
-					   
-			            $ret = $this->helpers->updatePlan($req);
-			            $ss = "update-plan-status";
-					    if($ret == "error") $ss .= "-error";
-					    session()->flash($ss,"ok");
-			            return redirect()->back();
-					
-				}
+				   if($validator->fails())
+                   {
+                     $ret['message'] = "validation";
+                   }
+				   else
+				   {   
+			           $ret = $this->helpers->updateOrder($req);
+			           $ret = ['status' => "ok"];
+				   }
 				}
 				else
 				{
-					session()->flash("permissions-status-error","ok");
-					return redirect()->intended("/");
+					$ret['message'] = "Technical error";
 				}
 			}
 			else
 			{
-				Auth::logout();
-				$u = url('/');
-				return redirect()->intended($u);
+				$ret['message'] = "Technical error";
 			}
 		}
 		else
 		{
-			return redirect()->intended('/');
+			$ret['message'] = "Technical error";
 		}
+		
+		return json_encode($ret);
     }
 	
 	

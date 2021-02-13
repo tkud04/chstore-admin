@@ -2415,6 +2415,7 @@ $subject = $data['subject'];
                   $temp['totals'] = $this->getOrderTotals($temp['items']);
 				  $temp['user'] = $this->getUser($o->user_id);
                   $temp['date'] = $o->created_at->format("jS F, Y");
+                  $temp['updated'] = $o->updated_at->format("jS F, Y");
                   $ret = $temp; 
                }                                 
               		#dd($ret);	  
@@ -2435,6 +2436,7 @@ $subject = $data['subject'];
 						$temp = [];
                     	$temp['id'] = $i->id; 
                     	$temp['order_id'] = $i->order_id; 
+                    	$temp['product_id'] = $i->product_id; 
                         $temp['product'] = $this->getProduct($i->product_id); 
                         $temp['qty'] = $i->qty; 
                         array_push($ret, $temp); 

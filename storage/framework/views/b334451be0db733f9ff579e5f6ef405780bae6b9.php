@@ -33,7 +33,7 @@ $subtitle = "View all orders";
 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
-                            <h5 class="card-header">View all orders<a class="btn btn-primary ml-3" href="<?php echo e(url('add-order')); ?>">Add Order</a></h5>
+                            <h5 class="card-header">Orders<a class="btn btn-primary ml-3" href="<?php echo e(url('add-order')); ?>">Add Order</a></h5>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered first etuk-table">
@@ -55,38 +55,26 @@ $subtitle = "View all orders";
 										   {
 											  foreach($orders as $o)
 											   {
-												$statusClass = "danger";
-												$arrClass = "success";
-												$arrText = "Enable";
+												   
+												 $customer = $o['user'];
+											   $totals = $o['totals'];
+											   $uu = url('order')."?xf=".$o['id'];
+											   $sss = $o['status'];
 												
-
-											   $name = $p['name'];
-											   $pd = $p['data'];
-											   $uu = url('product')."?xf=".$p['id'];
-											    $sss = $p['status'];
-												
-												if($sss == "enabled")
-												{
-													$statusClass = "success";
-													$arrClass = "warning";
-													$arrText = "Disable";
-												}
-											   $imgs = $p['imggs'];
-
-												   $arr = url('ups')."?xf=".$p['id']."&type=".strtolower($arrText);
-												   $dr = url('remove-product')."?xf=".$p['id'];
+												   $arr = url('order')."?xf=".$o['id']."&type=edit";
+												   $dr = url('remove-order')."?xf=".$o['id'];
 												   #$ar = $a['rating'];
 												   $ar = 3;
 										  ?>
                                             <tr>
-                                               <td><img class="img-fluid" onclick="window.location='<?php echo e($uu); ?>'" src="<?php echo e($imgs[0]); ?>" alt="<?php echo e($name); ?>" style="cursor: pointer; width: 100px; height: 100px;"/></td> 
-											   <td> <a href="<?php echo e($uu); ?>"><h4><?php echo e(ucwords($name)); ?></h4></a> </td> 
-												<td><a href="<?php echo e($uu); ?>"><h4><?php echo e($p['model']); ?></h4></a></td>	
-                                                <td>&#163;<?php echo e(number_format($pd['amount'],2)); ?></td>
-												<td><?php echo e($p['qty']); ?></td>
-                                                <td><span class="label label-<?php echo e($statusClass); ?>"><?php echo e(strtoupper($sss)); ?></span></td>
+                                               <td><a href="<?php echo e($uu); ?>"><h4><?php echo e($o['reference']); ?></a></td> 
+											   <td><?php echo e(ucwords($customer['fname']." ".$customer['lname'])); ?></td> 
+												<td><?php echo e(strtoupper($o['status'])); ?></h4></td>	
+                                                <td>&#163;<?php echo e(number_format($totals['subtotal'],2)); ?></td>
+												<td><?php echo e($o['date']); ?></td>
+												<td><?php echo e($o['updated']); ?></td>
                                                 <td>
-												 <a class="btn btn-<?php echo e($arrClass); ?> btn-sm" href="<?php echo e($arr); ?>"><?php echo e($arrText); ?></a>
+												 <a class="btn btn-info btn-sm" href="<?php echo e($arr); ?>">Edit</a>
 												 <a class="btn btn-danger btn-sm" href="<?php echo e($dr); ?>">Remove</a>
 												 </td>
                                             </tr>

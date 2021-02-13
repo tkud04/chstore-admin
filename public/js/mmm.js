@@ -805,8 +805,8 @@ $(document).ready(function() {
 			      if(orderProducts[o].p == xe.p) orderProducts[o].q = q;
 			   }
 		   }
-		   refreshProducts({type: "normal", target: "#add-order-products"});
-		   refreshProducts({type: "review", target: "#add-order-products-review"});
+		   refreshProducts({type: "normal", target: "#add-order-products", t: 'add-order'});
+		   refreshProducts({type: "review", target: "#add-order-products-review", t: 'add-order'});
 		   
 		   $('#add-order-product').val("");
 		   $('#add-order-qty').val(""); 
@@ -889,4 +889,120 @@ $(document).ready(function() {
 		  
 	   }
     });
+	
+	//EDIT ORDER
+	$('#order-product-list').change(e =>{
+		e.preventDefault();
+		xf = $(this).attr('data-xf');
+		
+	});
+	
+	
+	$("#order-product-submit").click(e => {
+       e.preventDefault();
+	   let p = $('#order-product').val(), q = $('#order-qty').val(), validation = (p == "" || q == "" || (typeof q === 'undefined') || parseInt(q) < 1);
+	   
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all the required fields"
+           })
+	   }
+	   else{
+		   let xe = orderProducts.find(item => item.p == p);
+		   
+		   if(typeof(xe) === "undefined"){
+		    orderProducts.push({p: p,q: q});
+		   }
+		   else{
+			   for(let o = 0; o < orderProducts.length; o++){ 
+			      if(orderProducts[o].p == xe.p) orderProducts[o].q = q;
+			   }
+		   }
+		   refreshProducts({type: "normal", target: "#order-products", t: 'order'});
+		   refreshProducts({type: "review", target: "#order-products-review", t: 'order'});
+		   
+		   $('#order-product').val("");
+		   $('#order-qty').val(""); 
+	   }
+	});
+	
+	$("#order-submit").click(e => {
+       e.preventDefault();
+	   
+	   //side 1 validation
+	   let aoCustomer = $('#order-customer').val(), aoTotal = $('#order-total').html(), aoPaymentFname = $('#order-payment-fname').val(), aoPaymentLname = $('#order-payment-lname').val(),
+	       aoPaymentCompany = $('#order-payment-company').val(), aoPaymentAddress1 = $('#order-payment-address-1').val(),aoPaymentAddress2 = $('#order-payment-address-2').val(),
+	       aoPaymentCity = $('#order-payment-city').val(), aoPaymentRegion = $('#order-payment-region').val(), aoPaymentPostcode = $('#order-payment-postcode').val(),
+		   aoPaymentCountry = $('#order-payment-country').val(), side1Validation = (aoCustomer == "none" || aoPaymentFname == "" || aoPaymentLname == "" || aoPaymentAddress1 == "" || aoPaymentCity == "" || aoPaymentRegion == "" || aoPaymentCountry == "none"),
+		   
+		   aoShippingFname = $('#order-shipping-fname').val(), aoShippingLname = $('#order-shipping-lname').val(),
+	       aoShippingCompany = $('#order-shipping-company').val(), aoShippingAddress1 = $('#order-shipping-address-1').val(),aoShippingAddress2 = $('#order-shipping-address-2').val(),
+	       aoShippingCity = $('#order-shipping-city').val(), aoShippingRegion = $('#order-shipping-region').val(), 
+		   aoShippingPostcode = $('#order-shipping-postcode').val(), aoShippingCountry = $('#order-shipping-country').val(),
+		   side2Validation = (aoShippingFname == "" || aoShippingLname == "" || aoShippingAddress1 == "" || aoShippingCity == "" || aoShippingRegion == "" || aoShippingCountry == "none"),
+		   
+		   aoPaymentType = $('#order-payment-type').val(), aoShippingType = $('#order-shipping-type').val(), aoComment = $('#order-comment').val(), aoStatus = $('#order-status').val(),
+		   side3Validation = (aoPaymentType == "none" || aoShippingType == "none" || aoStatus == "none"); 
+		  
+	   if(side1Validation || side2Validation || side3Validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all the required fields"
+           })
+	   }
+	   else if(orderProducts.length < 1){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please add a product."
+           })
+	   }
+	   
+	   else{
+	      
+		 let fd =  new FormData(), payload = {
+		 customer: aoCustomer,
+		 amount: aoTotal,
+		 payment_xf: aoPaymentXF,
+		 payment_fname: aoPaymentFname,
+		 payment_lname: aoPaymentLname,
+		 payment_company: aoPaymentCompany,
+		 payment_address_1: aoPaymentAddress1,
+		 payment_address_2: aoPaymentAddress2,
+		 payment_city: aoPaymentCity,
+		 payment_region: aoPaymentRegion,
+		 payment_postcode: aoPaymentPostcode,
+		 payment_country: aoPaymentCountry,
+		 shipping_xf: aoShippingXF,
+		 shipping_fname: aoShippingFname,
+		 shipping_lname: aoShippingLname,
+		 shipping_company: aoShippingCompany,
+		 shipping_address_1: aoShippingAddress1,
+		 shipping_address_2: aoShippingAddress2,
+		 shipping_city: aoShippingCity,
+		 shipping_region: aoShippingRegion,
+		 shipping_postcode: aoShippingPostcode,
+		 shipping_country: aoShippingCountry,
+		 payment_type: aoPaymentType,
+		 shipping_type: aoShippingType,
+		 comment: aoComment,
+		 status: aoStatus,
+		 products: JSON.stringify(orderProducts),
+		 _token: tkOrder
+		 };
+		 
+		 console.log("payload: ",payload);
+		  
+		  for(let i in payload){
+			  fd.append(i,payload[i]);
+		  }
+		  
+		  $('#eo-submit').hide();
+		  $('#eo-loading').fadeIn();
+		  updateOrder(fd);  
+		  
+	   }
+    });
+	
+	
 });
