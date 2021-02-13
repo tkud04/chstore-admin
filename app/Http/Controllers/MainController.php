@@ -5372,7 +5372,7 @@ class MainController extends Controller {
 				{
 				 $v = "orders";
 				 $orders = $this->helpers->getOrders();
-				 #dd($posts);
+				 dd($orders);
 				 array_push($cpt,'orders');
 				}
 				else
@@ -5475,6 +5475,7 @@ class MainController extends Controller {
 				if($hasPermission)
 				{			
 				$validator = Validator::make($req,[
+		                     'amount' => 'required|numeric',
 		                     'customer' => 'required|numeric',
                              'payment_fname' => 'required',
                              'payment_lname' => 'required',
@@ -5482,8 +5483,7 @@ class MainController extends Controller {
                              'payment_city' => 'required',
                              'payment_lname' => 'required',
                              'payment_region' => 'required',
-							 'frequency' => 'required',
-                             'payment_country' => 'required',
+							 'payment_country' => 'required',
                              'shipping_fname' => 'required',
                              'shipping_lname' => 'required',
                              'shipping_address_1' => 'required',

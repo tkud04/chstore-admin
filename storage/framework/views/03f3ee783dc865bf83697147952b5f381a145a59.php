@@ -15,7 +15,8 @@ $subtitle = "Add an order.";
 
 <?php $__env->startSection('content'); ?>
 <script>
-let xf = ""; products = [], pCover = "none", tkAddOrder = "<?php echo e(csrf_token()); ?>"; orderProducts = [];
+let xf = "", products = [], pCover = "none", tkAddOrder = "<?php echo e(csrf_token()); ?>",
+    orderProducts = [], aoPaymentXF = "new", aoShippingXF = "new";
 
 $(document).ready(() => {
 	hideElem(["#ao-loading"]);
