@@ -5473,63 +5473,38 @@ class MainController extends Controller {
 				$req = $request->all();
 
 				if($hasPermission)
-				{
-					$ret = ['status' => "ok",'message' =>json_encode($req)];
-				/**
-				
-				customer: aoCustomer,
-		 payment_fname: aoPaymentFname,
-		 payment_lname: aoPaymentLname,
-		 payment_company: aoPaymentCompany,
-		 payment_address_1: aoPaymentAddress1,
-		 payment_address_2: aoPaymentAddress2,
-		 payment_city: aoPaymentCity,
-		 payment_region: aoPaymentRegion,
-		 payment_postcode: aoPaymentPostcode,
-		 payment_country: aoPaymentCountry,
-		 shipping_fname: aoShippingFname,
-		 shipping_lname: aoShippingLname,
-		 shipping_company: aoShippingCompany,
-		 shipping_address_1: aoShippingAddress1,
-		 shipping_address_2: aoShippingAddress2,
-		 shipping_city: aoShippingCity,
-		 shipping_region: aoShippingRegion,
-		 shipping_postcode: aoShippingPostcode,
-		 shipping_country: aoShippingCountry,
-		 payment_type: aoPaymentType,
-		 shipping_type: aoShippingType,
-		 comment: aoComment,
-		 status: aoStatus,
-		 products: JSON.stringify(orderProducts),
-				
-				dd($req);
-				
+				{			
 				$validator = Validator::make($req,[
-		                     'name' => 'required',
-                             'amount' => 'required|numeric',
-                             'pc' => 'required|numeric',
+		                     'customer' => 'required|numeric',
+                             'payment_fname' => 'required',
+                             'payment_lname' => 'required',
+                             'payment_address_1' => 'required',
+                             'payment_city' => 'required',
+                             'payment_lname' => 'required',
+                             'payment_region' => 'required',
 							 'frequency' => 'required',
-                             'ps_id' => 'required'
+                             'payment_country' => 'required',
+                             'shipping_fname' => 'required',
+                             'shipping_lname' => 'required',
+                             'shipping_address_1' => 'required',
+                             'shipping_city' => 'required',
+                             'shipping_region' => 'required',
+                             'shipping_country' => 'required',
+                             'payment_type' => 'required',
+                             'shipping_type' => 'required',
+                             'status' => 'required',
+                             'products' => 'required',
 		                   ]);
 						
-				if($validator->fails())
-                {
-                  session()->flash("validation-status-error","ok");
-			      return redirect()->back()->withInput();
-                }
-				else
-				{
-					$req['status'] = "enabled";
-					$req['added_by'] = $user->id;
-					   
-			        $ret = $this->helpers->createPlan($req);
-			            $ss = "add-plan-status";
-					    if($ret == "error") $ss .= "-error";
-					    session()->flash($ss,"ok");
-			            return redirect()->intended("plans");
-					
-				}
-				**/
+				   if($validator->fails())
+                   {
+                     $ret['message'] = "validation";
+                   }
+				   else
+				   {   
+			           $ret = $this->helpers->addOrder($req);
+			           $ret = ['status' => "ok"];
+				   }
 				}
 				else
 				{

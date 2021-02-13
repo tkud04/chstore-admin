@@ -817,7 +817,7 @@ $(document).ready(function() {
        e.preventDefault();
 	   
 	   //side 1 validation
-	   let aoCustomer = $('#add-order-customer').val(), aoPaymentFname = $('#add-order-payment-fname').val(), aoPaymentLname = $('#add-order-payment-lname').val(),
+	   let aoCustomer = $('#add-order-customer').val(), aoTotal = $('#add-order-total').html(), aoPaymentFname = $('#add-order-payment-fname').val(), aoPaymentLname = $('#add-order-payment-lname').val(),
 	       aoPaymentCompany = $('#add-order-payment-company').val(), aoPaymentAddress1 = $('#add-order-payment-address-1').val(),aoPaymentAddress2 = $('#add-order-payment-address-2').val(),
 	       aoPaymentCity = $('#add-order-payment-city').val(), aoPaymentRegion = $('#add-order-payment-region').val(), aoPaymentPostcode = $('#add-order-payment-postcode').val(),
 		   aoPaymentCountry = $('#add-order-payment-country').val(), side1Validation = (aoCustomer == "none" || aoPaymentFname == "" || aoPaymentLname == "" || aoPaymentAddress1 == "" || aoPaymentCity == "" || aoPaymentRegion == "" || aoPaymentCountry == "none"),
@@ -848,6 +848,8 @@ $(document).ready(function() {
 	      
 		 let fd =  new FormData(), payload = {
 		 customer: aoCustomer,
+		 amount: aoTotal,
+		 payment_xf: aoPaymentXF,
 		 payment_fname: aoPaymentFname,
 		 payment_lname: aoPaymentLname,
 		 payment_company: aoPaymentCompany,
@@ -857,6 +859,7 @@ $(document).ready(function() {
 		 payment_region: aoPaymentRegion,
 		 payment_postcode: aoPaymentPostcode,
 		 payment_country: aoPaymentCountry,
+		 shipping_xf: aoShippingXF,
 		 shipping_fname: aoShippingFname,
 		 shipping_lname: aoShippingLname,
 		 shipping_company: aoShippingCompany,

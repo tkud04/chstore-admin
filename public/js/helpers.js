@@ -847,7 +847,7 @@ const refreshProducts = dt => {
 		          </tr>
 				  <tr>
 		          <td colspan="4">Total</td>
-		          <td>&#0163;${t}</td>
+		          <td>&#0163;<span id="add-order-total">${t}</span></td>
 		          </tr>`;
 		html += hh;
 	}
