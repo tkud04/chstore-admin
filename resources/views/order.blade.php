@@ -64,7 +64,7 @@ $shipping_method = "Free Shipping";
 				  {{$o['date']}}
 				</li>
 				<li class="list-group-item">
-				  <span class="badge badge-primary p-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Payment method"><i class="fas fa-card"></i> </span>
+				  <span class="badge badge-primary p-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Payment method"><i class="fas fa-credit-card"></i> </span>
 				  {{$payment_method}}
 				</li>
 				<li class="list-group-item">
