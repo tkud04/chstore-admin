@@ -1959,7 +1959,6 @@ $subject = $data['subject'];
            {
 			   $company = isset($dt['payment_company']) && $dt['payment_company'] != null ? $dt['payment_company'] : "";
 			   $a2 = isset($dt['payment_address_2']) && $dt['payment_address_2'] != null ? $dt['payment_address_2'] : "";
-                           $zip = isset($dt['payment_postcode']) && $dt['payment_postcode'] != null ? $dt['payment_postcode'] : "";
 			   
            	$ret = PaymentDetails::create(['user_id' => $data['user_id'], 
                                                       'fname' => $data['payment_fname'],                                                       
@@ -1969,7 +1968,7 @@ $subject = $data['subject'];
                                                       'address_2' => $a2,                                                 
                                                       'city' => $data['payment_city'],                                                     
                                                       'region' => $data['payment_region'],                                                     
-                                                      'zip' => $zip,                                                     
+                                                      'zip' => $data['payment_postcode'],                                                     
                                                       'country' => $data['payment_country'],                                                     
                                                       ]);
                               
@@ -2081,8 +2080,7 @@ $subject = $data['subject'];
            {
 			   $company = isset($dt['company']) && $dt['company'] != null ? $dt['company'] : "";
 			   $a2 = isset($dt['address_2']) && $dt['address_2'] != null ? $dt['address_2'] : "";
-			   $zip = isset($dt['shipping_postcode']) && $dt['shipping_postcode'] != null ? $dt['shipping_postcode'] : "";
-
+			   
            	$ret = ShippingDetails::create(['user_id' => $data['user_id'], 
                                                       'fname' => $data['shipping_fname'],                                                       
                                                       'lname' => $data['shipping_lname'],                                                    
@@ -2091,7 +2089,7 @@ $subject = $data['subject'];
                                                       'address_2' => $a2,                                                 
                                                       'city' => $data['shipping_city'],                                                     
                                                       'region' => $data['shipping_region'],                                                     
-                                                      'zip' => $zip,                                                     
+                                                      'zip' => $data['shipping_postcode'],                                                     
                                                       'country' => $data['shipping_country'],                                                     
                                                       ]);
                               
