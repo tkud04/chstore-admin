@@ -14,9 +14,15 @@ $subtitle = "Edit order.";
 
 
 @section('content')
+
+<?php
+$pd = $o['pd'];
+$sd = $o['sd'];
+?>
+
 <script>
 let xf = "", products = [], pCover = "none", tkOrder = "{{csrf_token()}}",
-    orderProducts = [], eoPaymentXF = "new", eoShippingXF = "new";
+    orderProducts = [], eoPaymentXF = "{{$pd['id']}}", eoShippingXF = "{{$sd['id']}}";
 
   
 
@@ -42,10 +48,6 @@ $(document).ready(() => {
 });
 </script>
 
-<?php
-$pd = $o['pd'];
-$sd = $o['sd'];
-?>
 
 <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
