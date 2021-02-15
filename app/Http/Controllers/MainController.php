@@ -5813,6 +5813,162 @@ class MainController extends Controller {
 		
     }
 	
+	/**
+	 * Show the Invoice view.
+	 *
+	 * @return Response
+	 */
+	public function getInvoice(Request $request)
+    {
+		$user = null;
+		$nope = false;
+		$v = "";
+		
+		$signals = $this->helpers->signals;
+		$plugins = $this->helpers->getPlugins();
+		$permissions = $this->helpers->permissions;
+		#$this->helpers->populateTips();
+        $cpt = ['user','signals','plugins'];
+				
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			
+			if($this->helpers->isAdmin($user))
+			{
+				$hasPermission = $this->helpers->hasPermission($user->id,['view_users','edit_users']);
+				#dd($hasPermission);
+				$req = $request->all();
+				
+				if($hasPermission)
+				{
+                
+				if(isset($req['xf']))
+				{
+					$v = "invoice";
+					$o = $this->helpers->getOrder($req['xf']);
+				    #dd($o);
+					if(count($o) < 1)
+					{
+						session()->flash("validation-status-error","ok");
+						return redirect()->intended('o');
+					}
+					else
+					{
+						if(isset($req['type']) && $req['type'] == "edit") $v = "edit-order";
+						array_push($cpt,'o');                                 
+						$countries = $this->helpers->countries;
+					    $statuses = $this->helpers->statuses;
+					    array_push($cpt,'countries');                                 
+					    array_push($cpt,'statuses');                                 
+					}
+					
+				}
+				else
+				{
+					session()->flash("validation-status-error","ok");
+					return redirect()->intended('orders');
+				}
+				}
+				else
+				{
+					session()->flash("permissions-status-error","ok");
+					return redirect()->intended('/');
+				}
+								
+			}
+			else
+			{
+				Auth::logout();
+				$u = url('/');
+				return redirect()->intended($u);
+			}
+		}
+		else
+		{
+			$v = "login";
+		}
+		return view($v,compact($cpt));
+    }
+	
+	/**
+	 * Show the Shipping List view.
+	 *
+	 * @return Response
+	 */
+	public function getShippingList(Request $request)
+    {
+		$user = null;
+		$nope = false;
+		$v = "";
+		
+		$signals = $this->helpers->signals;
+		$plugins = $this->helpers->getPlugins();
+		$permissions = $this->helpers->permissions;
+		#$this->helpers->populateTips();
+        $cpt = ['user','signals','plugins'];
+				
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			
+			if($this->helpers->isAdmin($user))
+			{
+				$hasPermission = $this->helpers->hasPermission($user->id,['view_users','edit_users']);
+				#dd($hasPermission);
+				$req = $request->all();
+				
+				if($hasPermission)
+				{
+                
+				if(isset($req['xf']))
+				{
+					$v = "shipping-list";
+					$o = $this->helpers->getOrder($req['xf']);
+				    #dd($o);
+					if(count($o) < 1)
+					{
+						session()->flash("validation-status-error","ok");
+						return redirect()->intended('o');
+					}
+					else
+					{
+						if(isset($req['type']) && $req['type'] == "edit") $v = "edit-order";
+						array_push($cpt,'o');                                 
+						$countries = $this->helpers->countries;
+					    $statuses = $this->helpers->statuses;
+					    array_push($cpt,'countries');                                 
+					    array_push($cpt,'statuses');                                 
+					}
+					
+				}
+				else
+				{
+					session()->flash("validation-status-error","ok");
+					return redirect()->intended('orders');
+				}
+				}
+				else
+				{
+					session()->flash("permissions-status-error","ok");
+					return redirect()->intended('/');
+				}
+								
+			}
+			else
+			{
+				Auth::logout();
+				$u = url('/');
+				return redirect()->intended($u);
+			}
+		}
+		else
+		{
+			$v = "login";
+		}
+		return view($v,compact($cpt));
+    }
+	
 	
 	/**
 	 * Handle Enable/Disable plan.

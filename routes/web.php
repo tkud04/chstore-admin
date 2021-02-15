@@ -159,6 +159,10 @@ Route::get('add-order-history', 'MainController@getAddOrderHistory');
 Route::post('add-order-history', 'MainController@postAddOrderHistory');
 
 
+//Invoice
+Route::get('invoice', 'MainController@getInvoice');
+Route::get('shipping-list', 'MainController@getShippingList');
+
 Route::get('zohoverify/{nn}', 'MainController@getZoho');
 Route::get('tb', 'MainController@getTestBomb');
 

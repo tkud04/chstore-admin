@@ -53,7 +53,7 @@ $payment_method = "Credit Card/Debit Card";
 $shipping_method = "Free Shipping";
 
 $pu = url('invoice')."?xf=".$o['id'];
-$su = url('shipping')."?xf=".$o['id'];
+$su = url('shipping-list')."?xf=".$o['id'];
 $eu = url('order')."?xf=".$o['id']."&type=edit";
 ?>
 
