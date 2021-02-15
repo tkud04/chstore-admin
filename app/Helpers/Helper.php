@@ -377,6 +377,14 @@ public $smtpp = [
 												     'voided' => "Voided",
 												   ];
            
+ public $information_types = [
+											    'about' => "About Us",
+											    'delivery' => "Delivery and Warranty",
+											    'privacy' => "Privacy Policy",
+											    'terms' => "Terms and Conditions",
+											    'sitemap' => "Sitemap",
+											  ];
+ 
 		   #{'msg':msg,'em':em,'subject':subject,'link':link,'sn':senderName,'se':senderEmail,'ss':SMTPServer,'sp':SMTPPort,'su':SMTPUser,'spp':SMTPPass,'sa':SMTPAuth};
            function sendEmailSMTP($data,$view,$type="view")
            {
@@ -1575,6 +1583,7 @@ $subject = $data['subject'];
            {
            	$i = Information::create([
 			   'title' => $data['title'],
+			   'type' => $data['type'],
 			   'content' => $data['content']
 			]);                          
             return $i;
@@ -1601,7 +1610,8 @@ $subject = $data['subject'];
 		   function getInformationSingle($id)
            {
            	$ret = [];
-           	$i = Information::where('id',$id)->first();
+           	$i = Information::where('id',$id)
+			                ->orWhere('type',$id)->first();
               // dd($cart);
 			  
               if($i != null)
@@ -1609,6 +1619,7 @@ $subject = $data['subject'];
 						$temp = [];
 						$temp['id'] = $i->id;
 						$temp['title'] = $i->title;
+						$temp['type'] = $i->type;
 						$temp['content'] = $i->content;
 						$temp['date'] = $i->created_at->format("jS F, Y"); 
 						$ret = $temp;
@@ -1623,6 +1634,7 @@ $subject = $data['subject'];
 			  
 			  $ret = [];
 			  if(isset($data['title'])) $ret['title'] = $data['title'];
+			  if(isset($data['type'])) $ret['type'] = $data['type'];
 			  if(isset($data['content'])) $ret['content'] = $data['content'];
 			  
 			if($i != null)

@@ -13,7 +13,7 @@ class Information extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'content'
+        'id', 'title', 'content', 'type'
     ];
     
 }

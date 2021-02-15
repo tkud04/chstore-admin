@@ -41,7 +41,7 @@ $subtitle = "View all information";
                                         <thead>
                                             <tr>
                                                 <th>Title</th>
-                                                <th>Content</th>
+                                                <th>Type</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -56,8 +56,9 @@ $subtitle = "View all information";
 										  ?>
                                             <tr>
                                                <td> <a href="{{$uu}}"><h4>{{ucwords($i['title'])}}</h4></a> </td> 
-												<td><h4>{!! substr($i['content'],0,20) !!}..</h4></td>	
-                                                <td>
+                                               <td> <span class="label label-primary">{{$xx[$i['type']]}}</h4></a> </td> 
+												 <td>
+												 <a class="btn btn-primary btn-sm" href="{{$uu}}">View</a>
 												 <a class="btn btn-danger btn-sm" href="{{$dr}}">Remove</a>
 												 </td>
                                             </tr>

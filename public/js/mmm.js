@@ -427,8 +427,8 @@ $(document).ready(function() {
        e.preventDefault();
 	   
 	   //validation
-	   let aiTitle = $('#add-information-title').val(), aiContent = $('#add-information-content').val(),
-   	       validation = (aiTitle == "" || aiContent == "");
+	   let aiTitle = $('#add-information-title').val(), aiType = $('#add-information-type').val(), aiContent = $('#add-information-content').val(),
+   	       validation = (aiTitle == "" || aiType == "none" || aiContent == "");
 			
 	        
 	   if(validation){
@@ -451,8 +451,8 @@ $(document).ready(function() {
        e.preventDefault();
 	   
 	   //validation
-	   let aiTitle = $('#add-information-title').val(), aiContent = $('#add-information-content').val(),
-   	       validation = (aiTitle == "" || aiContent == "");
+	  let aiTitle = $('#add-information-title').val(), aiType = $('#add-information-type').val(), aiContent = $('#add-information-content').val(),
+   	       validation = (aiTitle == "" || aiType == "none" || aiContent == "");
 			
 	        
 	   if(validation){

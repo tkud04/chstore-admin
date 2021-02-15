@@ -3375,6 +3375,7 @@ class MainController extends Controller {
 		
 		$signals = $this->helpers->signals;
 		$plugins = $this->helpers->getPlugins();
+		
 		#$this->helpers->populateTips();
         $cpt = ['user','signals','plugins'];
 				
@@ -3394,8 +3395,10 @@ class MainController extends Controller {
 				$v = "information";
 				$req = $request->all();
                 $information = $this->helpers->getInformation();
+				$xx = $this->helpers->information_types;
 				#dd($tickets);
                 array_push($cpt,'information');
+                array_push($cpt,'xx');
                 }
 				else
 				{
@@ -3446,6 +3449,8 @@ class MainController extends Controller {
 				if($hasPermission)
 				{
 					$v = "add-information";
+					$xx = $this->helpers->information_types;
+					array_push($cpt,'xx');
 				}
 				else
 				{
@@ -3493,6 +3498,7 @@ class MainController extends Controller {
 				
 				$validator = Validator::make($req,[
 		                    'title' => 'required',
+		                    'type' => 'required',
 		                    'content' => 'required',
 		                   ]);
 						
@@ -3571,6 +3577,8 @@ class MainController extends Controller {
 					}
 					else
 					{
+						$xx = $this->helpers->information_types;
+					    array_push($cpt,'xx');
 						array_push($cpt,'i');                                 
 					}
 					
@@ -3630,6 +3638,7 @@ class MainController extends Controller {
 				$validator = Validator::make($req,[
 		                    'xf' => 'required',
                              'title' => 'required',
+                             'type' => 'required',
                              'content' => 'required',
 		                   ]);
 						

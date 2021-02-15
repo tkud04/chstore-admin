@@ -42,8 +42,11 @@ $(document).ready(() => {
 </script>
 <div class="row">
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+ <div class="text-right mb-3">
+	      <a href="{{url('information')}}" class="btn btn-primary"><i class="fas fa-reply"></i></a>
+	    </div>
                             <div class="card">
-                                <h5 class="card-header">Add Information</h5>
+                                <h5 class="card-header">Edit Information</h5>
                                 <div class="card-body">
                                     <form action="{{url('edit-information')}}" id="information-form" method="post" enctype="multipart/form-data">
 										{!! csrf_field() !!}
@@ -53,6 +56,22 @@ $(document).ready(() => {
 										<div class="form-group">
                                             <label>Title <span class="text-danger text-bold">*</span></label>
                                             <input id="add-information-title" type="text" name="title" value="{{$i['title']}}" placeholder="Title" class="form-control">
+                                        </div>
+										</div>
+										<div class="col-md-12">
+										<div class="form-group">
+                                            <label>Type <span class="text-danger text-bold">*</span></label>
+                                            <select id="add-information-type" name="type" class="form-control">
+											  <option value="none">Select type</option>
+											  <?php
+											  foreach($xx as $k => $v)
+											  {
+											  ?>
+											  <option value="{{$k}}">{{$v}}</option>
+											  <?php
+											  }
+											  ?>
+											</select>
                                         </div>
 										</div>
 										<div class="col-md-12">
