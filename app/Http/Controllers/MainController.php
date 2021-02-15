@@ -49,7 +49,7 @@ class MainController extends Controller {
 				$v = "index";
 				$orders = $this->helpers->getOrders();
 				$stats = $this->helpers->getSiteStats();
-				$tph = [];	$orders = []; $plans = []; $tips = [];
+				$tph = []; $plans = []; $tips = [];
 				#dd($stats);
 				$req = $request->all();
                 array_push($cpt,'orders');				
