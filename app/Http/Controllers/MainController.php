@@ -5859,6 +5859,8 @@ class MainController extends Controller {
 						array_push($cpt,'o');                                 
 						$countries = $this->helpers->countries;
 					    $statuses = $this->helpers->statuses;
+						$products = $this->helpers->getProducts();
+					    array_push($cpt,'products');                                 
 					    array_push($cpt,'countries');                                 
 					    array_push($cpt,'statuses');                                 
 					}
@@ -5937,6 +5939,8 @@ class MainController extends Controller {
 						array_push($cpt,'o');                                 
 						$countries = $this->helpers->countries;
 					    $statuses = $this->helpers->statuses;
+						$products = $this->helpers->getProducts();
+					    array_push($cpt,'products');      
 					    array_push($cpt,'countries');                                 
 					    array_push($cpt,'statuses');                                 
 					}
