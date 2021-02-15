@@ -218,8 +218,7 @@ console.log(trmData);
 												<td><?php echo e($o['date']); ?></td>
 												<td><?php echo e($o['updated']); ?></td>
                                                 <td>
-												 <a class="btn btn-info btn-sm" href="<?php echo e($arr); ?>">Edit</a>
-												 <a class="btn btn-danger btn-sm" href="<?php echo e($dr); ?>">Remove</a>
+												 <a class="btn btn-info btn-sm" href="<?php echo e($uu); ?>">View</a>
 												 </td>
                                             </tr>
 									     <?php
@@ -283,17 +282,17 @@ console.log(trmData);
                                 <!-- ============================================================== -->
 								
 								<!-- ============================================================== -->
-                                <!-- subscription plans  -->
+                                <!-- categories  -->
                                 <!-- ============================================================== -->
                                 <div class="card">
-                                    <h5 class="card-header">Subscription Plans</h5>
+                                    <h5 class="card-header">Top Performing categories</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table class="table no-wrap p-table">
                                                 <thead class="bg-light">
                                                     <tr class="border-0">
                                                         <th class="border-0">Name</th>
-                                                        <th class="border-0">Price</th>
+                                                        <th class="border-0">Sales</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -328,25 +327,7 @@ console.log(trmData);
                                 <!-- end subscription plans  -->
                                 <!-- ============================================================== -->
 								
-								<!-- ============================================================== -->
-                                <!-- apartment tips -->
-                                <!-- ============================================================== -->
-                                <div class="card">
-                                    <h5 class="card-header">Apartment Tips</h5>
-                                    <div class="card-body p-0">
-                                        <div class="row">
-                                            <div class="col-md-12">
-											 <center>
-											  <h4><?php echo e(count($tips)); ?> apartment tip(s) added.</h4>
-											   <a href="<?php echo e(url('apartment-tips')); ?>" class="btn btn-outline-light float-right">View more</a>
-											 </center>
-											</div> 
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ============================================================== -->
-                                <!-- end apartment tips  -->
-                                <!-- ============================================================== -->
+								
 							</div>
 							</div>
 							

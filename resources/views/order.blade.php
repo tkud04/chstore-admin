@@ -217,7 +217,7 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
 											   <tr>
 											     <td>{{$t['date']}}</td>
 											     <td>{{$t['comment']}}</td>
-											     <td>{{$ts}}</td>
+											     <td>{{strtoupper($ts)}}</td>
 											     <td>{{$t['notify_customer']}}</td>
 											   </tr>
 											  <?php

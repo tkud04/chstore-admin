@@ -14,9 +14,15 @@ $subtitle = "Edit order.";
 
 
 <?php $__env->startSection('content'); ?>
+
+<?php
+$pd = $o['pd'];
+$sd = $o['sd'];
+?>
+
 <script>
-let xf = "", products = [], pCover = "none", tkOrder = "<?php echo e(csrf_token()); ?>",
-    orderProducts = [], eoPaymentXF = "new", eoShippingXF = "new";
+let xf = "<?php echo e($o['id']); ?>", products = [], pCover = "none", tkOrder = "<?php echo e(csrf_token()); ?>",
+    orderProducts = [], eoPaymentXF = "<?php echo e($pd['id']); ?>", eoShippingXF = "<?php echo e($sd['id']); ?>";
 
   
 
@@ -42,10 +48,6 @@ $(document).ready(() => {
 });
 </script>
 
-<?php
-$pd = $o['pd'];
-$sd = $o['sd'];
-?>
 
 <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
@@ -118,7 +120,7 @@ $sd = $o['sd'];
 											   <div class="col-md-6">
 											     <div class="form-group">
                                                    <label>Product <span class="req">*</span></label>
-                                                   <input id="order-product" type="text" placeholder="Select product" class="form-control" list="add-order-product-list">
+                                                   <input id="order-product" type="text" placeholder="Select product" class="form-control" list="order-product-list">
 												   <datalist id="order-product-list"> 
 													<?php											      
 												        foreach($products as $p)
@@ -360,4 +362,5 @@ $sd = $o['sd'];
                             </div>
       </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\bkupp\lokl\repo\chstore-admin\resources\views/edit-order.blade.php ENDPATH**/ ?>

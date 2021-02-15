@@ -2277,7 +2277,12 @@ $subject = $data['subject'];
 			                          'notify_customer' => $dt['nc'],
 			                          'comment' => $c,
 			                 ]);
+			  
+			  $o = Orders::where('id',$dt['xf'])->first();
+			  $o->update(['status' => $dt['status']]);
+			  
 			  return $ret;
+			  
 		   }
 		   
 		
@@ -2389,6 +2394,7 @@ $subject = $data['subject'];
            	$ret = [];
 
 			  $items = OrderHistory::where('order_id',$id)->get();
+			  $items = $items->sortByDesc('created_at');
 			  #dd($uu);
               if($items != null)
                {
@@ -2455,7 +2461,15 @@ $subject = $data['subject'];
 				if(isset($data['shipping_xf']) && $data['shipping_xf'] != null) $ret1['shipping_id'] = $data['shipping_xf'];
 				if(isset($data['payment_type']) && $data['payment_type'] != null) $ret1['payment_type'] = $data['payment_type'];
 				if(isset($data['shipping_type']) && $data['shipping_type'] != null) $ret1['shipping_type'] = $data['shipping_type'];
-				if(isset($data['status']) && $data['status'] != null) $ret1['status'] = $data['status'];
+				if(isset($data['status']) && $data['status'] != null)
+				{
+					$ret1['status'] = $data['status'];
+					$oh = $this->createOrderHistory(['xf' => $o->id,
+			                          'status' => $ret1['status'],
+			                          'nc' => "no",
+			                          'comment' => "",
+			                 ]);
+				} 
 				if(isset($data['comment']) && $data['comment'] != null) $ret1['comment'] = $data['comment'];
 				
 				$o->update($ret1);

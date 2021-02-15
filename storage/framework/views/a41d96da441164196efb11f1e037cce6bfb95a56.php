@@ -224,7 +224,7 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
 											   <tr>
 											     <td><?php echo e($t['date']); ?></td>
 											     <td><?php echo e($t['comment']); ?></td>
-											     <td><?php echo e($ts); ?></td>
+											     <td><?php echo e(strtoupper($ts)); ?></td>
 											     <td><?php echo e($t['notify_customer']); ?></td>
 											   </tr>
 											  <?php
