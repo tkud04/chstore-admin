@@ -63,7 +63,7 @@ console.log(trmData);
                         <div class="row">
 						<?php
 						 //total products
-						 $tp = $stats['total_products'];
+						 $tp = $stats['total_sales'];
 						 if($tp == 0)
 						 {
 							 $tpp = 0;
@@ -121,20 +121,6 @@ console.log(trmData);
 							 $tuIcon = "";
 						 }
 						?>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="text-muted">Total Products</h5>
-                                        <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1">{{$tp}}</h1>
-                                        </div>
-                                        <div class="metric-label d-inline-block float-right {{$toClass}} font-weight-bold">
-										{!! $tpIcon !!}<span>{{$tpp}}%</span>
-                                        </div>
-                                    </div>
-                                    <div id="sparkline-revenue"></div>
-                                </div>
-                            </div>
                            
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
@@ -150,10 +136,24 @@ console.log(trmData);
                                     <div id="sparkline-revenue3"></div>
                                 </div>
                             </div>
+							 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="text-muted">Total Sales</h5>
+                                        <div class="metric-value d-inline-block">
+                                            <h1 class="mb-1">&#0163;{{number_format($tp,2)}}</h1>
+                                        </div>
+                                        <div class="metric-label d-inline-block float-right {{$toClass}} font-weight-bold">
+										{!! $tpIcon !!}<span>{{ceil($tpp)}}%</span>
+                                        </div>
+                                    </div>
+                                    <div id="sparkline-revenue"></div>
+                                </div>
+                            </div>
                             <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Total Users</h5>
+                                        <h5 class="text-muted">Total Customers</h5>
                                         <div class="metric-value d-inline-block">
                                             <h1 class="mb-1">{{$tu}}</h1>
                                         </div>
@@ -175,157 +175,57 @@ console.log(trmData);
                             <div class="row">
 							<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Recent Bookings</h5>
+                                    <h5 class="card-header">Latest Orders</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead class="bg-light">
                                                     <tr class="border-0">
-                                                        <th class="border-0">#</th>
-                                                        <th class="border-0">Guest</th>
-                                                        <th class="border-0">Apartment</th>
-                                                        <th class="border-0">Status</th>
-                                                        
+                                                        <th class="border-0">Order ID</th>
+                                                        <th class="border-0">Customer</th>
+												        <th class="border-0">Status</th>
+                                                        <th class="border-0">Total</th>
+                                                        <th class="border-0">Date added</th>
+                                                        <th class="border-0">Date modified</th>
+                                                        <th class="border-0">Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-												<?php
-												$opts5 = [
-								'unfurnished' => "Unfurnished apartment",
-												    'Furnished' => "Furnished apartment",
-												    'serviced' => "Serviced apartment",
-					  ];
 												
-									   if(count($orders) > 0)
-									   {
-										   $ordersLength = count($orders) > 5 ? 5 : count($orders);
-									    for($ctr = 0; $ctr < $ordersLength; $ctr++)
-										{
-											$o = $orders[$ctr];
-										  $ref = $o['reference'];
-										  $guest = $o['guest'];
-										  $avatar = $guest['avatar'];
-                                                                                  if($avatar == "") $avatar = [asset("images/avatar.png")];
-										  $gname = $guest['fname']." ".$guest['lname'];
-										  
-										  $ru = url('receipt')."?xf=".$ref;
-										  $cu = "javascript:void(0)";
-										  $s = ""; $liClass = ""; $ps = "";
-
-										  $items = $o['items'];
-										  $ii = $items['data'];
-										  $subtotal = $items['subtotal'];
-										  $bookingDetails = [];
-										  
-										  
-										  
-										  foreach($ii as $i)
-										  {
-											            $temp = [];
-														 $apartment = $i['apartment'];
-														 $temp['au'] = $apartment['url'];
-														 $temp['name'] = $apartment['name'];
-														 $cmedia = $apartment['cmedia'];
-														 $temp['imgs'] = $cmedia['images'];
-														 $adata = $apartment['data'];
-														 $temp['terms'] = $apartment['terms'];
-														 $host = $apartment['host'];
-														 $temp['hostName'] = $host['fname']." ".substr($host['lname'],0,1).".";
-														 $temp['amount'] = $adata['amount'];
-														 $address = $apartment['address'];
-														 $temp['location'] = $address['city'].", ".$address['state'];
-														 $temp['checkin'] = $i['checkin'];
-														 $temp['checkout'] = $i['checkout'];
-														 $temp['guests'] = $i['guests'];
-														 $temp['kids'] = $i['kids'];
-														 array_push($bookingDetails,$temp);
-														 
-														 $ptype = $adata['property_type'];
-														 
-										  }			 
-											  
-									   ?>
-                                                    <tr>
-                                                        <td>{{$ctr + 1}}</td>
-                                                        <td>
-														  <img class="rounded-circle mr-3 mb-3" src="{{$avatar[0]}}" alt="{{$gname}}" style="width: 100px; height: 100px;"/><br>
-														  {{$gname}} <br> Reference #: <a href="javascript:void(0)">{{$ref}}</a>
-														</td>
-                                                        <td>
-														   <div class="card" style="overflow-y: scroll;">
-                                <h5 class="card-header">Items</h5>
-                                <div class="card-body">
-                                    <div class="list-group">
 									   <?php
-									    for($iiCtr = 0; $iiCtr < count($ii); $iiCtr++)
-										{
-											$i = $bookingDetails[$iiCtr];
-											$ll = ""; $sm = " class='text-muted'"; $tc = "";
-											$iiu = "javascript:void(0)";
-											
-											if($iiCtr == 0)
-											{
-												$ll = " active";
-											    $sm = "";
-											    $tc = " text-white";
-											}
-											
-											$imgs = $i['imgs'];
-											
-											//status
-											$status = $o['status']; $ss = ""; $ssClass = "";
-											
-											switch($status)
-											{
-												case "paid":
-												  $ss = "Completed"; $ssClass = "success";
-												break;
+										  
+										   if(count($orders) > 0)
+										   {
+											    $ordersLength = count($orders) > 5 ? 5 : count($orders);
+											  for($i = 0; $i < $ordersLength; $i++)
+											   {
+												   $o = $orders[$i];
+												 $customer = $o['user'];
+											   $totals = $o['totals'];
+											   $uu = url('order')."?xf=".$o['id'];
+											   $sss = $o['status'];
 												
-												case "unpaid":
-												  $ss = "On hold"; $ssClass = "warning";
-												break;
-												
-												case "cancelled":
-												  $ss = "Cancelled"; $ssClass = "danger";
-												break;
-											}
-											
-									   ?>
-                                        <a href="{{$iiu}}" class="list-group-item list-group-item-action flex-column align-items-start{{$ll}}">
-                                            <div class="d-flex w-100 justify-content-between">
-											<img class="rounded-circle mr-3 mb-3" src="{{$imgs[0]}}" alt="{{$i['name']}}" style="width: 100px; height: 100px;"/>
-											 
-											  <div>
-                                                <h5 class="mb-1{{$tc}}">{{$i['name']}}</h5>
-                                                <h5 class="mb-1{{$tc}}">{{$opts5[$ptype]}}</h5>
-                                                 <!--
-												 <small{{$sm}}>{{$i['checkin']." - ".$i['checkout']}}</small>
-												 <p class="mb-1">Adults: {{$i['guests']}} | Children: {{$i['kids']}}</p>
-                                                 <small{{$sm}}>Price per night: &#8358;{{number_format($i['amount'])}}</small>
-											      -->
-											  </div>
-											 
-                                            </div>
-                                            
-                                        </a>
-										<?php
-										}
-										?>
-                                    </div>
-                                </div>
-                            </div>
-                                                        </td>
-                                                        <td><span class="badge-dot badge-{{$ssClass}} mr-1"></span>{{$ss}} </td>
-                                                    </tr>
-                                        <?php
-										 
-										}
-										}
-										?>       
-                                                    <tr>
-                                                        <td colspan="9"><a href="{{url('orders')}}" class="btn btn-outline-light float-right">View more</a></td>
-                                                    </tr>
-                                                </tbody>
+												   $arr = url('order')."?xf=".$o['id']."&type=edit";
+												   $dr = url('remove-order')."?xf=".$o['id'];
+												   #$ar = $a['rating'];
+												   $ar = 3;
+										  ?>
+                                            <tr>
+                                               <td><a href="{{$uu}}"><h4>{{$o['reference']}}</a></td> 
+											   <td>{{ucwords($customer['fname']." ".$customer['lname'])}}</td> 
+												<td>{{strtoupper($o['status'])}}</h4></td>	
+                                                <td>&#163;{{number_format($totals['subtotal'],2)}}</td>
+												<td>{{$o['date']}}</td>
+												<td>{{$o['updated']}}</td>
+                                                <td>
+												 <a class="btn btn-info btn-sm" href="{{$arr}}">Edit</a>
+												 <a class="btn btn-danger btn-sm" href="{{$dr}}">Remove</a>
+												 </td>
+                                            </tr>
+									     <?php
+											   }
+										   }
+										 ?>
                                             </table>
                                         </div>
                                     </div>

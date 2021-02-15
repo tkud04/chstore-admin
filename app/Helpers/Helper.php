@@ -343,32 +343,6 @@ public $smtpp = [
        ],
   ];
 	
- public $banks = [
-      'access' => "Access Bank", 
-      'citibank' => "Citibank", 
-      'diamond-access' => "Diamond-Access Bank", 
-      'ecobank' => "Ecobank", 
-      'fidelity' => "Fidelity Bank", 
-      'fbn' => "First Bank", 
-      'fcmb' => "FCMB", 
-      'globus' => "Globus Bank", 
-      'gtb' => "GTBank", 
-      'heritage' => "Heritage Bank", 
-      'jaiz' => "Jaiz Bank", 
-      'keystone' => "KeyStone Bank", 
-      'polaris' => "Polaris Bank", 
-      'providus' => "Providus Bank", 
-      'stanbic' => "Stanbic IBTC Bank", 
-      'standard-chartered' => "Standard Chartered Bank", 
-      'sterling' => "Sterling Bank", 
-      'suntrust' => "SunTrust Bank", 
-      'titan-trust' => "Titan Trust Bank", 
-      'union' => "Union Bank", 
-      'uba' => "UBA", 
-      'unity' => "Unity Bank", 
-      'wema' => "Wema Bank", 
-      'zenith' => "Zenith Bank"
- ];			
 
   public $ip = "";
   
@@ -2982,6 +2956,7 @@ function getRandomString($length_of_string)
 			   $totalOrders = Orders::where('id','>','0')->count();
 			   $totalProducts = Products::where('id','>','0')->count();
 			   $totalUsers = User::where('id','>','0')->count();
+			   $totalSales = 0;
 			   
 			   //revenue by room category
 			    $opts4 = [
@@ -3026,14 +3001,7 @@ function getRandomString($length_of_string)
 				    #dd($o);
 					++$c;
 				   $items = $o['items'];
-				  # $amount = $o['amount'];
-				   
-				   foreach($items['data'] as $i)
-				   {
-					   $a = $i['apartment']; $adt = $a['data'];
-					   $c = $adt['category']; $amount = $i['amount'];
-					   $rbrcData[$c] += $amount;
-				   }
+				   $totalSales += $o['amount'];
 				   
 				   $d = new \DateTime($o['date']); 
 				   $m = $d->format("Y-m-d");
@@ -3069,6 +3037,7 @@ function getRandomString($length_of_string)
 			     'total_products' => $totalProducts,
 			     'total_orders' => $totalOrders,
 			     'total_users' => $totalUsers,
+			     'total_sales' => $totalSales,
 			     'rbrcData' => [],
 			     'trmData' => [],
 			     'trmData2' => [],
