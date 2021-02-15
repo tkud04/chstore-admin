@@ -2469,8 +2469,17 @@ $subject = $data['subject'];
 				#create order details
                                 foreach($cart as $c)
                                 {
-				  if($items == null){$item = null;}
-			          else{$item = $items->firstWhere(['product_id' => $c->p,'qty' => $c->q]);}
+				  if($items == null)
+				  {
+				     $item = null;
+				  }
+			          else
+				  {
+				     $item = OrderItems::where([
+					     'order_id' => $o->id,
+					     'product_id' => $c->p,
+					     'qty' => $c->q])->first();
+				  }
 					#dd($item);
 				   $p = $this->getProduct($c->p);
 				   
