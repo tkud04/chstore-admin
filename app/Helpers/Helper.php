@@ -2447,6 +2447,7 @@ $subject = $data['subject'];
 			 
 			if($o != null)
 			{
+				//general
 				$ret1 = [];
 				if(isset($data['customer']) && $data['customer'] != null) $ret1['user_id'] = $data['customer'];
 				if(isset($data['amount']) && $data['amount'] != null) $ret1['amount'] = $data['amount'];
@@ -2459,9 +2460,81 @@ $subject = $data['subject'];
 				
 				$o->update($ret1);
 				
+				//order items
+				$cart = json_decode($data['products']);
+				$items = OrderItems::where('order_id',$data['xf'])->get();
+				
+				$item = null;
+				
+				#create order details
+                                foreach($cart as $c)
+                                {
+				  if($items == null){$item = null;}
+			          else{$item = $items->firstWhere(['product_id' => $c->p,'qty' => $c->q]);}
+					#dd($item);
+				   $p = $this->getProduct($c->p);
+				   
+				   if($item == null)
+				   {
+				     if(count($p) > 0)
+				     {
+				       $dt = [];
+                                       $dt['product_id'] = $p['id'];
+				       $dt['qty'] = $c->q;
+				       $dt['order_id'] = $order->id;
+				       $this->updateStock($dt['product_id'],$dt['qty']);
+                                       $oi = $this->createOrderItems($dt);
+				     }
+				   }
+				   else
+				   {
+				     $item->update(['qty' => $c->q]);
+				   }
+                                 }
+				
+				//payment details
+				
+				$pd = PaymentDetails::where('id',$data['payment_xf'])->first();
+				
+				if($pd != null)
+				{
 				$ret2 = [];
 				if(isset($data['payment_xf']) && $data['payment_xf'] != null) $ret2['xf'] = $data['payment_xf'];
-				if(isset($data['payment_fname']) && $data['payment_fname'] != null) $ret2['payment_fname'] = $data['payment_fname'];
+				if(isset($data['payment_fname']) && $data['payment_fname'] != null) $ret2['fname'] = $data['payment_fname'];
+				if(isset($data['payment_lname']) && $data['payment_lname'] != null) $ret2['lname'] = $data['payment_lname'];
+				if(isset($data['payment_company']) && $data['payment_company'] != null) $ret2['company'] = $data['payment_company'];
+				if(isset($data['payment_address_1']) && $data['payment_address_1'] != null) $ret2['address_1'] = $data['payment_address_1'];
+				if(isset($data['payment_address_2']) && $data['payment_address_2'] != null) $ret2['address_2'] = $data['payment_address_2'];
+				if(isset($data['payment_city']) && $data['payment_city'] != null) $ret2['city'] = $data['payment_city'];
+				if(isset($data['payment_region']) && $data['payment_region'] != null) $ret2['region'] = $data['payment_region'];
+				if(isset($data['payment_postcode']) && $data['payment_postcode'] != null) $ret2['zip'] = $data['payment_postcode'];
+				if(isset($data['payment_country']) && $data['payment_country'] != null) $ret2['country'] = $data['payment_country'];
+					
+				$pd->update($ret2);
+				}
+				
+				
+				//shipping details
+				$sd = ShippingDetails::where('id',$data['shipping_xf'])->first();
+				
+				if($sd != null)
+				{
+				$ret2 = [];
+				if(isset($data['shipping_xf']) && $data['shipping_xf'] != null) $ret2['xf'] = $data['shipping_xf'];
+				if(isset($data['shipping_fname']) && $data['shipping_fname'] != null) $ret2['fname'] = $data['shipping_fname'];
+				if(isset($data['shipping_lname']) && $data['shipping_lname'] != null) $ret2['lname'] = $data['shipping_lname'];
+				if(isset($data['shipping_company']) && $data['shipping_company'] != null) $ret2['company'] = $data['shipping_company'];
+				if(isset($data['shipping_address_1']) && $data['shipping_address_1'] != null) $ret2['address_1'] = $data['shipping_address_1'];
+				if(isset($data['shipping_address_2']) && $data['shipping_address_2'] != null) $ret2['address_2'] = $data['shipping_address_2'];
+				if(isset($data['shipping_city']) && $data['shipping_city'] != null) $ret2['city'] = $data['shipping_city'];
+				if(isset($data['shipping_region']) && $data['shipping_region'] != null) $ret2['region'] = $data['shipping_region'];
+				if(isset($data['shipping_postcode']) && $data['shipping_postcode'] != null) $ret2['zip'] = $data['shipping_postcode'];
+				if(isset($data['shipping_country']) && $data['shipping_country'] != null) $ret2['country'] = $data['shipping_country'];
+					
+				$sd->update($ret2);
+				}
+				
+				
 			}
 
                 return "ok";
