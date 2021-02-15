@@ -2481,7 +2481,7 @@ $subject = $data['subject'];
 				       $dt = [];
                                        $dt['product_id'] = $p['id'];
 				       $dt['qty'] = $c->q;
-				       $dt['order_id'] = $order->id;
+				       $dt['order_id'] = $o->id;
 				       $this->updateStock($dt['product_id'],$dt['qty']);
                                        $oi = $this->createOrderItems($dt);
 				     }
