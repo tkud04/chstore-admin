@@ -2477,8 +2477,7 @@ $subject = $data['subject'];
 				  {
 				     $item = OrderItems::where([
 					     'order_id' => $o->id,
-					     'product_id' => $c->p,
-					     'qty' => $c->q])->first();
+					     'product_id' => $c->p])->first();
 				  }
 					#dd($item);
 				   $p = $this->getProduct($c->p);
