@@ -961,9 +961,10 @@ $(document).ready(function() {
 	   else{
 	      
 		 let fd =  new FormData(), payload = {
+		 xf: xf,
 		 customer: aoCustomer,
 		 amount: aoTotal,
-		 payment_xf: aoPaymentXF,
+		 payment_xf: eoPaymentXF,
 		 payment_fname: aoPaymentFname,
 		 payment_lname: aoPaymentLname,
 		 payment_company: aoPaymentCompany,
@@ -973,7 +974,7 @@ $(document).ready(function() {
 		 payment_region: aoPaymentRegion,
 		 payment_postcode: aoPaymentPostcode,
 		 payment_country: aoPaymentCountry,
-		 shipping_xf: aoShippingXF,
+		 shipping_xf: eoShippingXF,
 		 shipping_fname: aoShippingFname,
 		 shipping_lname: aoShippingLname,
 		 shipping_company: aoShippingCompany,
