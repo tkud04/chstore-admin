@@ -1004,5 +1004,25 @@ $(document).ready(function() {
 	   }
     });
 	
+	$("#order-history-submit").click(e => {
+       e.preventDefault();
+	   
+	   //side 1 validation
+	   let aohXF = $('#order-history-xf').val(), aohNC = $('#order-history-notify-customer').val(),
+	       aohComment = $('#order-history-comment').val(), aohStatus = $('#order-history-status').val(),
+		   validation = (aohXF == "" || aohNC == "none" || aohStatus == "none"); 
+		  
+	   if(validation){
+		   Swal.fire({
+			 icon: 'error',
+             title: "Please fill all the required fields"
+           })
+	   }
+	   
+	   else{
+	     $('#order-history-form').submit();  
+	   }
+    });
+	
 	
 });

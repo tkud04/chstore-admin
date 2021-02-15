@@ -5427,9 +5427,11 @@ class MainController extends Controller {
 					$customers = $this->helpers->getUsers();
 					$products = $this->helpers->getProducts();
 					$countries = $this->helpers->countries;
+					$statuses = $this->helpers->statuses;
 					array_push($cpt,'customers');
 					array_push($cpt,'products');
 					array_push($cpt,'countries');
+					array_push($cpt,'statuses');
 				}
 				else
 				{
@@ -5572,9 +5574,11 @@ class MainController extends Controller {
 						$customers = $this->helpers->getUsers();
 					    $products = $this->helpers->getProducts();
 					    $countries = $this->helpers->countries;
+					    $statuses = $this->helpers->statuses;
 					    array_push($cpt,'customers');
 				        array_push($cpt,'products');
 					    array_push($cpt,'countries');                                 
+					    array_push($cpt,'statuses');                                 
 					}
 					
 				}
@@ -5736,6 +5740,77 @@ class MainController extends Controller {
 		{
 			return redirect()->intended('/');
 		}
+    }
+	
+	/**
+	 * Redirect
+	 *
+	 * @return Response
+	 */
+	public function getAddOrderHistory(Request $request)
+    {
+		return redirect()->intended('orders');
+    }
+	
+	/**
+	 * Handle add order.
+	 *
+	 * @return Response
+	 */
+	public function postAddOrderHistory(Request $request)
+    {
+		$user = null;
+		
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			
+			if($this->helpers->isAdmin($user))
+			{
+				$hasPermission = $this->helpers->hasPermission($user->id,['view_users','edit_users']);
+				#dd($hasPermission);
+				$req = $request->all();
+
+				if($hasPermission)
+				{			
+				$validator = Validator::make($req,[
+		                     'xf' => 'required|numeric',
+		                     'status' => 'required|not_in:none',
+                             'nc' => 'required|not_in:none'
+		                   ]);
+						
+				   if($validator->fails())
+                   {
+                     session()->flash("validation-status-error","ok");
+			          return redirect()->back()->withInput();
+                   }
+				   else
+				   {   
+			           $ret = $this->helpers->createOrderHistory($req);
+			           $ss = "add-order-history-status";
+					  if($ret == "error") $ss .= "-error";
+					  session()->flash($ss,"ok");
+			          return redirect()->intended("order?xf=".$req['xf']);
+				   }
+				}
+				else
+				{
+					session()->flash("permissions-status-error","ok");
+			        return redirect()->intended("/");
+				}
+			}
+			else
+			{
+				Auth::logout();
+				$u = url('/');
+				return redirect()->intended($u);
+			}
+		}
+		else
+		{
+			return redirect()->intended("/");
+		}
+		
     }
 	
 	

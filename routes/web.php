@@ -154,8 +154,10 @@ Route::get('order', 'MainController@getUpdateOrder');
 Route::post('order', 'MainController@postUpdateOrder');
 Route::get('remove-order', 'MainController@getRemoveOrder');
 
-//Reservation Logs
-Route::get('respond-to-reservation', 'MainController@getRespondToReservation');
+//Order History
+Route::get('add-order-history', 'MainController@getAddOrderHistory');
+Route::post('add-order-history', 'MainController@postAddOrderHistory');
+
 
 Route::get('zohoverify/{nn}', 'MainController@getZoho');
 Route::get('tb', 'MainController@getTestBomb');

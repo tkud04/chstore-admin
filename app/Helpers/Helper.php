@@ -24,7 +24,7 @@ use App\Ads;
 use App\Banners;
 use App\Orders;
 use App\OrderItems;
-use App\Trackings;
+use App\OrderHistory;
 use App\Wishlists;
 use App\Senders;
 use App\Settings;
@@ -61,6 +61,7 @@ class Helper implements HelperContract
 					 "ad-banner-status" => "Banner added!",
                      "edit-banner-status" => "Banner updated!",
                      "edit-review-status" => "Review info updated!",
+                     "add-order-history-status" => "Order history updated!",
                      "edit-order-status" => "Order info updated!",
                      "contact-status" => "Message sent! Our customer service representatives will get back to you shortly.",
                      "create-tracking-status" => "Tracking info updated.",
@@ -385,6 +386,22 @@ public $smtpp = [
 
   public $suEmail = "kudayisitobi@gmail.com";
 
+  public $statuses = [
+												     'cancelled' => "Cancelled",
+												     'canceled-reversal' => "Cancelled Reversal",
+												     'chargeback' => "Chargeback",
+												     'completed' => "Completed",
+												     'denied' => "Denied",
+												     'expired' => "Expired",
+												     'failed' => "Failed",
+												     'pending' => "Pending",
+												     'processed' => "Processed",
+												     'processing' => "Processing",
+												     'refunded' => "Refunded",
+												     'reversed' => "Reversed",
+												     'shipped' => "Shipped",
+												     'voided' => "Voided",
+												   ];
            
 		   #{'msg':msg,'em':em,'subject':subject,'link':link,'sn':senderName,'se':senderEmail,'ss':SMTPServer,'sp':SMTPPort,'su':SMTPUser,'spp':SMTPPass,'sa':SMTPAuth};
            function sendEmailSMTP($data,$view,$type="view")
@@ -1918,42 +1935,7 @@ $subject = $data['subject'];
 		   }
 		   
 		   
-		   function createTracking($dt)
-		   {
-			   $status = $dt['status'];
-			   $description = $this->deliveryStatuses[$status];
-			   $ret = Trackings::create(['user_id' => $dt['user_id'],
-			                          'reference' => $dt['reference'],
-			                          'description' => $description,
-			                          'status' => $status
-			                 ]);
-			  return $ret;
-		   }
-
-           function getTrackings($reference="")
-		   {
-			   $ret = [];
-			   if($reference == "") $trackings = Trackings::where('id','>',"0")->get();
-			   else $trackings = Trackings::where('reference',$reference)->get();
-			   
-			   if(!is_null($trackings))
-			   {
-				  $trackings = $trackings->sortByDesc('created_at');
-				   foreach($trackings as $t)
-				   {
-					   $temp = [];
-					   $temp['id'] = $t->id;
-					   $temp['user_id'] = $t->user_id;
-					   $temp['reference'] = $t->reference;
-					   $temp['description'] = $t->description;
-					   $temp['status'] = $t->status;
-					   $temp['date'] = $t->created_at->format("jS F, Y h:i A");
-					   array_push($ret,$temp);
-				   }
-			   }
-			   
-			   return $ret;
-		   }
+		   
 		   
 		   function createPaymentDetails($data)
            {
@@ -2342,6 +2324,17 @@ $subject = $data['subject'];
 			  return $ret;
 		   }
 		   
+		   function createOrderHistory($dt)
+		   {
+			   $c = isset($dt['comment']) ? $dt['comment'] : "";
+			   $ret = OrderHistory::create(['order_id' => $dt['xf'],
+			                          'status' => $dt['status'],
+			                          'notify_customer' => $dt['nc'],
+			                          'comment' => $c,
+			                 ]);
+			  return $ret;
+		   }
+		   
 		
 
            function getOrderTotals($items)
@@ -2410,8 +2403,8 @@ $subject = $data['subject'];
 				  $temp['shipping_type'] = $o->shipping_type;
                   $temp['comment'] = $o->comment;
                   $temp['status'] = $o->status;
-                  //$temp['current_tracking'] = $this->getCurrentTracking($o->reference);
                   $temp['items'] = $this->getOrderItems($o->id);
+                  $temp['history'] = $this->getOrderHistory($o->id);
                   $temp['totals'] = $this->getOrderTotals($temp['items']);
 				  $temp['user'] = $this->getUser($o->user_id);
                   $temp['date'] = $o->created_at->format("jS F, Y");
@@ -2439,6 +2432,30 @@ $subject = $data['subject'];
                     	$temp['product_id'] = $i->product_id; 
                         $temp['product'] = $this->getProduct($i->product_id); 
                         $temp['qty'] = $i->qty; 
+                        array_push($ret, $temp); 
+                    }
+               }                                 
+              			  
+                return $ret;
+           }
+		   
+		   function getOrderHistory($id)
+           {
+           	$ret = [];
+
+			  $items = OrderHistory::where('order_id',$id)->get();
+			  #dd($uu);
+              if($items != null)
+               {
+               	  foreach($items as $i) 
+                    {
+						$temp = [];
+                    	$temp['id'] = $i->id; 
+                    	$temp['order_id'] = $i->order_id; 
+                    	$temp['status'] = $i->status; 
+                        $temp['notify_customer'] = $i->notify_customer; 
+                        $temp['comment'] = $i->comment; 
+                        $temp['date'] = $i->created_at->format("jS F, Y"); 
                         array_push($ret, $temp); 
                     }
                }                                 
@@ -2547,70 +2564,7 @@ $subject = $data['subject'];
 			  return "ok";
 		  }
 		
-		  function updateTracking($o,$action)
-         {
-         	$order = $this->getOrder($o->reference);
-                    if(count($order) > 0)
-                    {
-                    	if($order['user_id'] == "anon")
-                        {
-                        	$u = $order['anon'];
-                        }
-                        else
-                        {
-                        	$u = $this->getUser($order['user_id']);
-                        }
-                    	$t = [
-                         'user_id' => $order['user_id'],
-                         'reference' => $o->reference,
-                         'status' => $action
-                         ];
-                         
-                         $this->createTracking($t);
-                         
-                         //$ret = $this->smtp;
-						 $ret = $this->getCurrentSender();
-						 #dd($ret);
-				         $ret['order'] = $order;
-				        $ret['tracking'] = $this->deliveryStatuses[$action];
-				       $ret['name'] = $order['user_id'] == "anon" ? $u['name'] : $u['fname']." ".$u['lname'];
-		               $ret['subject'] = "New update for order #".$o->reference;
-		        $ret['em'] = $u['email'];
-		        $this->sendEmailSMTP($ret,"emails.tracking-alert");
-                    }
-         }
 
-          function bulkUpdateTracking($data)
-		  {
-			$dt = json_decode($data['dt']);
-			$action = $data['action'];
-			
-			#dd($dt);
-			 
-			foreach($dt as $o)
-            {
-            	if($o->selected)
-                {
-                	$this->updateTracking($o,$action);
-                }
-            }
-			  
-			  
-			  return "ok";
-		  }	
-
-         function getCurrentTracking($reference)
-         {
-         	$ret = null;
-         	$trackings = $this->getTrackings($reference);
-             
-             if(count($trackings) > 0)
-             {
-             	$ret = $trackings[0];
-             }
-             
-             return $ret;
-        }
 
 
 function getRandomString($length_of_string) 

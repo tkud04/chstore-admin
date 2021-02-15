@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Trackings extends Model
+class OrderHistory extends Model
 {
 
     /**
@@ -13,7 +13,7 @@ class Trackings extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'reference', 'description', 'status'
+        'order_id', 'status', 'notify_customer', 'comment'
     ];
     
 }
