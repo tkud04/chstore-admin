@@ -218,8 +218,7 @@ console.log(trmData);
 												<td>{{$o['date']}}</td>
 												<td>{{$o['updated']}}</td>
                                                 <td>
-												 <a class="btn btn-info btn-sm" href="{{$arr}}">Edit</a>
-												 <a class="btn btn-danger btn-sm" href="{{$dr}}">Remove</a>
+												 <a class="btn btn-info btn-sm" href="{{$uu}}">View</a>
 												 </td>
                                             </tr>
 									     <?php
@@ -283,17 +282,17 @@ console.log(trmData);
                                 <!-- ============================================================== -->
 								
 								<!-- ============================================================== -->
-                                <!-- subscription plans  -->
+                                <!-- categories  -->
                                 <!-- ============================================================== -->
                                 <div class="card">
-                                    <h5 class="card-header">Subscription Plans</h5>
+                                    <h5 class="card-header">Top Performing categories</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table class="table no-wrap p-table">
                                                 <thead class="bg-light">
                                                     <tr class="border-0">
                                                         <th class="border-0">Name</th>
-                                                        <th class="border-0">Price</th>
+                                                        <th class="border-0">Sales</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
