@@ -21,7 +21,7 @@ $sd = $o['sd'];
 ?>
 
 <script>
-let xf = "", products = [], pCover = "none", tkOrder = "{{csrf_token()}}",
+let xf = "{{$o['id']}}", products = [], pCover = "none", tkOrder = "{{csrf_token()}}",
     orderProducts = [], eoPaymentXF = "{{$pd['id']}}", eoShippingXF = "{{$sd['id']}}";
 
   
