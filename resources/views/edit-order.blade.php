@@ -120,7 +120,7 @@ $(document).ready(() => {
 											   <div class="col-md-6">
 											     <div class="form-group">
                                                    <label>Product <span class="req">*</span></label>
-                                                   <input id="order-product" type="text" placeholder="Select product" class="form-control" list="add-order-product-list">
+                                                   <input id="order-product" type="text" placeholder="Select product" class="form-control" list="order-product-list">
 												   <datalist id="order-product-list"> 
 													<?php											      
 												        foreach($products as $p)
