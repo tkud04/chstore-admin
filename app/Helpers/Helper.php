@@ -2189,36 +2189,7 @@ $subject = $data['subject'];
 
             function addOrder($data)
            {
-			   				/**
-				
-				customer: aoCustomer,
-				amount: 100,
-		 payment_xf: aoPaymentXF,
-		 payment_fname: aoPaymentFname,
-		 payment_lname: aoPaymentLname,
-		 payment_company: aoPaymentCompany,
-		 payment_address_1: aoPaymentAddress1,
-		 payment_address_2: aoPaymentAddress2,
-		 payment_city: aoPaymentCity,
-		 payment_region: aoPaymentRegion,
-		 payment_postcode: aoPaymentPostcode,
-		 payment_country: aoPaymentCountry,
-		 shipping_xf: aoShippingXF,
-		 shipping_fname: aoShippingFname,
-		 shipping_lname: aoShippingLname,
-		 shipping_company: aoShippingCompany,
-		 shipping_address_1: aoShippingAddress1,
-		 shipping_address_2: aoShippingAddress2,
-		 shipping_city: aoShippingCity,
-		 shipping_region: aoShippingRegion,
-		 shipping_postcode: aoShippingPostcode,
-		 shipping_country: aoShippingCountry,
-		 payment_type: aoPaymentType,
-		 shipping_type: aoShippingType,
-		 comment: aoComment,
-		 status: aoStatus,
-		 products: JSON.stringify(orderProducts),
-			**/	
+			   				
 			   $data['ref'] = "MBZ".$this->getRandomString(5);
 			   $data['user_id'] = $data['customer'];
 			   
@@ -2439,31 +2410,58 @@ $subject = $data['subject'];
 
            function updateOrder($data)
            {
+		   
+		   /**
+				xf: 1,
+				customer: aoCustomer,
+				amount: 100,
+		 payment_xf: aoPaymentXF,
+		 payment_fname: aoPaymentFname,
+		 payment_lname: aoPaymentLname,
+		 payment_company: aoPaymentCompany,
+		 payment_address_1: aoPaymentAddress1,
+		 payment_address_2: aoPaymentAddress2,
+		 payment_city: aoPaymentCity,
+		 payment_region: aoPaymentRegion,
+		 payment_postcode: aoPaymentPostcode,
+		 payment_country: aoPaymentCountry,
+		 shipping_xf: aoShippingXF,
+		 shipping_fname: aoShippingFname,
+		 shipping_lname: aoShippingLname,
+		 shipping_company: aoShippingCompany,
+		 shipping_address_1: aoShippingAddress1,
+		 shipping_address_2: aoShippingAddress2,
+		 shipping_city: aoShippingCity,
+		 shipping_region: aoShippingRegion,
+		 shipping_postcode: aoShippingPostcode,
+		 shipping_country: aoShippingCountry,
+		 payment_type: aoPaymentType,
+		 shipping_type: aoShippingType,
+		 comment: aoComment,
+		 status: aoStatus,
+		 products: JSON.stringify(orderProducts),
+			**/	
+		   
 			  $o = Orders::where('id',$data['xf'])->first();
 			 
 			 
 			if($o != null)
 			{
-				$dt = [
-				 'status' => $data['status']
-				];
+				$ret1 = [];
+				if(isset($data['customer']) && $data['customer'] != null) $ret1['user_id'] = $data['customer'];
+				if(isset($data['amount']) && $data['amount'] != null) $ret1['amount'] = $data['amount'];
+				if(isset($data['payment_xf']) && $data['payment_xf'] != null) $ret1['payment_id'] = $data['payment_xf'];
+				if(isset($data['shipping_xf']) && $data['shipping_xf'] != null) $ret1['shipping_id'] = $data['shipping_xf'];
+				if(isset($data['payment_type']) && $data['payment_type'] != null) $ret1['payment_type'] = $data['payment_type'];
+				if(isset($data['shipping_type']) && $data['shipping_type'] != null) $ret1['shipping_type'] = $data['shipping_type'];
+				if(isset($data['status']) && $data['status'] != null) $ret1['status'] = $data['status'];
+				if(isset($data['comment']) && $data['comment'] != null) $ret1['comment'] = $data['comment'];
 				
-				if($data['email'] != $data['fxx'])
-				{
-					$em = $data['email'];
-					
-					if($o->user_id == "anon")
-					{
-						$ao = AnonOrders::where('reference',$o->reference)->first();
-						if($ao != null) $ao->update(['email' => $em]);
-					}
-					else
-					{
-						#$u = 
-					}
-				}
+				$o->update($ret1);
 				
-				$o->update($dt);
+				$ret2 = [];
+				if(isset($data['payment_xf']) && $data['payment_xf'] != null) $ret2['xf'] = $data['payment_xf'];
+				if(isset($data['payment_fname']) && $data['payment_fname'] != null) $ret2['payment_fname'] = $data['payment_fname'];
 			}
 
                 return "ok";
