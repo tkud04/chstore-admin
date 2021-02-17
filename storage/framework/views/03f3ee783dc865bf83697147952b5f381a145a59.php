@@ -304,23 +304,6 @@ $(document).ready(() => {
                                                <select id="add-order-status" class="form-control">											   
 											     <option value="none">Select status</option>
 											     <?php
-												   $statuses = [
-												     'cancelled' => "Cancelled",
-												     'canceled-reversal' => "Cancelled Reversal",
-												     'chargeback' => "Chargeback",
-												     'completed' => "Completed",
-												     'denied' => "Denied",
-												     'expired' => "Expired",
-												     'failed' => "Failed",
-												     'pending' => "Pending",
-												     'processed' => "Processed",
-												     'processing' => "Processing",
-												     'refunded' => "Refunded",
-												     'reversed' => "Reversed",
-												     'shipped' => "Shipped",
-												     'voided' => "Voided",
-												   ];
-												   
 												   foreach($statuses as $k => $v)
 												   {
 													 $ss = $k == "processing" ? " selected='selected'" : "";   

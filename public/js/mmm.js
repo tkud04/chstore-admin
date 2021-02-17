@@ -328,7 +328,7 @@ $(document).ready(function() {
 	   let acName = $('#add-category-name').val(), acTag = $('#add-category-tag').val(), acDescription = $('#add-category-description').val(), emptyImage = false,
 	       acParent = $('#add-category-parent').val(), acMetaTitle = $('#add-category-meta-title').val(), acMetaDescription = $('#add-category-meta-description').val(),
 		   acMetaKeywords = $('#add-category-meta-keywords').val(), acImages = $('#add-category-image'), acSEOKeywords = $('#add-category-seo-keywords').val(),
-		   validation = (acName == "" || acMetaTitle == "");
+		   validation = (acName == "" || acTag == "" || acMetaTitle == "");
 	   
 	   for(let i = 0; i < acImages.length; i++){
 			   if(acImages[i].files.length < 1) emptyImage = true;
@@ -356,7 +356,7 @@ $(document).ready(function() {
 	   let acName = $('#category-name').val(), acTag = $('#category-tag').val(), acDescription = $('#category-description').val(), emptyImage = false,
 	       acParent = $('category-parent').val(), acMetaTitle = $('category-meta-title').val(), acMetaDescription = $('category-meta-description').val(),
 		   acMetaKeywords = $('category-meta-keywords').val(), acImages = $('#category-image'), acSEOKeywords = $('category-seo-keywords').val(),
-		   validation = (acName == "" || acMetaTitle == "");
+		   validation = (acName == "" || acTag == "" || acMetaTitle == "");
 	   
 	   for(let i = 0; i < acImages.length; i++){
 			   if(acImages[i].files.length < 1) emptyImage = true;

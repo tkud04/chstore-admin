@@ -65,14 +65,6 @@ $(document).ready(() => {
                                             <select id="add-information-type" name="type" class="form-control">
 											  <option value="none">Select type</option>
 											  <?php
-											  $xx = [
-											    'about' => "About Us",
-											    'delivery' => "Delivery and Warranty",
-											    'privacy' => "Privacy Policy",
-											    'terms' => "Terms and Conditions",
-											    'sitemap' => "Sitemap",
-											  ];
-											  
 											  foreach($xx as $k => $v)
 											  {
 											  ?>

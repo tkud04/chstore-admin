@@ -66,8 +66,8 @@ $subtitle = "Add a new category.";
                                             <input id="add-category-name" type="text" name="name" placeholder="Category name e.g Tablets" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                               <label>Tag</label>
-                                            <input id="add-category-tag" type="text" name="category" value="" placeholder="Tag e.g tablets" class="form-control">
+                                               <label>Tag <span class="text-danger text-bold">*</span></label>
+                                            <input id="add-category-tag" type="text" name="category" value="" placeholder="Friendly tag e.g tablets" class="form-control">
                                             </div>
 											 <div class="form-group">
                                              <label>Description</label>

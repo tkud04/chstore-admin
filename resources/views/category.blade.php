@@ -69,12 +69,12 @@ $cd = $c['data'];
                                             <input id="category-name" type="text" value="{{$c['name']}}" name="name" placeholder="Category name e.g Tablets" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
-                                               <label>Tag</label>
-                                            <input id="add-category-tag" type="text" value="{{$c['category']}}" name="category" value="" placeholder="Tag e.g tablets" class="form-control">
+                                               <label>Tag <span class="text-danger text-bold">*</span></label>
+                                            <input id="category-tag" type="text" class="form-control" value="{{$c['category']}}" name="category" value="" placeholder="Friendly tag e.g tablets">
                                             </div>
 											 <div class="form-group">
                                              <label>Description</label>
-                                               <textarea id="add-category-description" name="description" class="form-control" placeholder="Description" rows="8">{!! $cd['description'] !!}</textarea>
+                                               <textarea id="category-description" name="description" class="form-control" placeholder="Description" rows="8">{!! $cd['description'] !!}</textarea>
                                             </div>
 										  </div>
 										</div>
@@ -88,7 +88,7 @@ $cd = $c['data'];
 										  <div class="col-md-12">
 										     <div class="form-group mt-2">
                                                 <label>Parent</label>
-                                                <select id="add-category-parent" name="parent" class="form-control">
+                                                <select id="category-parent" name="parent" class="form-control">
 											       <option value="0">None</option>
 												    <?php
 												     foreach($categories as $cc)
@@ -103,15 +103,15 @@ $cd = $c['data'];
                                               </div>
 											<div class="form-group mt-2">
                                               <label>Meta tag title <span class="req">*</span></label>
-                                              <input id="add-category-meta-title" name="meta_title" type="text" value="{{$cd['meta_title']}}" placeholder="Meta tag title" class="form-control">
+                                              <input id="category-meta-title" name="meta_title" type="text" value="{{$cd['meta_title']}}" placeholder="Meta tag title" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                <label>Meta tag Description</label>
-                                               <textarea id="add-category-meta-description" name="meta_description" class="form-control" placeholder="Meta tag description" rows="8">{!! $cd['meta_description'] !!}</textarea>
+                                               <textarea id="category-meta-description" name="meta_description" class="form-control" placeholder="Meta tag description" rows="8">{!! $cd['meta_description'] !!}</textarea>
                                             </div>
 											<div class="form-group mt-2">
                                               <label>Meta tag keywords</label>
-                                              <input id="add-category-meta-keywords" name="meta_keywords" value="{{$cd['meta_keywords']}}" type="text" placeholder="Meta tag keywords" class="form-control">
+                                              <input id="category-meta-keywords" name="meta_keywords" value="{{$cd['meta_keywords']}}" type="text" placeholder="Meta tag keywords" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                               <label>Image</label>
@@ -134,7 +134,7 @@ $cd = $c['data'];
                                               <label>
 											   Keywords <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="" data-original-title="Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique."><i class="fas fa-question-circle"></i> </a>
 											   </label>
-                                              <input id="add-category-seo-keywords" name="seo_keywords" type="text" value="{{$cd['seo_keywords']}}" placeholder="Keywords" class="form-control">
+                                              <input id="category-seo-keywords" name="seo_keywords" type="text" value="{{$cd['seo_keywords']}}" placeholder="Keywords" class="form-control">
                                             </div>
 											
 										  </div>

@@ -55,6 +55,22 @@ $(document).ready(() => {
 										</div>
 										<div class="col-md-12">
 										<div class="form-group">
+                                            <label>Type <span class="text-danger text-bold">*</span></label>
+                                            <select id="add-information-type" name="type" class="form-control">
+											  <option value="none">Select type</option>
+											  <?php
+											  foreach($xx as $k => $v)
+											  {
+											  ?>
+											  <option value="<?php echo e($k); ?>"><?php echo e($v); ?></option>
+											  <?php
+											  }
+											  ?>
+											</select>
+                                        </div>
+										</div>
+										<div class="col-md-12">
+										<div class="form-group">
                                             <label>Content</label>
                                             <textarea class="form-control" placeholder="Your message" name="content" id="add-information-content"></textarea>
                                         </div>
