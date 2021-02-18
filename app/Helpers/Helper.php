@@ -1503,7 +1503,7 @@ $subject = $data['subject'];
 					   $arr = explode(" ",$ccc);
 					   for($x = 0; $x < count($arr); ++$x)
 					   {
-						   $a = $arr[$x];
+						   $a = strtolower($arr[$x]);
 						   $ss = $x == 0 ? "" : "-";
 						   $cc .= $ss.$a;
 					   }
