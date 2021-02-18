@@ -1366,9 +1366,28 @@ $subject = $data['subject'];
 				   if($v == null) $data[$k] = "";
 			   }
 			   
+			   $cc = $data['category'];
+			   
+			   if($cc != "")
+			   {
+                   $findme = ' ';
+                   $pos = strpos($cc, $findme);
+				   
+				   if($pos !== false)
+				   {
+					   $arr = explode(" ",$cc);
+					   for($x = 0; $x < count($arr); ++$x)
+					   {
+						   $a = $arr[$x];
+						   $ss = $x == 0 ? "" : "-";
+						   $cc .= $ss.$a;
+					   }
+				   }
+			   }
+			   
            	$category = Categories::create([
 			   'name' => ucwords($data['name']),
-			   'category' => $data['category'],
+			   'category' => $cc,
 			   'image' => $img,
 			   'delete_token' => $delete_token,
 			   'parent_id' => $data['parent'],
@@ -1469,6 +1488,29 @@ $subject = $data['subject'];
 			  
 			if($c != null)
 			{
+				if(isset($ret['category']))
+				{
+				  $ccc = $ret['category'];
+				  $cc = "";
+			   
+			      if($ccc != "")
+			      {
+                    $findme = ' ';
+                    $pos = strpos($ccc, $findme);
+				   
+				    if($pos !== false)
+				    {
+					   $arr = explode(" ",$ccc);
+					   for($x = 0; $x < count($arr); ++$x)
+					   {
+						   $a = $arr[$x];
+						   $ss = $x == 0 ? "" : "-";
+						   $cc .= $ss.$a;
+					   }
+					   $ret['category'] = $cc;
+				    }
+			      }
+				}
 				$c->update($ret);
 				$cd = CategoryData::where('category_id',$c->id)->first();
 				
