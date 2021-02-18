@@ -1366,7 +1366,7 @@ $subject = $data['subject'];
 				   if($v == null) $data[$k] = "";
 			   }
 			   
-			   $cc = $data['category'];
+			   $cc = strtolower($data['category']);
 			   
 			   if($cc != "")
 			   {
@@ -1490,7 +1490,7 @@ $subject = $data['subject'];
 			{
 				if(isset($ret['category']))
 				{
-				  $ccc = $ret['category'];
+				  $ccc = strtolower($ret['category']);
 				  $cc = "";
 			   
 			      if($ccc != "")
@@ -1503,7 +1503,7 @@ $subject = $data['subject'];
 					   $arr = explode(" ",$ccc);
 					   for($x = 0; $x < count($arr); ++$x)
 					   {
-						   $a = strtolower($arr[$x]);
+						   $a = $arr[$x];
 						   $ss = $x == 0 ? "" : "-";
 						   $cc .= $ss.$a;
 					   }
