@@ -1418,9 +1418,11 @@ $subject = $data['subject'];
               // dd($cart);
 			  
               if($categories != null)
-               {           	
+               {  
+                  $categories = $categories->sortByDesc('created_at');         	
                	foreach($categories as $c) 
                     {
+                    	
 						$temp = $this->getCategory($c->id,$optionalParams);
 						array_push($ret,$temp);
                     }
@@ -1436,7 +1438,8 @@ $subject = $data['subject'];
               // dd($cart);
 			  
               if($categories != null)
-               {           	
+               {  
+                   $categories = $categories->sortByDesc('created_at');         	
                	foreach($categories as $c) 
                     {
 						$temp = $this->getCategory($c->id);
