@@ -1411,10 +1411,28 @@ $subject = $data['subject'];
 			   ]);
 		   }
 		   
-		   function getCategories()
+		   function getCategories($optionalParams=[])
            {
            	$ret = [];
            	$categories = Categories::where('id','>','0')->get();
+              // dd($cart);
+			  
+              if($categories != null)
+               {           	
+               	foreach($categories as $c) 
+                    {
+						$temp = $this->getCategory($c->id,$optionalParams);
+						array_push($ret,$temp);
+                    }
+               }                                 
+                                                      
+                return $ret;
+           }
+		   
+		   function getCategoryChildren($xf)
+           {
+           	$ret = [];
+           	$categories = Categories::where('parent_id',$xf)->get();
               // dd($cart);
 			  
               if($categories != null)
@@ -1428,13 +1446,40 @@ $subject = $data['subject'];
                                                       
                 return $ret;
            }
-		   
-		   function getCategory($id)
+           
+           function getCategoryParent($c)
            {
            	$ret = [];
-           	$c = Categories::where('id',$id)->first();
+           	$p = Categories::where('id',(int)$c->parent_id)->first();
               // dd($cart);
 			  
+              if($p != null)
+               {       
+                   $temp = [];
+						$temp['id'] = $p->id;
+						$temp['name'] = $p->name;
+						$temp['category'] = $p->category;
+						$temp['data'] = $this->getCategoryData($p->id);
+						$temp['image'] = $this->getCloudinaryImages([$p->image]);    	             	
+					$ret = $temp;
+               }                                 
+                                                      
+                return $ret;
+           }
+		   
+		   function getCategory($id,$optionalParams=[])
+           {
+           	$ret = [];
+               if(isset($optionalParams["category"]) && $optionalParams['category'])
+               {
+           	$c = Categories::where('category',$id)->first();
+			   }
+			  else
+			   {
+           	$c = Categories::where('id',$id)->first();
+			   }
+               #dd($optionalParams);
+			  $children = isset($optionalParams["children"]) && $optionalParams['children'];
               if($c != null)
                {           	
 						$temp = [];
@@ -1444,7 +1489,9 @@ $subject = $data['subject'];
 						$temp['data'] = $this->getCategoryData($c->id);
 						$temp['image'] = $this->getCloudinaryImages([$c->image]);
 						$temp['parent_id'] = $c->parent_id;
-						$temp['parent'] = $this->getCategory($c->parent_id);
+						$temp['product_count'] = ProductData::where('category',$c->id)->count();
+						$temp['parent'] = $this->getCategoryParent($c);
+						if($children) $temp['children'] = $this->getCategoryChildren($c->id);
 						$temp['status'] = $c->status;
 						$temp['date'] = $c->created_at->format("jS F, Y"); 
 						$ret = $temp;
@@ -1452,6 +1499,7 @@ $subject = $data['subject'];
                                                       
                 return $ret;
            }
+           
 		   function getCategoryData($id)
            {
            	$ret = [];
