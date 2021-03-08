@@ -34,7 +34,7 @@ $subtitle = "Add a new category.";
 <div class="row">
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-right mb-3">
 	    <a href="javascript:void(0)" id="add-category-submit" class="btn btn-primary"><i class="fas fa-save"></i></a>
-	    <a href="{{url('products')}}" class="btn btn-danger"><i class="fas fa-reply"></i></a>
+	    <a href="{{url('categories')}}" class="btn btn-danger"><i class="fas fa-reply"></i></a>
 	  </div>
 
 										
