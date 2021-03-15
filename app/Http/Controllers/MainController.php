@@ -2357,19 +2357,19 @@ class MainController extends Controller {
 						$req = $request->all();
 						#dd($req);
 				        $validator = Validator::make($req, [                          
-				                             'axf' => 'required'
+				                             'xf' => 'required'
 				         ]);
          
 				         if($validator->fails())
 				         {
-				         	return redirect()->intended('apartments');
+				         	return redirect()->intended('products');
 				         }
 						else
 						{
-						   $this->helpers->deleteApartment($req['axf']);
-   	 					   $ss = "delete-apartment-status";
+						   $this->helpers->removeProduct($req['xf']);
+   	 					   $ss = "remove-product-status";
    	 					   session()->flash($ss,"ok");
-   	 			           return redirect()->intended("apartments");
+   	 			           return redirect()->intended("products");
 					    }
 	 				}
 	 				else
@@ -2437,17 +2437,17 @@ class MainController extends Controller {
 							
 							switch($req['type'])
 							{
-								case "approve":
-								  $ss = "approved";
+								case "enable":
+								  $ss = "enabled";
 								break;
 								
-								case "reject":
-								  $ss = "rejected";
+								case "disable":
+								  $ss = "disabled";
 								break;
 							}
 							
 							$dd = [
-							  'apartment_id' => $req['axf'],
+							  'xf' => $req['xf'],
 							  'status' => $ss
 							];
 							

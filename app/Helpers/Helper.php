@@ -1133,28 +1133,26 @@ $subject = $data['subject'];
              return $ret;
            }
 
-		   function disableProduct($id,$def=false)
+		   function updateProductStatus($rr)
            {
            	$ret = [];
-              $p = Products::where('id',$id)
-			                 ->orWhere('sku',$id)->first();
+              $p = Products::where('id',$rr['xf'])
+			                 ->orWhere('sku',$rr['xf'])->first();
               
 			  //dd($data);
               if($p != null)
                {
-				  $p->update([		
-				    'status' => "disabled"
-				  ]);
+				  $p->update($rr);
                }                         
                                                       
                 return "ok";
            } 
 		   
-		   function deleteProduct($id,$def=false)
+		   function removeProduct($id,$def=false)
            {
            	$ret = [];
               $p = Products::where('id',$id)
-			                 ->orWhere('product_id',$id)->first();
+			                 ->orWhere('sku',$id)->first();
               
 			  //dd($data);
               if($p != null)
