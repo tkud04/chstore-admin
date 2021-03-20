@@ -5860,7 +5860,7 @@ class MainController extends Controller {
 					if(count($o) < 1)
 					{
 						session()->flash("validation-status-error","ok");
-						return redirect()->intended('o');
+						return redirect()->intended('orders');
 					}
 					else
 					{
@@ -5940,7 +5940,7 @@ class MainController extends Controller {
 					if(count($o) < 1)
 					{
 						session()->flash("validation-status-error","ok");
-						return redirect()->intended('o');
+						return redirect()->intended('orders');
 					}
 					else
 					{
