@@ -594,7 +594,7 @@ $subject = $data['subject'];
 		     function getUsers($all=false)
            {
            	$ret = [];
-              $users = User::where('id','>',"0")->get();
+              $users = User::where('id','>',0)->get();
              
               if($users != null)
                {
@@ -642,7 +642,7 @@ $subject = $data['subject'];
            {
            	$ret = [];
 
-			  $carts = Carts::where('id','>',"0")->get();
+			  $carts = Carts::where('id','>',0)->get();
 			  #dd($uu);
               if($carts != null)
                {
@@ -815,7 +815,7 @@ $subject = $data['subject'];
 				$ret = [];
 				
 				$ret['name'] = isset($data['name']) && $data['name'] != null ? $data['name'] : "";
-				$ret['amount'] = isset($data['price']) && $data['price'] != null ? $data['price'] : "0";
+				$ret['amount'] = isset($data['price']) && $data['price'] != null ? $data['price'] : 0;
 				$ret['description'] = isset($data['description']) && $data['description'] != null ? $data['description'] : "";
 				$ret['meta_title'] = isset($data['meta_title']) && $data['meta_title'] != null ? $data['meta_title'] : "";
 				$ret['meta_description'] = isset($data['meta_description']) && $data['meta_description'] != null ? $data['meta_description'] : "";
@@ -829,7 +829,7 @@ $subject = $data['subject'];
 				$ret['mpn'] = isset($data['mpn']) && $data['mpn'] != null ? $data['mpn'] : "";
 				$ret['location'] = isset($data['location']) && $data['location'] != null ? $data['location'] : "";	
 				$ret['tax_class'] = isset($data['tax_class']) && $data['tax_class'] != null ? $data['tax_class'] : "none";
-				$ret['qty'] = isset($data['qty']) && $data['qty'] != null ? $data['qty'] : "0";
+				$ret['qty'] = isset($data['qty']) && $data['qty'] != null ? $data['qty'] : 0;
 				$ret['min_qty'] = isset($data['min_qty']) && $data['min_qty'] != null ? $data['min_qty'] : "";
 				$ret['shipping'] = isset($data['shipping']) && $data['shipping'] != null ? $data['shipping'] : "none";
 				$ret['date_available'] = isset($data['date_available']) && $data['date_available'] != null ? $data['date_available'] : "";
@@ -939,7 +939,7 @@ $subject = $data['subject'];
 		    function getProducts()
            {
            	$ret = [];
-              $products = Products::where('id','>',"0")->get();
+              $products = Products::where('id','>',0)->get();
               $products = $products->sortByDesc('created_at');
 			  
               if($products != null)
@@ -1053,7 +1053,7 @@ $subject = $data['subject'];
 		     if($p != null && $pd != null)
 		     {
 				$ret['name'] = isset($data['name']) && $data['name'] != null ? $data['name'] : "";
-				$ret['amount'] = isset($data['price']) && $data['price'] != null ? $data['price'] : "0";
+				$ret['amount'] = isset($data['price']) && $data['price'] != null ? $data['price'] : 0;
 				$ret['description'] = isset($data['description']) && $data['description'] != null ? $data['description'] : "";
 				$ret['meta_title'] = isset($data['meta_title']) && $data['meta_title'] != null ? $data['meta_title'] : "";
 				$ret['meta_description'] = isset($data['meta_description']) && $data['meta_description'] != null ? $data['meta_description'] : "";
@@ -1067,7 +1067,7 @@ $subject = $data['subject'];
 				$ret['mpn'] = isset($data['mpn']) && $data['mpn'] != null ? $data['mpn'] : "";
 				$ret['location'] = isset($data['location']) && $data['location'] != null ? $data['location'] : "";	
 				$ret['tax_class'] = isset($data['tax_class']) && $data['tax_class'] != null ? $data['tax_class'] : "none";
-				$ret['qty'] = isset($data['qty']) && $data['qty'] != null ? $data['qty'] : "0";
+				$ret['qty'] = isset($data['qty']) && $data['qty'] != null ? $data['qty'] : 0;
 				$ret['min_qty'] = isset($data['min_qty']) && $data['min_qty'] != null ? $data['min_qty'] : "";
 				$ret['shipping'] = isset($data['shipping']) && $data['shipping'] != null ? $data['shipping'] : "none";
 				$ret['date_available'] = isset($data['date_available']) && $data['date_available'] != null ? $data['date_available'] : "";
@@ -1195,7 +1195,7 @@ $subject = $data['subject'];
 			
 			 if($id == "all")
 			 {
-				 $discounts = Discounts::where('id','>',"0")->get();
+				 $discounts = Discounts::where('id','>',0)->get();
              }
 			 else
 			 {
@@ -1412,7 +1412,7 @@ $subject = $data['subject'];
 		   function getCategories($optionalParams=[])
            {
            	$ret = [];
-           	$categories = Categories::where('id','>','0')->get();
+           	$categories = Categories::where('id','>',0)->get();
               // dd($cart);
 			  
               if($categories != null)
@@ -1607,7 +1607,7 @@ $subject = $data['subject'];
 		   function getManufacturers()
            {
            	$ret = [];
-           	$manufacturers = Manufacturers::where('id','>','0')->get();
+           	$manufacturers = Manufacturers::where('id','>',0)->get();
               // dd($cart);
 			  
               if($manufacturers != null)
@@ -1683,7 +1683,7 @@ $subject = $data['subject'];
 		   function getInformation()
            {
            	$ret = [];
-           	$ii = Information::where('id','>','0')->get();
+           	$ii = Information::where('id','>',0)->get();
               // dd($cart);
 			  
               if($ii != null)
@@ -1761,7 +1761,7 @@ $subject = $data['subject'];
             function getAds($type="wide-ad")
 		   {
 			   $ret = [];
-			   $ads = Ads::where('id',">",'0')->get();
+			   $ads = Ads::where('id',">",0)->get();
 			   #dd($ads);
 			   if(!is_null($ads))
 			   {
@@ -1834,7 +1834,7 @@ $subject = $data['subject'];
 		  function getReviews()
            {
            	$ret = [];
-              $reviews = Reviews::where('id','>',"0")->get();
+              $reviews = Reviews::where('id','>',0)->get();
               $reviews = $reviews->sortByDesc('created_at');
 			  
               if($reviews != null)
@@ -1910,7 +1910,7 @@ $subject = $data['subject'];
             function getBanners()
 		   {
 			   $ret = [];
-			   $banners = Banners::where('id',">",'0')->get();
+			   $banners = Banners::where('id',">",0)->get();
 			   #dd($ads);
 			   if(!is_null($banners))
 			   {
@@ -1987,12 +1987,12 @@ $subject = $data['subject'];
 			   $ret = [];
 			   
 			  //total products
-			  $ret['total'] = Products::where('id','>',"0")->count();
+			  $ret['total'] = Products::where('id','>',0)->count();
 			  $ret['enabled'] = Products::where('status',"enabled")->count();
 			  $ret['disabled'] = Products::where('status',"disabled")->count();
-			  $ret['o_total'] = Orders::where('id','>',"0")->count();
-			  $ret['o_paid'] = Orders::where('id','>',"0")->where('status',"paid")->count();
-			  $ret['o_unpaid'] = Orders::where('id','>',"0")->where('status',"unpaid")->count();
+			  $ret['o_total'] = Orders::where('id','>',0)->count();
+			  $ret['o_paid'] = Orders::where('id','>',0)->where('status',"paid")->count();
+			  $ret['o_unpaid'] = Orders::where('id','>',0)->where('status',"unpaid")->count();
 			  $ret['o_today'] = Orders::whereDate('created_at',date("Y-m-d"))->count();
 			  $ret['o_month'] = Orders::whereMonth('created_at',date("m"))->count();
 			
@@ -2004,7 +2004,7 @@ $subject = $data['subject'];
 			   $ret = [];
 			   
 			    //total profits
-				$ret['total'] = Orders::where('id','>',"0")->where('status',"paid")->sum('amount');
+				$ret['total'] = Orders::where('id','>',0)->where('status',"paid")->sum('amount');
 				$ret['today'] = Orders::whereDate('created_at',date("Y-m-d"))->where('status',"paid")->sum('amount');
 				$ret['month'] = Orders::whereMonth('created_at',date("m"))->where('status',"paid")->sum('amount');
 				
@@ -2039,7 +2039,7 @@ $subject = $data['subject'];
            	$ret = [];
               if($user == null)
 			  {
-				   $pds = PaymentDetails::where('id',">","0")->get();
+				   $pds = PaymentDetails::where('id',">",0)->get();
 				   
 				   $pds = $pds->sortByDesc('created_at');				   
  
@@ -2160,7 +2160,7 @@ $subject = $data['subject'];
            	$ret = [];
               if($user == null)
 			  {
-				   $sds = ShippingDetails::where('id',">","0")->get();
+				   $sds = ShippingDetails::where('id',">",0)->get();
 				   
 				   $sds = $sds->sortByDesc('created_at');				   
  
@@ -2839,7 +2839,7 @@ function getRandomString($length_of_string)
     function getSettings()
            {
            	$ret = [];
-			  $settings = Settings::where('id','>',"0")->get();
+			  $settings = Settings::where('id','>',0)->get();
  
               if($settings != null)
                {
@@ -2913,7 +2913,7 @@ function getRandomString($length_of_string)
    {
 	   $ret = [];
 	   
-	   $senders = Senders::where('id','>',"0")->get();
+	   $senders = Senders::where('id','>',0)->get();
 	   
 	   if(!is_null($senders))
 	   {
@@ -3078,7 +3078,7 @@ function getRandomString($length_of_string)
    {
 	   $ret = [];
 	   
-	   $plugins = Plugins::where('id','>',"0")->get();
+	   $plugins = Plugins::where('id','>',0)->get();
 	   
 	   if(!is_null($plugins))
 	   {
@@ -3149,9 +3149,9 @@ function getRandomString($length_of_string)
 		   
 		    function getSiteStats()
 		   {
-			   $totalOrders = Orders::where('id','>','0')->count();
-			   $totalProducts = Products::where('id','>','0')->count();
-			   $totalUsers = User::where('id','>','0')->count();
+			   $totalOrders = Orders::where('id','>',0)->count();
+			   $totalProducts = Products::where('id','>',0)->count();
+			   $totalUsers = User::where('id','>',0)->count();
 			   $totalSales = 0;
 			   
 			   //revenue by room category
