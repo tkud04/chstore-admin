@@ -940,17 +940,13 @@ $subject = $data['subject'];
            {
            	$ret = [];
 			#dd($ret);
-              $products = Products::where('added_by',"admin")->get();
-              $products = $products->sortByDesc('created_at');
-			  
-              if($products != null)
-               {
-				  foreach($products as $p)
-				  {
-					  $pp = $this->getProduct($p->id,$optionalParams);
-					  array_push($ret,$pp);
-				  }
-               }                         
+                $optionalParams['obj'] = true;
+               Products::chunk(200, function ($products) {
+                 foreach ($products as $p) {
+                    $temp = $this->getProduct($p,$optionalParams);
+		             array_push($ret,$temp);
+		         }
+               });			   
                                                       
                 return $ret;
            }
@@ -958,8 +954,18 @@ $subject = $data['subject'];
 		   function getProduct($id,$optionalParams=[])
            {
            	$ret = [];
-              $product = Products::where('id',$id)
+			
+			if(isset($optionalParams['obj']) && $optionalParams['obj'])
+			  {
+				  $product = $id;
+			  }
+			  else
+			  {
+                   $product = Products::where('id',$id)
 			                 ->orWhere('sku',$id)->first();
+			  }
+			
+              
        
               if($product != null)
                {
@@ -2426,28 +2432,30 @@ $subject = $data['subject'];
            function getOrders()
            {
            	$ret = [];
-
-			  $orders = Orders::where('id','>',0)->get();
-			  $orders = $orders->sortByDesc('created_at');
-			  #dd($uu);
-              if($orders != null)
-               {
-               	  foreach($orders as $o) 
-                    {
-                    	$temp = $this->getOrder($o->id);
-                        array_push($ret, $temp); 
-                    }
-               }                                 
+ 
+               Orders::chunk(200, function ($orders) {
+                 foreach ($orders as $o) {
+                    $temp = $this->getOrder($o,['obj' => true]);
+		             array_push($ret,$temp);
+		         }
+               });			   
               			  
                 return $ret;
            }
 		   
-		   function getOrder($ref)
+		   function getOrder($ref,$optionalParams=[])
            {
            	$ret = [];
-
-			  $o = Orders::where('id',$ref)
+              if(isset($optionalParams['obj']) && $optionalParams['obj'])
+			  {
+				  $o = $ref;
+			  }
+			  else
+			  {
+				  $o = Orders::where('id',$ref)
 			                  ->orWhere('reference',$ref)->first();
+			  }
+			  
 			  #dd($uu);
               if($o != null)
                {
