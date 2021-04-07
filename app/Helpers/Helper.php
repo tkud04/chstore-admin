@@ -2421,7 +2421,7 @@ $subject = $data['subject'];
            {
            	$ret = [];
 
-			  $orders = Orders::where('id','>',"0")->get();
+			  $orders = Orders::where('id','>',0)->get();
 			  $orders = $orders->sortByDesc('created_at');
 			  #dd($uu);
               if($orders != null)
