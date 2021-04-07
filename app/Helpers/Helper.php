@@ -3083,25 +3083,21 @@ function getRandomString($length_of_string)
    function getPlugins()
    {
 	   $ret = [];
-	   
-	  # $plugins = Plugins::where('status',"enabled")->get();
-	   
-	#   if(!is_null($plugins))
-	#   {
-		   foreach(Plugins::lazy() as $p)
-		   {
-		     $temp = $this->getPlugin($p->id);
-		     array_push($ret,$temp);
-	       }
-	#   }
+
+	     Plugins::chunk(200, function ($plugins) {
+            foreach ($plugins as $p) {
+              $temp = $this->getPlugin($p);
+		      array_push($ret,$temp);
+		    }
+         });
 	   
 	   return $ret;
    }
    
-   function getPlugin($id)
+   function getPlugin($p)
            {
            	$ret = [];
-               $p = Plugins::where('id',$id)->first();
+              # $p = Plugins::where('id',$id)->first();
  
               if($p != null)
                {
