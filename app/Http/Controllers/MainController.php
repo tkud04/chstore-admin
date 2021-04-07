@@ -2175,7 +2175,7 @@ class MainController extends Controller {
 				if(isset($req['xf']))
 				{
 					$v = "product";
-					$p = $this->helpers->getProduct($req['xf'],['host' => true,'imgId' => true]);
+					$p = $this->helpers->getProduct($req['xf'],['more' => true,'host' => true,'imgId' => true]);
 					#dd($p);
 					if(count($p) < 1)
 					{
