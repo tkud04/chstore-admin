@@ -940,7 +940,15 @@ $subject = $data['subject'];
            {
            	$ret = [];
 			#dd($ret);
-                $optionalParams['obj'] = true;
+			if(isset($optionalParams)
+			  {
+				  $optionalParams['obj'] = true;
+			  }
+			  else
+			  {
+                   $optionalParams = ['obj' => true];
+			  }
+                
                Products::chunk(200, function ($products) {
                  foreach ($products as $p) {
                     $temp = $this->getProduct($p,$optionalParams);
