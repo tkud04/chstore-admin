@@ -3084,16 +3084,16 @@ function getRandomString($length_of_string)
    {
 	   $ret = [];
 	   
-	   $plugins = Plugins::where('status',"enabled")->get();
+	  # $plugins = Plugins::where('status',"enabled")->get();
 	   
-	   if(!is_null($plugins))
-	   {
-		   foreach($plugins as $p)
+	#   if(!is_null($plugins))
+	#   {
+		   foreach(Plugins::lazy() as $p)
 		   {
 		     $temp = $this->getPlugin($p->id);
 		     array_push($ret,$temp);
 	       }
-	   }
+	#   }
 	   
 	   return $ret;
    }
