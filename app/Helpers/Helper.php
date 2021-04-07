@@ -936,17 +936,18 @@ $subject = $data['subject'];
                 return $ret;
            }
 		   
-		    function getProducts()
+		    function getProducts($optionalParams=[])
            {
            	$ret = [];
-              $products = Products::where('id','>',0)->get();
+			#dd($ret);
+              $products = Products::where('added_by',"admin")->get();
               $products = $products->sortByDesc('created_at');
 			  
               if($products != null)
                {
 				  foreach($products as $p)
 				  {
-					  $pp = $this->getProduct($p->id);
+					  $pp = $this->getProduct($p->id,$optionalParams);
 					  array_push($ret,$pp);
 				  }
                }                         
@@ -954,7 +955,7 @@ $subject = $data['subject'];
                 return $ret;
            }
 		   
-		   function getProduct($id,$imgId=false)
+		   function getProduct($id,$optionalParams=[])
            {
            	$ret = [];
               $product = Products::where('id',$id)
@@ -976,10 +977,10 @@ $subject = $data['subject'];
 				  $temp['qty'] = $product->qty;
 				  $temp['seo_keywords'] = $product->seo_keywords;
 				  $temp['status'] = $product->status;
-				  $temp['data'] = $this->getProductData($product->id);
+				  $temp['data'] = $this->getProductData($product->id,$optionalParams);
 				  #$temp['discounts'] = $this->getDiscounts($product->sku);
 				  $imgs = $this->getImages($product->id);
-				  if($imgId) $temp['imgs'] = $imgs;
+				  if(isset($optionalParams['imgId']) && $optionalParams['imgId']) $temp['imgs'] = $imgs;
 				  $temp['imggs'] = $this->getCloudinaryImages($imgs);
 				  $temp['date'] = $product->created_at->format("jS F,Y h:i A"); 
 				  $ret = $temp;
@@ -988,7 +989,7 @@ $subject = $data['subject'];
                 return $ret;
            }
 
-		   function getProductData($xf)
+		   function getProductData($xf,$optionalParams=[])
            {
            	$ret = [];
               $pd = ProductData::where('product_id',$xf)->first();
@@ -1000,7 +1001,12 @@ $subject = $data['subject'];
 				  $temp['product_id'] = $pd->product_id;
 				  $temp['amount'] = $pd->amount;
 				  $temp['description'] = $pd->description;
-				  $temp['meta_title'] = $pd->meta_title;
+				 
+
+				  if(isset($optionalParams['more']) && $optionalParams['more'])
+				  {
+					  $temp['height'] = $pd->height;
+				   $temp['meta_title'] = $pd->meta_title;
 				  $temp['meta_description'] = $pd->meta_description;
 				  $temp['meta_keywords'] = $pd->meta_keywords;
 				  $temp['location'] = $pd->location;
@@ -1011,9 +1017,9 @@ $subject = $data['subject'];
 				  $temp['da'] = Carbon::parse($pd['date_available']);
 				  $temp['length'] = $pd->length;
 				  $temp['width'] = $pd->width;
-				  $temp['height'] = $pd->height;
-				  $temp['category'] = $this->getCategory($pd->category);
-				  $temp['manufacturer'] = $this->getManufacturer($pd->manufacturer);
+				    $temp['category'] = $this->getCategory($pd->category);
+				    $temp['manufacturer'] = $this->getManufacturer($pd->manufacturer);
+				  }
 				  $ret = $temp;
                }                         
                                                       
