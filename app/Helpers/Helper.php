@@ -949,7 +949,7 @@ $subject = $data['subject'];
                    $optionalParams = ['obj' => true];
 			  }
                 
-               Products::chunk(200, function ($products) {
+               Products::chunk(200, function ($products) use($optionalParams) {
                  foreach ($products as $p) {
                     $temp = $this->getProduct($p,$optionalParams);
 		             array_push($ret,$temp);
