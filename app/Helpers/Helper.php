@@ -940,7 +940,7 @@ $subject = $data['subject'];
            {
            	$ret = [];
 			#dd($ret);
-			if(isset($optionalParams)
+			if(isset($optionalParams))
 			  {
 				  $optionalParams['obj'] = true;
 			  }
