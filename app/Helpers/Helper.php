@@ -376,6 +376,22 @@ public $smtpp = [
 												     'shipped' => "Shipped",
 												     'voided' => "Voided",
 												   ];
+ public $statuses2 = [
+												     'cancelled',
+												     'canceled-reversal',
+												     'chargeback',
+												     'completed',
+												     'denied',
+												     'expired',
+												     'failed',
+												     'pending',
+												     'processed',
+												     'processing',
+												     'refunded',
+												     'reversed',
+												     'shipped',
+												     'voided'
+												   ];
            
  public $information_types = [
 											    'about' => "About Us",
@@ -2442,12 +2458,11 @@ $subject = $data['subject'];
            {
            	$ret = [];
  
-               Orders::chunk(200, function ($orders) {
+               $orders = Orders::whereIn('status', $this->statuses2)->get();
                  foreach ($orders as $o) {
                     $temp = $this->getOrder($o,['obj' => true]);
 		             array_push($ret,$temp);
-		         }
-               });			   
+		         }			   
               			  
                 return $ret;
            }
