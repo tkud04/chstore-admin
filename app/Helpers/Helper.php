@@ -3084,7 +3084,7 @@ function getRandomString($length_of_string)
    {
 	   $ret = [];
 	   
-	   $plugins = Plugins::where('status',"enabled")->get();
+	   $plugins = Plugins::lazy()->where('status',"enabled")->get();
 	   
 	   if(!is_null($plugins))
 	   {
