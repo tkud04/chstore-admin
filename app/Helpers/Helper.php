@@ -949,18 +949,19 @@ $subject = $data['subject'];
                    $optionalParams = ['obj' => true];
 			  }
                 
-               Products::chunk(200, function ($products) use($optionalParams) {
-                 foreach ($products as $p) {
+               $products = Products::whereIn('status',['enabled','disabled'])->get();
+			   #dd($products);
+                 foreach($products as $p) {
                     $temp = $this->getProduct($p,$optionalParams);
 		             array_push($ret,$temp);
-		         }
-               });			   
+		         }		   
                                                       
                 return $ret;
            }
 		   
 		   function getProduct($id,$optionalParams=[])
            {
+			  
            	$ret = [];
 			
 			if(isset($optionalParams['obj']) && $optionalParams['obj'])
@@ -973,11 +974,11 @@ $subject = $data['subject'];
 			                 ->orWhere('sku',$id)->first();
 			  }
 			
-              
+                 #dd($product);
        
               if($product != null)
                {
-				   #dd($product);
+				
 				  $temp = [];
 				  $temp['id'] = $product->id;
 				  $temp['name'] = $product->name;
