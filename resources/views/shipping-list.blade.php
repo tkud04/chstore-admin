@@ -83,20 +83,13 @@ $shipping_method = "Free Shipping";
                                             <thead>
                                                 <tr>
                                                    
-                                                    <th>Payment Address</th>
                                                     <th>Shipping Address</th>
+                                                    <th>Contact</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>
-													  <div>{{strtoupper($pd['fname']." ".$pd['lname'])}}</div>
-													  <div>{{strtoupper($pd['address_1'])}}</div>
-													  @if($pd['address_2'] != "") <div>{{strtoupper($pd['address_2'])}}</div>@endif
-													  <div>{{strtoupper($pd['city']." ".$pd['zip'])}}</div>
-													  <div>{{ucwords($pd['region'])}}</div>
-													  <div>{{ucwords($countries[$pd['country']])}}</div>
-													</td>
+                                                   
 													<td>
 													  <div>{{strtoupper($sd['fname']." ".$sd['lname'])}}</div>
 													  <div>{{strtoupper($sd['address_1'])}}</div>
@@ -104,6 +97,11 @@ $shipping_method = "Free Shipping";
 													  <div>{{strtoupper($sd['city']." ".$sd['zip'])}}</div>
 													  <div>{{ucwords($sd['region'])}}</div>
 													  <div>{{ucwords($countries[$sd['country']])}}</div>
+													</td>
+													<td>
+													  <div><a href="javascript:void(0)">{{$customer['email']}}</a></div>
+													  <div>{{$customer['phone']}}</div>
+													 
 													</td>
                                                 </tr>
                                             </tbody>

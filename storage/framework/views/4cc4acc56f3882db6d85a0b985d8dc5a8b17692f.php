@@ -83,20 +83,13 @@ $shipping_method = "Free Shipping";
                                             <thead>
                                                 <tr>
                                                    
-                                                    <th>Payment Address</th>
                                                     <th>Shipping Address</th>
+                                                    <th>Contact</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>
-													  <div><?php echo e(strtoupper($pd['fname']." ".$pd['lname'])); ?></div>
-													  <div><?php echo e(strtoupper($pd['address_1'])); ?></div>
-													  <?php if($pd['address_2'] != ""): ?> <div><?php echo e(strtoupper($pd['address_2'])); ?></div><?php endif; ?>
-													  <div><?php echo e(strtoupper($pd['city']." ".$pd['zip'])); ?></div>
-													  <div><?php echo e(ucwords($pd['region'])); ?></div>
-													  <div><?php echo e(ucwords($countries[$pd['country']])); ?></div>
-													</td>
+                                                   
 													<td>
 													  <div><?php echo e(strtoupper($sd['fname']." ".$sd['lname'])); ?></div>
 													  <div><?php echo e(strtoupper($sd['address_1'])); ?></div>
@@ -104,6 +97,11 @@ $shipping_method = "Free Shipping";
 													  <div><?php echo e(strtoupper($sd['city']." ".$sd['zip'])); ?></div>
 													  <div><?php echo e(ucwords($sd['region'])); ?></div>
 													  <div><?php echo e(ucwords($countries[$sd['country']])); ?></div>
+													</td>
+													<td>
+													  <div><a href="javascript:void(0)"><?php echo e($customer['email']); ?></a></div>
+													  <div><?php echo e($customer['phone']); ?></div>
+													 
 													</td>
                                                 </tr>
                                             </tbody>

@@ -2457,7 +2457,7 @@ $subject = $data['subject'];
            function getOrders()
            {
            	$ret = [];
- 
+             # dd($this->statuses2);
                $orders = Orders::whereIn('status', $this->statuses2)->get();
                  foreach ($orders as $o) {
                     $temp = $this->getOrder($o,['obj' => true]);
@@ -3116,7 +3116,7 @@ function getRandomString($length_of_string)
    {
 	   $ret = [];
 
-	     Plugins::chunk(200, function ($plugins) {
+	     Plugins::chunk(200, function ($plugins) use($ret) {
             foreach ($plugins as $p) {
               $temp = $this->getPlugin($p);
 		      array_push($ret,$temp);

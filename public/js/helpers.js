@@ -813,7 +813,9 @@ const refreshProducts = dt => {
 	//new vals
 	for(let i = 0; i < orderProducts.length; i++){
 		let op = orderProducts[i], p = products.find(pp => pp.id == op.p);
-        //console.log(`p at : ${i}`,p);	
+       // console.log(`p at : ${i}`,p);	
+        	
+        console.log(`dt: `,dt);	
         let ss = parseInt(p.amount) * parseInt(op.q);
 		s += ss; t = s;
      //draw
