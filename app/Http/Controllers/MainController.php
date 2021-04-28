@@ -2477,6 +2477,96 @@ class MainController extends Controller {
 	 		return view($v,compact($cpt));
 		
 	     }
+		 
+		 /**
+	 *Genetate Google Products Feed
+	 *
+	 * @return Response
+	 */
+	public function getGenerateGoogleProductsFeed(Request $request)
+    {
+		$user = null;
+		$nope = false;
+		$v = "";
+		
+		$signals = $this->helpers->signals;
+		$plugins = $this->helpers->getPlugins();
+		#$this->helpers->populateTips();
+        $cpt = ['user','signals','plugins'];
+				
+		if(Auth::check())
+		{
+			$user = Auth::user();
+			
+			if($this->helpers->isAdmin($user))
+			{
+				$hasPermission = $this->helpers->hasPermission($user->id,['view_users']);
+				#dd($hasPermission);
+				$req = $request->all();
+				
+				if($hasPermission)
+				{
+					$type = isset($req['xf']) ? isset($req['xf']) :  "normal";
+				if($type != "")
+				{
+					$xf = $req['xf'];
+					$v = "user";
+					$uu = User::where('id',$xf)
+					          ->orWhere('email',$xf)->first();
+							  
+					if($uu == null)
+					{
+						session()->flash("invalid-user-status-error","ok");
+						return redirect()->intended('users');
+					}
+				    $u = $this->helpers->getUser($xf);
+					
+					if(count($u) < 1)
+					{
+						session()->flash("invalid-user-status-error","ok");
+						return redirect()->intended('users');
+					}
+					else
+					{
+						$users = [];
+						$apts = $this->helpers->getApartments($uu);
+					    $reviews = $this->helpers->getReviews($uu->id,"user");
+					    $permissions = $this->helpers->getPermissions($uu);
+						#dd(count($reviews));
+                        array_push($cpt,'u');
+                        array_push($cpt,'apts');
+                        array_push($cpt,'reviews');
+                        array_push($cpt,'users');
+                        array_push($cpt,'permissions');
+					}
+					
+				}
+				else
+				{
+					session()->flash("validation-status-error","ok");
+					return redirect()->intended('users');
+				}
+				}
+				else
+				{
+					session()->flash("permissions-status-error","ok");
+					return redirect()->intended('/');
+				}
+								
+			}
+			else
+			{
+				Auth::logout();
+				$u = url('/');
+				return redirect()->intended($u);
+			}
+		}
+		else
+		{
+			$v = "login";
+		}
+		return view($v,compact($cpt));
+    }
 	
 	
 	/**

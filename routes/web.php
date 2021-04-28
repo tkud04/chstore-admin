@@ -65,6 +65,7 @@ Route::post('buup', 'MainController@postBulkUploadProducts');
 Route::get('remove-product', 'MainController@getRemoveProduct');
 Route::get('ups', 'MainController@getUpdateProductStatus');
 Route::get('tph', 'MainController@getTopPerformingHosts');
+Route::get('generate-feed', 'MainController@getGenerateGoogleProductsFeed');
 
 //Information
 Route::get('information', 'MainController@getInformation');
