@@ -31,6 +31,10 @@ use App\Settings;
 use App\Plugins;
 use App\Couriers;
 use App\Comparisons;
+use Vitalybaev\GoogleMerchant\Feed;
+use Vitalybaev\GoogleMerchant\Product;
+use Vitalybaev\GoogleMerchant\Product\Shipping;
+use Vitalybaev\GoogleMerchant\Product\Availability\Availability;
 use \Swift_Mailer;
 use \Swift_SmtpTransport;
 use \Cloudinary\Api;
@@ -3281,6 +3285,54 @@ function getRandomString($length_of_string)
 		   function hasPermission($user_id,$ps)
 		   {
 			   return true;
+		   } 
+		   
+		   function generateGoogleProductsFeed()
+		   {
+			   // Create feed object
+$feed = new Feed("My awesome store", "https://example.com", "My awesome description");
+
+// Put products to the feed ($products - some data from database for example)
+foreach ($products as $product) {
+    $item = new Product();
+    
+    // Set common product properties
+    $item->setId($product->id);
+    $item->setTitle($product->title);
+    $item->setDescription($product->description);
+    $item->setLink($product->getUrl());
+    $item->setImage($product->getImage());
+    if ($product->isAvailable()) {
+        $item->setAvailability(Availability::IN_STOCK);
+    } else {
+        $item->setAvailability(Availability::OUT_OF_STOCK);
+    }
+    $item->setPrice("{$product->price} USD");
+    $item->setGoogleCategory($product->category_name);
+    $item->setBrand($product->brand->name);
+    $item->setGtin($product->barcode);
+    $item->setCondition('new');
+    
+    // Some additional properties
+    $item->setColor($product->color);
+    $item->setSize($product->size);
+
+    // Shipping info
+    $shipping = new Shipping();
+    $shipping->setCountry('US');
+    $shipping->setRegion('CA, NSW, 03');
+    $shipping->setPostalCode('94043');
+    $shipping->setLocationId('21137');
+    $shipping->setService('UPS Express');
+    $shipping->setPrice('1300 USD');
+    $item->setShipping($shipping);
+    
+    // Add this product to the feed
+    $feed->addProduct($item);
+}
+
+// Here we get complete XML of the feed, that we could write to file or send directly
+$feedXml = $feed->build();
 		   }
 		   
    
