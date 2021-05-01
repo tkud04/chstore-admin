@@ -13,7 +13,7 @@ class Banners extends Model
      * @var array
      */
     protected $fillable = [
-        'img', 'subtitle', 'title', 'copy', 'status'
+        'img', 'subtitle_1', 'subtitle_2', 'title_1', 'title_2', 'caption', 'button_text', 'url', 'status'
     ];
     
 }

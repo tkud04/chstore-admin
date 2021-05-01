@@ -1937,11 +1937,22 @@ $subject = $data['subject'];
 		   
 		    function createBanner($data)
            {
-			   $copy = isset($data['copy']) ? $data['copy'] : "";
+			   $subtitle_1 = isset($data['subtitle_1']) ? $data['subtitle_1'] : "";
+			   $subtitle_2 = isset($data['subtitle_2']) ? $data['subtitle_2'] : "";
+			   $title_1 = isset($data['title_1']) ? $data['title_1'] : "";
+			   $title_2 = isset($data['title_2']) ? $data['title_2'] : "";
+			   $caption = isset($data['caption']) ? $data['caption'] : "";
+			   $button_text = isset($data['button_text']) ? $data['button_text'] : "";
+			   $url = isset($data['url']) ? $data['url'] : "";
+			   
            	$ret = Banners::create(['img' => $data['img'], 
-                                                      'title' => $data['title'], 
-                                                      'subtitle' => $data['subtitle'], 
-                                                      'copy' => $copy, 
+                                                      'subtitle_1' => $subtitle_1, 
+                                                      'subtitle_2' => $subtitle_2, 
+                                                      'title_1' => $title_1, 
+                                                      'title_2' => $title_2, 
+                                                      'caption' => $caption, 
+                                                      'button_text' => $button_text, 
+                                                      'url' => $url, 
                                                       'status' => $data['status'] 
                                                       ]);
                                                       
@@ -1961,9 +1972,13 @@ $subject = $data['subject'];
 					   $temp['id'] = $b->id;
 					   $img = $b->img;
 					   $temp['img'] = $this->getCloudinaryImage($img);
-					   $temp['title'] = $b->title;
-					   $temp['subtitle'] = $b->subtitle;
-					   $temp['copy'] = $b->copy;
+					   $temp['title_1'] = $b->title_1;
+					   $temp['title_2'] = $b->title_2;
+					   $temp['subtitle_1'] = $b->subtitle_1;
+					   $temp['subtitle_2'] = $b->subtitle_2;
+					   $temp['caption'] = $b->caption;
+					   $temp['button_text'] = $b->button_text;
+					   $temp['url'] = $b->url;
 					   $temp['status'] = $b->status;
 					   array_push($ret,$temp);
 				   }
@@ -1983,9 +1998,13 @@ $subject = $data['subject'];
 					   $temp['id'] = $b->id;
 					   $img = $b->img;
 					   $temp['img'] = $this->getCloudinaryImage($img);
-					   $temp['title'] = $b->title;
-					   $temp['subtitle'] = $b->subtitle;
-					   $temp['copy'] = $b->copy;
+					   $temp['title_1'] = $b->title_1;
+					   $temp['title_2'] = $b->title_2;
+					   $temp['subtitle_1'] = $b->subtitle_1;
+					   $temp['subtitle_2'] = $b->subtitle_2;
+					   $temp['caption'] = $b->caption;
+					   $temp['button_text'] = $b->button_text;
+					   $temp['url'] = $b->url;
 					   $temp['status'] = $b->status;
 					   $ret = $temp;
 			   }
