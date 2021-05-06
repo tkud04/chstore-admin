@@ -67,7 +67,7 @@ $subtitle = "Upload a new banner for the landing page.";
 										</div>
 										<div class="col-md-12">
 										<div class="form-group">
-                                            <label>Button UR</label>
+                                            <label>Button URL</label>
                                             <input id="ab-button-url" type="text" placeholder="Button text" name="url" class="form-control">
                                         </div>
 										</div>
@@ -80,9 +80,9 @@ $subtitle = "Upload a new banner for the landing page.";
 								           <?php
 								            $secs = ['enabled' => "Enabled",'disabled' => "Disabled"];
 								            foreach($secs as $key => $value){
-									      	 
+									      	 $ss = $key = "enabled" ? " selected='selected'" : "";
 								           ?>
-								              <option value="{{$key}}">{{$value}}</option>
+								              <option value="{{$key}}"{{$ss}}>{{$value}}</option>
 								           <?php
 								           }
 								           ?>
@@ -95,7 +95,7 @@ $subtitle = "Upload a new banner for the landing page.";
                                         <div class="row">
                                             <div class="col-sm-12 pl-0">
                                                 <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="apl-form-btn">Save</button>
+                                                    <button class="btn btn-space btn-secondary" type="submit">Save</button>
                                                 </p>
                                             </div>
                                         </div>
