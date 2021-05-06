@@ -23,6 +23,15 @@ $subtitle = "Upload a new banner for the landing page.";
 										{!! csrf_field() !!}
 										
 										<div class="row">
+										
+										<div class="col-md-12">
+										<div class="form-group">
+                                            <label>Image</label>
+                                            <input id="ab-img" type="file" name="img" class="form-control">
+                                        </div>
+										</div>
+										
+										
 										<div class="col-md-12">
 										<div class="form-group">
                                             <label>Subtitle 1</label>
