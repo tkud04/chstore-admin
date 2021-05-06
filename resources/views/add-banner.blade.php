@@ -80,7 +80,7 @@ $subtitle = "Upload a new banner for the landing page.";
 								           <?php
 								            $secs = ['enabled' => "Enabled",'disabled' => "Disabled"];
 								            foreach($secs as $key => $value){
-									      	 $ss = $key = "enabled" ? " selected='selected'" : "";
+									      	 $ss = $key == "enabled" ? " selected='selected'" : "";
 								           ?>
 								              <option value="{{$key}}"{{$ss}}>{{$value}}</option>
 								           <?php
