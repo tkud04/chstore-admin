@@ -4093,7 +4093,7 @@ class MainController extends Controller {
                     }
 				    else
 				    {   
-					  $ret = $this->helpers->removeBanner($req['xf']);
+					  $ret = $this->helpers->deleteBanner($req['xf']);
 					  $ss = "remove-banner-status";
 					  if($ret == "error") $ss .= "-error";
 					  session()->flash($ss,"ok");
