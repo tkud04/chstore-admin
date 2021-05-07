@@ -3931,8 +3931,8 @@ class MainController extends Controller {
 				#dd($req);
 				
 				$validator = Validator::make($req,[
-		                     'ab-images' => 'required',
-                             'type' => 'required'
+		                     'img' => 'required',
+                            // 'type' => 'required'
 		                   ]);
 						
 				if($validator->fails())
@@ -3945,25 +3945,24 @@ class MainController extends Controller {
 					$ird = [];
                     $networkError = false;
 				
-                    for($i = 0; $i < count($req['ab-images']); $i++)
-                    {
-            		  $img = $req['ab-images'][$i];
+                    
+            		  $img = $req['img'];
 					  $imgg = $this->helpers->uploadCloudImage($img->getRealPath());
 						
 					  if(isset($imgg['status']) && $imgg['status'] == "error")
 					  {
 						  $networkError = true;
-						  break;
+						  
 					  }
 					  else
 					  {
 						 $req['cover'] = "no";
-					     $req['ird'] = $imgg['public_id'];
+					     $req['img'] = $imgg['public_id'];
 					     $req['delete_token'] = $imgg['delete_token'];
 					     $req['deleted'] = "no";
 					  }
              	        								
-					}
+					
 					
 					if($networkError)
 					{
@@ -3972,7 +3971,7 @@ class MainController extends Controller {
 					}
 					else
 					{
-						$req['status'] = "enabled";
+						//$req['status'] = "enabled";
 					    $req['added_by'] = $user->id;
 					   
 			            $ret = $this->helpers->createBanner($req);
@@ -4098,7 +4097,7 @@ class MainController extends Controller {
                     }
 				    else
 				    {   
-					  $ret = $this->helpers->removeBanner($req['xf']);
+					  $ret = $this->helpers->deleteBanner($req['xf']);
 					  $ss = "remove-banner-status";
 					  if($ret == "error") $ss .= "-error";
 					  session()->flash($ss,"ok");

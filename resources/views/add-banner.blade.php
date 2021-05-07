@@ -23,6 +23,15 @@ $subtitle = "Upload a new banner for the landing page.";
 										{!! csrf_field() !!}
 										
 										<div class="row">
+										
+										<div class="col-md-12">
+										<div class="form-group">
+                                            <label>Image</label>
+                                            <input id="ab-img" type="file" name="img" class="form-control">
+                                        </div>
+										</div>
+										
+										
 										<div class="col-md-12">
 										<div class="form-group">
                                             <label>Subtitle 1</label>
@@ -71,9 +80,9 @@ $subtitle = "Upload a new banner for the landing page.";
 								           <?php
 								            $secs = ['enabled' => "Enabled",'disabled' => "Disabled"];
 								            foreach($secs as $key => $value){
-									      	 
+									      	 $ss = $key == "enabled" ? " selected='selected'" : "";
 								           ?>
-								              <option value="{{$key}}">{{$value}}</option>
+								              <option value="{{$key}}"{{$ss}}>{{$value}}</option>
 								           <?php
 								           }
 								           ?>
@@ -86,7 +95,7 @@ $subtitle = "Upload a new banner for the landing page.";
                                         <div class="row">
                                             <div class="col-sm-12 pl-0">
                                                 <p class="text-right">
-                                                    <button class="btn btn-space btn-secondary" id="apl-form-btn">Save</button>
+                                                    <button class="btn btn-space btn-secondary" type="submit">Save</button>
                                                 </p>
                                             </div>
                                         </div>
