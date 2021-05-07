@@ -58,7 +58,7 @@ $subtitle = "Upload a new banner for the landing page.";
 										</div>
 										<div class="col-md-12">
 										<div class="form-group">
-                                            <label>Button UR</label>
+                                            <label>Button URL</label>
                                             <input id="ab-button-url" type="text" placeholder="Button text" name="url" class="form-control">
                                         </div>
 										</div>

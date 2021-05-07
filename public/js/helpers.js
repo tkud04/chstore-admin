@@ -1013,3 +1013,48 @@ const updateOrder = (dt) => {
 		     $('#eo-submit').fadeIn();			
 	   });
 }
+
+const download = (blob,fname) => {
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.setAttribute('download',fname);
+  a.click();
+}
+
+const gpf = dt => {
+		 
+	//create request
+	let url = "generate-feed", icon = "error";
+	const req = new Request(url,{method: 'GET'});
+	
+	//fetch request
+	fetch(req)
+	   .then(response => {
+		   
+		   if(response.status === 200){   
+			  return response.blob();
+		   }
+		   else{
+			   Swal.fire({
+			 icon: 'error',
+             title: "Technical error."
+           });
+		   }
+	   })
+	   .catch(error => {
+		   Swal.fire({
+			 icon: 'error',
+             title: error
+           });
+	   })
+	   .then(res => {
+		   console.log(res);
+		   download(res,"google-product-feed.xml");
+			
+	   }).catch(error => {
+		    Swal.fire({
+			 icon: 'error',
+             title: error
+           });
+	   });
+	}

@@ -2493,7 +2493,7 @@ class MainController extends Controller {
 		$plugins = $this->helpers->getPlugins();
 		#$this->helpers->populateTips();
         $cpt = ['user','signals','plugins'];
-				
+		$ret = "error";
 		if(Auth::check())
 		{
 			$user = Auth::user();
@@ -2509,33 +2509,37 @@ class MainController extends Controller {
 					$type = isset($req['xf']) ? isset($req['xf']) :  "normal";
 				if($type != "")
 				{
-					$feed = $this->helpers->generateGoogleProductsFeed($type);					
+					$feed = $this->helpers->generateGoogleProductsFeed($type);
+					//dd($feed);
+                    $ret = $feed;					
 				}
 				else
 				{
-					session()->flash("validation-status-error","ok");
-					return redirect()->intended('users');
+					//session()->flash("validation-status-error","ok");
+					//return redirect()->intended('users');
 				}
 				}
 				else
 				{
-					session()->flash("permissions-status-error","ok");
-					return redirect()->intended('/');
+					//session()->flash("permissions-status-error","ok");
+					//return redirect()->intended('/');
 				}
 								
 			}
 			else
 			{
+				/**
 				Auth::logout();
 				$u = url('/');
 				return redirect()->intended($u);
+				**/
 			}
 		}
 		else
 		{
-			$v = "login";
+			//$v = "login";
 		}
-		return view($v,compact($cpt));
+		return $ret;
     }
 	
 	

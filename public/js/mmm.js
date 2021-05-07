@@ -1025,5 +1025,9 @@ $(document).ready(function() {
 	   }
     });
 	
+	$("#gpf-btn").click(e => {
+       gpf();
+    });
+	
 	
 });
