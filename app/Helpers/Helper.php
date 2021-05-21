@@ -3140,13 +3140,17 @@ function getRandomString($length_of_string)
    function getPlugins()
    {
 	   $ret = [];
-
-	     Plugins::chunk(200, function ($plugins) use($ret) {
-            foreach ($plugins as $p) {
-              $temp = $this->getPlugin($p);
-		      array_push($ret,$temp);
-		    }
-         });
+	   
+	   $plugins = Plugins::where('id','>',0)->get();
+	   
+	   if(!is_null($plugins))
+	   {
+		   foreach($plugins as $p)
+		   {
+		     $temp = $this->getPlugin($p);
+		     array_push($ret,$temp);
+	       }
+	   }
 	   
 	   return $ret;
    }
