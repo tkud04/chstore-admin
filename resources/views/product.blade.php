@@ -150,7 +150,7 @@ $(document).ready(() => {
                                             </div>
 											<div class="form-group mt-2">
                                                <label> Price (&#163;)</label>
-                                               <input id="product-price" type="text" value="{{number_format($pd['amount'],2)}}" placeholder="Price" class="form-control">
+                                               <input id="product-price" type="text" value="{{$pd['amount']}}" placeholder="Price" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                <label>Tax class</label>
