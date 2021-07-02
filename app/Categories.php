@@ -13,7 +13,7 @@ class Categories extends Model
      * @var array
      */
     protected $fillable = [
-        'category', 'name', 'image', 'delete_token', 'parent_id', 'status'
+        'category', 'gpc', 'name', 'image', 'delete_token', 'parent_id', 'status'
     ];
     
 }
