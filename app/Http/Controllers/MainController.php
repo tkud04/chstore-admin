@@ -2676,6 +2676,7 @@ class MainController extends Controller {
 				
 				$validator = Validator::make($req,[
 		                    'name' => 'required',
+				    'gpc' => 'required',
 		                    'meta_title' => 'required'
 		                   ]);
 						
@@ -2911,6 +2912,7 @@ class MainController extends Controller {
 				$validator = Validator::make($req,[
 		                    'xf' => 'required',
                              'name' => 'required',
+			     'gpc' => 'required',
                              'meta_title' => 'required'
 		                   ]);
 						
