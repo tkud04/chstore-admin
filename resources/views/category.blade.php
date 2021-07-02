@@ -72,6 +72,10 @@ $cd = $c['data'];
                                                <label>Tag <span class="text-danger text-bold">*</span></label>
                                             <input id="category-tag" type="text" class="form-control" value="{{$c['category']}}" name="category" value="" placeholder="Friendly tag e.g tablets">
                                             </div>
+					    <div class="form-group mt-2">
+                                               <label>Google Product Category <span class="text-danger text-bold">*</span></label>
+                                            <input id="category-gpc" type="text" name="gpc" value="{{$c['gpc']}}" placeholder="Google product category ID e.g 2271" class="form-control">
+                                            </div>
 											 <div class="form-group">
                                              <label>Description</label>
                                                <textarea id="category-description" name="description" class="form-control" placeholder="Description" rows="8">{!! $cd['description'] !!}</textarea>
