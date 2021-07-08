@@ -75,7 +75,7 @@ class Helper implements HelperContract
                      "no-sku-status" => "Please select a product for single discount.",
                      "set-cover-image-status" => "Product image updated",
                      "delete-image-status" => "Image deleted",
-                     "delete-order-status" => "Order deleted",
+                     "remove-order-status" => "Order removed",
                      "bulk-update-tracking-status" => "Trackings updated",
                      "bulk-confirm-payment-status" => "Payments confirmed",
                      "bulk-update-products-status" => "Products updated",
