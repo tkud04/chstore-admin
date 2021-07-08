@@ -5772,7 +5772,7 @@ class MainController extends Controller {
 			if($this->helpers->isAdmin($user))
 			{
 				$req = $request->all();
-			   	    dd($req);
+			   	#dd($req);
 				$hasPermission = $this->helpers->hasPermission($user->id,['view_users','edit_users']);
 				#dd($hasPermission);
 				
@@ -5790,11 +5790,11 @@ class MainController extends Controller {
                     }
 				    else
 				    {   
-					  $ret = $this->helpers->removeFAQTag($req['xf']);
-					  $ss = "remove-faq-tag-status";
+					  $ret = $this->helpers->removeOrder($req['xf']);
+					  $ss = "remove-order-status";
 					  if($ret == "error") $ss .= "-error";
 					  session()->flash($ss,"ok");
-			          return redirect()->intended("faq-tags");
+			          return redirect()->intended("orders");
 				    }
 				}
 				else
