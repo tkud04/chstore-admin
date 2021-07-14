@@ -406,7 +406,7 @@ public $smtpp = [
 											  ];
  
 		   #{'msg':msg,'em':em,'subject':subject,'link':link,'sn':senderName,'se':senderEmail,'ss':SMTPServer,'sp':SMTPPort,'su':SMTPUser,'spp':SMTPPass,'sa':SMTPAuth};
-           function sendEmailSMTP($data,$view,$type="view")
+             function sendEmailSMTP($data,$view,$type="view")
            {
            	    // Setup a new SmtpTransport instance for new SMTP
                 $transport = "";
@@ -427,12 +427,14 @@ Mail::setSwiftMailer($smtp);
 $se = $data['se'];
 $sn = $data['sn'];
 $to = $data['em'];
+$from = isset($data['from']) ? $data['from'] : "";
 $subject = $data['subject'];
                    if($type == "view")
                    {
-                     Mail::send($view,$data,function($message) use($to,$subject,$se,$sn){
+                     Mail::send($view,$data,function($message) use($from,$to,$subject,$se,$sn){
                            $message->from($se,$sn);
                            $message->to($to);
+                          if($from != "") $message->setReplyTo($from);
                            $message->subject($subject);
                           if(isset($data["has_attachments"]) && $data["has_attachments"] == "yes")
                           {

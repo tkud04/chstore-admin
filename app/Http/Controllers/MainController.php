@@ -5860,12 +5860,54 @@ class MainController extends Controller {
                    }
 				   else
 				   {   
-			           $ret = $this->helpers->createOrderHistory($req);
-			           $ss = "add-order-history-status";
-					  if($ret == "error") $ss .= "-error";
-					  session()->flash($ss,"ok");
-			          return redirect()->intended("order?xf=".$req['xf']);
+				     $o = $this->helpers->getOrder($req['xf']);
+				     #dd($o);
+					 if(count($o) < 1)
+					 {
+						session()->flash("validation-status-error","ok");
+						return redirect()->intended('o');
+					 }
+					 else
+					 {
+						 $ret = $this->helpers->createOrderHistory($req);
+					     
+						 if($req['nc'] == "yes")
+					     {
+							 $customer = $o['user'];
+                             $cname = $customer['fname']." ".$customer['lname'];
+							 $data = [
+							    'customer' => $cname,
+							    'reference' => $o['reference'],
+							    'status' => $req['status'],
+							    't' => $ret,
+							    'statuses' => $this->helpers->statuses,
+							 ];
+						    $s = ['status' => "error",'message' => "nothing happened"];
+			                $rex = $this->helpers->getCurrentSender();
+		                    $rex['data'] = $data;
+		                    $rex['sn'] = "MobileBuzz";
+    		                $rex['subject'] = "New update on your order ".$o['reference'];	
+		       
+			                try
+		                    {
+			                  $rex['em'] = $customer['email'];
+		                      $this->helpers->sendEmailSMTP($rex,"emails.order-update");
+			                  $s = ['status' => "ok"];
+		                    }
+		
+                            catch(Throwable $e)
+		                    {
+			                  #dd($e);
+			                  $s = ['status' => "error",'message' => "server error"];
+		                    }
+					     }
+			             $ss = "add-order-history-status";
+					     if($ret == "error") $ss .= "-error";
+					     session()->flash($ss,"ok");
+			             return redirect()->intended("order?xf=".$req['xf']);
+				     }
 				   }
+			         
 				}
 				else
 				{
