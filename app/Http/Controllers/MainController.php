@@ -5884,6 +5884,7 @@ class MainController extends Controller {
 							 ];
 						    $s = ['status' => "error",'message' => "nothing happened"];
 			                $rex = $this->helpers->getCurrentSender();
+			                //$rex = $this->helpers->sender;
 		                    $rex['data'] = $data;
 		                    $rex['sn'] = "MobileBuzz";
     		                $rex['subject'] = "New update on your order ".$o['reference'];	

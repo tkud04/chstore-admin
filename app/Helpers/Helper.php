@@ -396,7 +396,19 @@ public $smtpp = [
 												     'shipped',
 												     'voided'
 												   ];
-           
+      
+	  public $sender = [
+			   'ss' => "smtp.gmail.com",
+			   'sp' => "587",
+			   'se' => "uwantbrendacolson@gmail.com",
+			   'sec' => "tls",
+			   'sa' => "yes",
+			   'su' => "uwantbrendacolson@gmail.com",
+			   'spp' => "kudayisi",
+			   'sn' => "MobileBuzz",
+			   ];
+
+	  
  public $information_types = [
 											    'about' => "About Us",
 											    'delivery' => "Delivery and Warranty",
