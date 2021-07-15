@@ -831,6 +831,19 @@ $subject = $data['subject'];
 					
            }
 		   
+		   function updateEDU($data)
+           {		
+
+				$uu = User::where('id', $data['xf'])->first();
+				
+				if(!is_null($uu))				
+				{
+					$ss = $data['type'] == "enable" ? "enabled" : "disabled";
+					$uu->update(['status' => $ss]);	
+				}
+					
+           }
+		   
 		   function isAdmin($user)
            {
            	$ret = false; 
