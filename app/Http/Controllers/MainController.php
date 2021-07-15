@@ -179,15 +179,10 @@ class MainController extends Controller {
 					else
 					{
 						$users = [];
-						$apts = $this->helpers->getApartments($uu);
-					    $reviews = $this->helpers->getReviews($uu->id,"user");
-					    $permissions = $this->helpers->getPermissions($uu);
-						#dd(count($reviews));
+						
+					   # dd($u);
                         array_push($cpt,'u');
-                        array_push($cpt,'apts');
-                        array_push($cpt,'reviews');
                         array_push($cpt,'users');
-                        array_push($cpt,'permissions');
 					}
 					
 				}

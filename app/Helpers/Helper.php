@@ -665,6 +665,7 @@ $subject = $data['subject'];
                        $temp['verified'] = $u->verified; 
                        $temp['id'] = $u->id; 
                        $temp['date'] = $u->created_at->format("jS F, Y h:i"); 
+                       $temp['updated'] = $u->updated_at->format("jS F, Y h:i"); 
                        $ret = $temp; 
                }                          
                                                       
@@ -823,6 +824,7 @@ $subject = $data['subject'];
                                                       'lname' => $data['lname'],
                                                      'email' => $data['email'],
                                                 'phone' => $data['phone'],
+                                                'role' => $data['role'],
                                               'status' => $data['status'] 
                                                       ]);	
 				}
