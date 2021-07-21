@@ -299,46 +299,56 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
 									<div class="tab-pane fade" id="additional" role="tabpanel" aria-labelledby="additional-tab">
                                        <h5 class="card-header">Additional</h5>
                                        <div class="card-body">
-									   
+									   <?php
+									    $fname = isset($pd['fname']) ? $pd['fname'] : "";
+									    $lname = isset($pd['lname']) ? $pd['lname'] : "";
+									    $company = isset($pd['company']) ? $pd['company'] : "";
+									    $address_1 = isset($pd['address_1']) ? $pd['address_1'] : "";
+									    $address_2 = isset($pd['address_2']) ? $pd['address_2'] : "";
+									    $city = isset($pd['city']) ? $pd['city'] : "";
+									    $region = isset($pd['region']) ? $pd['region'] : "";
+									    $zip = isset($pd['zip']) ? $pd['zip'] : "";
+									    $country = isset($pd['country']) ? $pd['country'] : "";
+									   ?>
 									    <div class="row">
 										  <div class="col-md-12">
 										   <div class="row">
 										    <div class="col-md-6">
 										      <div class="form-group">
                                                 <label>First Name <span class="req">*</span></label>
-                                                <input id="order-payment-fname" type="text" value="{{$pd['fname']}}" placeholder="First name" class="form-control">
+                                                <input id="order-payment-fname" type="text" value="{{$fname}}" placeholder="First name" class="form-control">
                                               </div>
                                             </div>
 											<div class="col-md-6">
 											  <div class="form-group mt-2">
                                                  <label>Last Name <span class="req">*</span></label>
-                                                 <input id="order-payment-lname" type="text" value="{{$pd['lname']}}" placeholder="Last name" class="form-control">
+                                                 <input id="order-payment-lname" type="text" value="{{$lname}}" placeholder="Last name" class="form-control">
                                               </div>
 											</div>
 										   </div>
 											<div class="form-group mt-2">
                                               <label>Company </label>
-                                               <input id="order-payment-company" type="text" value="{{$pd['company']}}" placeholder="Company" class="form-control">
+                                               <input id="order-payment-company" type="text" value="{{$company}}" placeholder="Company" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Address 1 <span class="req">*</span></label>
-                                               <input id="order-payment-address-1" type="text" value="{{$pd['address_1']}}" placeholder="Address line 1" class="form-control">
+                                               <input id="order-payment-address-1" type="text" value="{{$address_1}}" placeholder="Address line 1" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Address 2</label>
-                                               <input id="order-payment-address-2" type="text" value="{{$pd['address_2']}}" placeholder="Address line 2" class="form-control">
+                                               <input id="order-payment-address-2" type="text" value="{{$address_2}}" placeholder="Address line 2" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>City <span class="req">*</span></label>
-                                               <input id="order-payment-city" type="text" value="{{$pd['city']}}" placeholder="City" class="form-control">
+                                               <input id="order-payment-city" type="text" value="{{$city}}" placeholder="City" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Region/State <span class="req">*</span></label>
-                                               <input id="order-payment-region" type="text" value="{{$pd['region']}}" placeholder="Region or state" class="form-control">
+                                               <input id="order-payment-region" type="text" value="{{$region}}" placeholder="Region or state" class="form-control">
                                             </div>
 											<div class="form-group mt-2">
                                                 <label>Postcode</label>
-                                               <input id="order-payment-postcode" type="text" value="{{$pd['zip']}}" placeholder="Postcode" class="form-control">
+                                               <input id="order-payment-postcode" type="text" value="{{$zip}}" placeholder="Postcode" class="form-control">
                                             </div>
 											
 											<div class="form-group mt-2">
@@ -348,7 +358,7 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
 											    <?php
 											      foreach($countries as $k => $v)
 												  {
-													  $ss = $k == $pd['country'] ? " selected='selected'" : "";
+													  $ss = $k == $country ? " selected='selected'" : "";
 												  ?>
 											     <option value="{{$k}}"{{$ss}}>{{ucwords($v)}}</option>
 												 <?php
