@@ -129,20 +129,46 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
 											  ?>
 											   <tr>
 											     <td>
+												 <?php
+												  if(count($pd) > 0)
+												  {
+												 ?>
 											      {{strtoupper($cname)}}<br>
 											      {{strtoupper($pd['address_1'])}}<br>
 											      @if($pd['address_2'] != ""){{strtoupper($pd['address_2'])}}<br>@endif
 											      {{strtoupper($pd['city'])." ".$pd['zip']}}<br>
 											      {{strtoupper($pd['region'])}}<br>
 											      {{ucwords($countries[$pd['country']])}}<br>
+												  <?php
+												  }
+												  else
+												  {
+												 ?>
+												   <h4>No information available</h4>
+												 <?php
+												  }
+												 ?>
 											      </td>
 												  <td>
+												  <?php
+												  if(count($sd) > 0)
+												  {
+												 ?>
 											      {{strtoupper($cname)}}<br>
 											      {{strtoupper($sd['address_1'])}}<br>
 											      @if($pd['address_2'] != ""){{strtoupper($sd['address_2'])}}<br>@endif
 											      {{strtoupper($sd['city'])." ".$sd['zip']}}<br>
 											      {{strtoupper($sd['region'])}}<br>
 											      {{ucwords($countries[$sd['country']])}}<br>
+												   <?php
+												  }
+												  else
+												  {
+												 ?>
+												   <h4>No information available</h4>
+												 <?php
+												  }
+												 ?>
 											      </td>											  
 											   </tr>
 											  <?php

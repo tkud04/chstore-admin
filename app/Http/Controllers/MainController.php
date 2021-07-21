@@ -5630,7 +5630,7 @@ class MainController extends Controller {
 				{
 					$v = "order";
 					$o = $this->helpers->getOrder($req['xf']);
-				    dd($o);
+				    #dd($o);
 					if(count($o) < 1)
 					{
 						session()->flash("validation-status-error","ok");
