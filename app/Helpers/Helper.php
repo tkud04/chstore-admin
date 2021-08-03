@@ -1890,9 +1890,9 @@ $subject = $data['subject'];
            }		   
 		  
 		  
-		    function createReview($user,$data)
+		    function createReview($data)
            {
-			   $userId = $user == null ? $this->generateTempUserID() : $user->id;
+			   $userId = "demo";
            	$ret = Reviews::create(['user_id' => $userId, 
                                                       'sku' => $data['sku'], 
                                                       'rating' => $data['rating'],
@@ -1962,6 +1962,19 @@ $subject = $data['subject'];
                                                       'status' => $data['status']
 				
 				]);
+			}
+
+                return "ok";
+           }
+		   
+		   function removeReview($data)
+           {
+			  $r = Reviews::where('id',$data['xf'])->first();
+			   #dd($data);
+			 
+			if($r != null)
+			{
+				$r->delete();
 			}
 
                 return "ok";
