@@ -13,6 +13,7 @@
 
 Route::get('/', 'MainController@getIndex');
 Route::get('temp', 'MainController@getTemp');
+Route::get('xorders', 'MainController@getXOrders');
 
 //Authentication
 Route::get('signup', 'LoginController@getSignup');
