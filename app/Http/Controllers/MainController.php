@@ -72,6 +72,18 @@ class MainController extends Controller {
 		return view($v,compact($cpt));
 		
     }
+
+     /**
+	 * Show list of orders.
+	 *
+	 * @return Response
+	 */
+    public function getXOrders(Request $request)
+    {
+          $orders = $this->helpers->getOrders();
+          # dd($orders);
+    }
+	
 	
 	
 	/**
