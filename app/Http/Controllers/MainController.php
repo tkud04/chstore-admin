@@ -81,7 +81,8 @@ class MainController extends Controller {
     public function getXOrders(Request $request)
     {
           $orders = $this->helpers->getOrders();
-          dd($orders);
+          #dd($orders);
+          return json_encode($orders);
     }
 	
 	
