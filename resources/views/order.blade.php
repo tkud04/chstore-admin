@@ -67,7 +67,7 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
 	    </div>
 	  </div>
       
-	  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
+	  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-6 mb-3">
 	    <div class="card">
            <div class="card-body">
                 <h3 class="card-title"><i class="fas fa-user"></i> Order Details</h3>
@@ -89,7 +89,7 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
            </ul>
         </div>
 	  </div>
-	  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
+	  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-6 mb-3">
 	    <div class="card">
            <div class="card-body">
                 <h3 class="card-title"><i class="fas fa-user"></i> Customer Details</h3>
@@ -111,7 +111,7 @@ $eu = url('order')."?xf=".$o['id']."&type=edit";
            </ul>
         </div>
 	  </div>
-	  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  col-6 mb-3">
+	  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12  col-12 mb-3">
 	    <div class="card">
            <div class="card-body">
                 <h3 class="card-title"><i class="fas fa-user"></i> Order #{{$o['reference']}}</h3>
