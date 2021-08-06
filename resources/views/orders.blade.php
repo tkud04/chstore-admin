@@ -41,10 +41,11 @@ $subtitle = "View all orders";
                                             <tr>
                                                 <th>Order ID</th>
                                                 <th>Customer</th>
-												<th>Status</th>
+						<th>Payment method</th>		
+                        			<th>Status</th>
                                                 <th>Total</th>
                                                 <th>Date added</th>
-                                                <th>Date modified</th>
+                                                
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -60,7 +61,9 @@ $subtitle = "View all orders";
 											   $totals = $o['totals'];
 											   $uu = url('order')."?xf=".$o['id'];
 											   $sss = $o['status'];
-												
+												$pm = "Unknown";
+                                                                                           if(isset($o['pm']) && $o['pm'] == "pp") $pm = "PayPal";
+                                                                                           else if(isset($o['pm']) && $o['pm'] == "cd") $pm = "Card";
 												   $arr = url('order')."?xf=".$o['id']."&type=edit";
 												   $dr = url('remove-order')."?xf=".$o['id'];
 												   #$ar = $a['rating'];
@@ -69,10 +72,11 @@ $subtitle = "View all orders";
                                             <tr>
                                                <td><a href="{{$uu}}"><h4>{{$o['reference']}}</a></td> 
 											   <td>{{ucwords($customer['fname']." ".$customer['lname'])}}</td> 
+                                                   <td>{{$pm}}</td>
 												<td>{{strtoupper($o['status'])}}</h4></td>	
                                                 <td>&#163;{{number_format($totals['subtotal'],2)}}</td>
 												<td>{{$o['date']}}</td>
-												<td>{{$o['updated']}}</td>
+												
                                                 <td>
 												 <a class="btn btn-info btn-sm" href="{{$arr}}">Edit</a>
 												 <a class="btn btn-danger btn-sm" href="{{$dr}}">Remove</a>
